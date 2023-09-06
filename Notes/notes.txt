@@ -1,0 +1,413 @@
+# proprio / droits ficher gcode téléversés :
+
+mks@mkspi:~$ ls -l gcode_files/
+total 49596
+-rwxrwxrwx 1 root root  2433270 Dec 11  2022  3DBenchy.gcode
+-rwxrwxrwx 1 root root 21858615 Dec 11  2022 '52mm Filament Spool Holder.gcode'
+-rwxrwxrwx 1 root root  4929546 Dec 11  2022  bunny.gcode
+-rw-r--r-- 1 mks  mks    871724 Aug 15 23:56 'logitech270-cam mount.gcode'
+-rw-r--r-- 1 mks  mks   4133503 Aug 15 21:26  NBC-3D-Test.gcode
+-rwxrwxrwx 1 root root  1229198 Dec 11  2022  QIDI.gcode
+-rw-r--r-- 1 mks  mks   1806246 Aug 15 23:56  side_spool_holder-xmax3-drybox-45deg-angle.gcode
+-rw-r--r-- 1 mks  mks   2185786 Aug 15 21:26  Voron_Design_Cube_v7.gcode
+-rwxrwxrwx 1 root root  2540118 Dec 11  2022  wildrosebuilds_puzzlecube.gcode
+-rwxrwxrwx 1 root root  2408699 Dec 11  2022  X.gcode
+-rwxrwxrwx 1 root root  6363785 Dec 11  2022  yafic_v2_rounded.gcode
+mks@mkspi:~$ sudo chown mks:mks gcode_files/*
+[sudo] password for mks:
+mks@mkspi:~$ ls -l gcode_files/
+total 49596
+-rwxrwxrwx 1 mks mks  2433270 Dec 11  2022  3DBenchy.gcode
+-rwxrwxrwx 1 mks mks 21858615 Dec 11  2022 '52mm Filament Spool Holder.gcode'
+-rwxrwxrwx 1 mks mks  4929546 Dec 11  2022  bunny.gcode
+-rw-r--r-- 1 mks mks   871724 Aug 15 23:56 'logitech270-cam mount.gcode'
+-rw-r--r-- 1 mks mks  4133503 Aug 15 21:26  NBC-3D-Test.gcode
+-rwxrwxrwx 1 mks mks  1229198 Dec 11  2022  QIDI.gcode
+-rw-r--r-- 1 mks mks  1806246 Aug 15 23:56  side_spool_holder-xmax3-drybox-45deg-angle.gcode
+-rw-r--r-- 1 mks mks  2185786 Aug 15 21:26  Voron_Design_Cube_v7.gcode
+-rwxrwxrwx 1 mks mks  2540118 Dec 11  2022  wildrosebuilds_puzzlecube.gcode
+-rwxrwxrwx 1 mks mks  2408699 Dec 11  2022  X.gcode
+-rwxrwxrwx 1 mks mks  6363785 Dec 11  2022  yafic_v2_rounded.gcode
+mks@mkspi:~$ chmod -x gcode_files/*
+mks@mkspi:~$ ls -l gcode_files/
+total 49596
+-rw-rw-rw- 1 mks mks  2433270 Dec 11  2022  3DBenchy.gcode
+-rw-rw-rw- 1 mks mks 21858615 Dec 11  2022 '52mm Filament Spool Holder.gcode'
+-rw-rw-rw- 1 mks mks  4929546 Dec 11  2022  bunny.gcode
+-rw-r--r-- 1 mks mks   871724 Aug 15 23:56 'logitech270-cam mount.gcode'
+-rw-r--r-- 1 mks mks  4133503 Aug 15 21:26  NBC-3D-Test.gcode
+-rw-rw-rw- 1 mks mks  1229198 Dec 11  2022  QIDI.gcode
+-rw-r--r-- 1 mks mks  1806246 Aug 15 23:56  side_spool_holder-xmax3-drybox-45deg-angle.gcode
+-rw-r--r-- 1 mks mks  2185786 Aug 15 21:26  Voron_Design_Cube_v7.gcode
+-rw-rw-rw- 1 mks mks  2540118 Dec 11  2022  wildrosebuilds_puzzlecube.gcode
+-rw-rw-rw- 1 mks mks  2408699 Dec 11  2022  X.gcode
+-rw-rw-rw- 1 mks mks  6363785 Dec 11  2022  yafic_v2_rounded.gcode
+mks@mkspi:~$ chmod go-w gcode_files/*
+mks@mkspi:~$ ls -l gcode_files/
+total 49596
+-rw-r--r-- 1 mks mks  2433270 Dec 11  2022  3DBenchy.gcode
+-rw-r--r-- 1 mks mks 21858615 Dec 11  2022 '52mm Filament Spool Holder.gcode'
+-rw-r--r-- 1 mks mks  4929546 Dec 11  2022  bunny.gcode
+-rw-r--r-- 1 mks mks   871724 Aug 15 23:56 'logitech270-cam mount.gcode'
+-rw-r--r-- 1 mks mks  4133503 Aug 15 21:26  NBC-3D-Test.gcode
+-rw-r--r-- 1 mks mks  1229198 Dec 11  2022  QIDI.gcode
+-rw-r--r-- 1 mks mks  1806246 Aug 15 23:56  side_spool_holder-xmax3-drybox-45deg-angle.gcode
+-rw-r--r-- 1 mks mks  2185786 Aug 15 21:26  Voron_Design_Cube_v7.gcode
+-rw-r--r-- 1 mks mks  2540118 Dec 11  2022  wildrosebuilds_puzzlecube.gcode
+-rw-r--r-- 1 mks mks  2408699 Dec 11  2022  X.gcode
+-rw-r--r-- 1 mks mks  6363785 Dec 11  2022  yafic_v2_rounded.gcode
+mks@mkspi:~$
+
+############################################################################################
+mks@mkspi:~$ ls -al klipper_config/
+total 80
+drwxr-xr-x  2 mks  mks   4096 Aug 16 01:17 .
+drwxr-xr-x 32 mks  mks   4096 Aug 16 02:20 ..
+-rwxrwxrwx  1 root root 14140 Dec 10  2022 Adaptive_Mesh.cfg
+-rw-r--r--  1 mks  mks   2126 Jul 25  2022 fluidd.cfg
+-rw-r--r--  1 mks  mks    123 Jul 25  2022 KlipperScreen.conf
+-rw-r--r--  1 mks  mks   3978 Aug 16 01:17 MKS_THR.cfg
+-rw-r--r--  1 mks  mks   1161 Aug 15 09:18 moonraker.conf
+-rw-r--r--  1 mks  mks    610 Aug 15 09:18 .moonraker.conf.bkp
+-rw-r--r--  1 mks  mks    816 Aug 15 07:26 power_macros.cfg
+-rw-r--r--  1 mks  mks  25015 Aug 16 02:39 printer.cfg
+-rw-r--r--  1 mks  mks   2607 Jul 26  2022 webcam.txt
+mks@mkspi:~$ sudo chown mks:mks klipper_config/Adaptive_Mesh.cfg
+mks@mkspi:~$ chmod a-x,go-w klipper_config/Adaptive_Mesh.cfg
+mks@mkspi:~$ ls -al klipper_config/
+total 80
+drwxr-xr-x  2 mks mks  4096 Aug 16 01:17 .
+drwxr-xr-x 32 mks mks  4096 Aug 16 02:20 ..
+-rw-r--r--  1 mks mks 14140 Dec 10  2022 Adaptive_Mesh.cfg
+-rw-r--r--  1 mks mks  2126 Jul 25  2022 fluidd.cfg
+-rw-r--r--  1 mks mks   123 Jul 25  2022 KlipperScreen.conf
+-rw-r--r--  1 mks mks  3978 Aug 16 01:17 MKS_THR.cfg
+-rw-r--r--  1 mks mks  1161 Aug 15 09:18 moonraker.conf
+-rw-r--r--  1 mks mks   610 Aug 15 09:18 .moonraker.conf.bkp
+-rw-r--r--  1 mks mks   816 Aug 15 07:26 power_macros.cfg
+-rw-r--r--  1 mks mks 25015 Aug 16 02:39 printer.cfg
+-rw-r--r--  1 mks mks  2607 Jul 26  2022 webcam.txt
+mks@mkspi:~$
+
+############################################################################################
+Gestion date et heure
+
+Deux sytèmes en conflis pour synchroniser heure  / date
+chronyd et systemd-timesyncd
+
+systemctl status systemd-timesyncd
+systemctl stop systemd-timesyncd
+systemctl disable --now systemd-timesyncd.service
+systemctl status systemd-timesyncd
+
+cat /etc/chrony/chrony.conf
+sudo nano /etc/chrony/chrony.conf
+sudo systemctl restart chronyd
+systemctl status chronyd
+chronyc sources
+date
+chronyc tracking
+
+############################################################################################
+mks@mkspi:~$ sudo systemctl list-units --full --all -t service --no-legend
+[sudo] password for mks:
+alsa-restore.service                                  loaded    active   exited  Save/Restore Sound Card State
+alsa-state.service                                    loaded    active   running Manage Sound Card State (restore and store)
+anacron.service                                       loaded    inactive dead    Run anacron jobs
+apparmor.service                                      not-found inactive dead    apparmor.service
+apt-daily-upgrade.service                             loaded    inactive dead    Daily apt upgrade and clean activities
+apt-daily.service                                     loaded    inactive dead    Daily apt download activities
+armbian-firstrun-config.service                       loaded    inactive dead    Armbian first run optional user configuration
+armbian-hardware-monitor.service                      loaded    active   exited  Armbian hardware monitoring
+armbian-hardware-optimize.service                     loaded    active   exited  Armbian hardware optimization
+armbian-ramlog.service                                loaded    active   exited  Armbian memory supported logging
+armbian-zram-config.service                           loaded    active   exited  Armbian ZRAM config
+auditd.service                                        not-found inactive dead    auditd.service
+bootsplash-ask-password-console.service               loaded    inactive dead    Dispatch Password Requests to Console when bootsplash is
+bootsplash-hide-when-booted.service                   loaded    inactive dead    Hide bootsplash after starting the system
+brltty.service                                        loaded    active   running Braille Device Support
+chrony.service                                        loaded    active   running chrony, an NTP client/server
+connman.service                                       not-found inactive dead    connman.service
+console-screen.service                                not-found inactive dead    console-screen.service
+console-setup.service                                 loaded    active   exited  Set console font and keymap
+cpufrequtils.service                                  loaded    active   exited  LSB: set CPUFreq kernel parameters
+cron.service                                          loaded    active   running Regular background program processing daemon
+cups.service                                          loaded    active   running CUPS Scheduler
+dbus.service                                          loaded    active   running D-Bus System Message Bus
+dhcpcd.service                                        loaded    active   running DHCP Client Daemon
+display-manager.service                               not-found inactive dead    display-manager.service
+emergency.service                                     loaded    inactive dead    Emergency Shell
+fake-hwclock.service                                  loaded    active   exited  Restore / save the current clock
+getty-static.service                                  loaded    inactive dead    getty on tty2-tty6 if dbus and logind are not available
+getty@tty1.service                                    loaded    active   running Getty on tty1
+haveged.service                                       loaded    failed   failed  Entropy daemon using the HAVEGE algorithm
+hostapd.service                                       loaded    active   exited  LSB: Advanced IEEE 802.11 management daemon
+ifupdown-pre.service                                  loaded    active   exited  Helper to synchronize boot up for ifupdown
+ipsec.service                                         loaded    active   exited  LSB: Strongswan IPsec services
+kbd.service                                           not-found inactive dead    kbd.service
+keyboard-setup.service                                loaded    active   exited  Set the console keyboard layout
+klipper.service                                       loaded    active   running Systemd Klipper Service
+klipper_mcu.service                                   loaded    active   running LSB: Klipper_MCU daemon
+kmod-static-nodes.service                             loaded    active   exited  Create list of required static device nodes for the curr
+loadcpufreq.service                                   loaded    active   exited  LSB: Load kernel modules needed to enable cpufreq scalin
+logrotate.service                                     loaded    inactive dead    Rotate log files
+makerbase-byid.service                                loaded    inactive dead    MKS-byid
+makerbase-client.service                              loaded    active   running MakerbaseClient
+makerbase-wlan0.service                               loaded    active   running Makerbasi mkspi WPA supplicant daemon
+man-db.service                                        loaded    inactive dead    Daily man-db regeneration
+moonraker.service                                     loaded    active   running Systemd Moonraker Service
+mountkernfs.service                                   masked    inactive dead    mountkernfs.service
+network-manager.service                               loaded    active   exited  LSB: network connection manager
+networking.service                                    loaded    active   exited  Raise network interfaces
+NetworkManager-wait-online.service                    masked    inactive dead    NetworkManager-wait-online.service
+NetworkManager.service                                masked    inactive dead    NetworkManager.service
+nginx.service                                         loaded    active   running A high performance web server and a reverse proxy server
+ntp.service                                           not-found inactive dead    ntp.service
+ntpsec.service                                        not-found inactive dead    ntpsec.service
+openntpd.service                                      not-found inactive dead    openntpd.service
+openvpn.service                                       masked    inactive dead    openvpn.service
+plymouth-quit-wait.service                            not-found inactive dead    plymouth-quit-wait.service
+plymouth-start.service                                not-found inactive dead    plymouth-start.service
+polkit.service                                        loaded    active   running Authorization Manager
+pppd-dns.service                                      loaded    inactive dead    Restore /etc/resolv.conf if the system crashed before th
+rc-local.service                                      loaded    active   exited  /etc/rc.local Compatibility
+rescue.service                                        loaded    inactive dead    Rescue Shell
+resolvconf.service                                    loaded    active   exited  Nameserver information manager
+rsync.service                                         loaded    inactive dead    fast remote file copy program daemon
+rsyslog.service                                       loaded    active   running System Logging Service
+serial-getty@ttyS2.service                            loaded    active   running Serial Getty on ttyS2
+smartd.service                                        loaded    failed   failed  Self Monitoring and Reporting Technology (SMART) Daemon
+spice-vdagentd.service                                loaded    inactive dead    Agent daemon for Spice guests
+ssh.service                                           loaded    active   running OpenBSD Secure Shell server
+strongswan.service                                    masked    inactive dead    strongswan.service
+sysfsutils.service                                    loaded    active   exited  LSB: Set sysfs variables from /etc/sysfs.conf
+sysstat.service                                       loaded    active   exited  Resets System Activity Data Collector
+systemd-ask-password-console.service                  loaded    inactive dead    Dispatch Password Requests to Console
+systemd-ask-password-wall.service                     loaded    inactive dead    Forward Password Requests to Wall
+systemd-binfmt.service                                loaded    inactive dead    Set Up Additional Binary Formats
+systemd-fsck-root.service                             loaded    inactive dead    File System Check on Root Device
+systemd-fsck@dev-disk-by\x2duuid-C085\x2d07AC.service loaded    active   exited  File System Check on /dev/disk/by-uuid/C085-07AC
+systemd-fsckd.service                                 loaded    inactive dead    File System Check Daemon to report status
+systemd-hwdb-update.service                           loaded    inactive dead    Rebuild Hardware Database
+systemd-initctl.service                               loaded    inactive dead    initctl Compatibility Daemon
+systemd-journal-flush.service                         loaded    active   exited  Flush Journal to Persistent Storage
+systemd-journald.service                              loaded    active   running Journal Service
+systemd-logind.service                                loaded    active   running Login Service
+systemd-machine-id-commit.service                     loaded    inactive dead    Commit a transient machine-id on disk
+systemd-modules-load.service                          loaded    active   exited  Load Kernel Modules
+systemd-networkd.service                              loaded    inactive dead    Network Service
+systemd-quotacheck.service                            loaded    inactive dead    File System Quota Check
+systemd-random-seed.service                           loaded    active   exited  Load/Save Random Seed
+systemd-remount-fs.service                            loaded    active   exited  Remount Root and Kernel File Systems
+systemd-rfkill.service                                loaded    inactive dead    Load/Save RF Kill Switch Status
+systemd-sysctl.service                                loaded    active   exited  Apply Kernel Variables
+systemd-sysusers.service                              loaded    active   exited  Create System Users
+systemd-timesyncd.service                             loaded    inactive dead    Network Time Synchronization
+systemd-tmpfiles-clean.service                        loaded    inactive dead    Cleanup of Temporary Directories
+systemd-tmpfiles-setup-dev.service                    loaded    active   exited  Create Static Device Nodes in /dev
+systemd-tmpfiles-setup.service                        loaded    active   exited  Create Volatile Files and Directories
+systemd-udev-settle.service                           loaded    active   exited  udev Wait for Complete Device Initialization
+systemd-udev-trigger.service                          loaded    active   exited  udev Coldplug all Devices
+systemd-udevd.service                                 loaded    active   running udev Kernel Device Manager
+systemd-update-done.service                           not-found inactive dead    systemd-update-done.service
+systemd-update-utmp-runlevel.service                  loaded    inactive dead    Update UTMP about System Runlevel Changes
+systemd-update-utmp.service                           loaded    active   exited  Update UTMP about System Boot/Shutdown
+systemd-user-sessions.service                         loaded    active   exited  Permit User Sessions
+systemd-vconsole-setup.service                        not-found inactive dead    systemd-vconsole-setup.service
+udisks2.service                                       loaded    active   running Disk Manager
+unattended-upgrades.service                           loaded    active   running Unattended Upgrades Shutdown
+user-runtime-dir@1000.service                         loaded    active   exited  User Runtime Directory /run/user/1000
+user@1000.service                                     loaded    active   running User Manager for UID 1000
+webcamd.service                                       loaded    active   running Starts mjpg-streamer on startup
+wpa_supplicant.service                                loaded    active   running WPA supplicant
+xl2tpd.service                                        loaded    active   exited  LSB: layer 2 tunelling protocol daemon
+zram-setup@zram0.service                              loaded    active   exited  Setup zram based device zram0
+zram-setup@zram1.service                              loaded    active   exited  Setup zram based device zram1
+zram-setup@zram2.service                              loaded    active   exited  Setup zram based device zram2
+mks@mkspi:~$ sudo systemctl list-units --full --all -t service --no-legend >/tmp/systemctl-list-units.txt
+
+#################################################################################################################################
+# moonraker QIDI
+mks@mkspi:~$ ls -al moonraker/moonraker/components/
+total 496
+drwxr-xr-x 5 mks  mks   4096 Dec 14  2022 .
+drwxr-xr-x 6 mks  mks   4096 Jul 25  2022 ..
+-rw-r--r-- 1 mks  mks  20532 Jul 25  2022 announcements.py
+-rw-r--r-- 1 mks  mks  32634 Jul 25  2022 authorization.py
+-rw-r--r-- 1 mks  mks   4869 Jul 25  2022 button.py
+-rw-r--r-- 1 mks  mks  35852 Jul 25  2022 database.py
+-rw-r--r-- 1 mks  mks   6836 Jul 25  2022 data_store.py
+-rw-r--r-- 1 mks  mks   4595 Jul 25  2022 dbus_manager.py
+-rw-r--r-- 1 mks  mks   3974 Jul 25  2022 extensions.py
+drwxr-xr-x 4 mks  mks   4096 Dec 14  2022 file_manager
+-rw-r--r-- 1 mks  mks   9882 Jul 25  2022 gpio.py
+-rw-r--r-- 1 mks  mks  15325 Jul 25  2022 history.py
+-rw-r--r-- 1 mks  mks  17415 Jul 25  2022 http_client.py
+-rw-r--r-- 1 mks  mks    188 Jul 25  2022 __init__.py
+-rw-r--r-- 1 mks  mks  12671 Jul 25  2022 job_queue.py
+-rw-r--r-- 1 mks  mks   3209 Jul 25  2022 job_state.py
+-rw-r--r-- 1 root root 10902 Aug  7 02:18 klippy_apis.py
+-rw-r--r-- 1 mks  mks   4633 Jul 25  2022 ldap.py
+-rw-r--r-- 1 root root 32075 Aug  3 12:05 machine.py
+-rw-r--r-- 1 mks  mks  31109 Jul 25  2022 mqtt.py
+-rw-r--r-- 1 mks  mks   5657 Jul 25  2022 notifier.py
+-rw-r--r-- 1 mks  mks  14261 Jul 25  2022 octoprint_compat.py
+-rw-r--r-- 1 mks  mks  33315 Jul 25  2022 paneldue.py
+-rw-r--r-- 1 mks  mks  52974 Jul 25  2022 power.py
+-rw-r--r-- 1 mks  mks  13198 Jul 25  2022 proc_stats.py
+drwxr-xr-x 2 mks  mks   4096 Aug 15 07:18 __pycache__
+-rw-r--r-- 1 mks  mks   2908 Jul 25  2022 secrets.py
+-rw-r--r-- 1 mks  mks  14182 Jul 25  2022 shell_command.py
+-rw-r--r-- 1 mks  mks   2999 Jul 25  2022 template.py
+drwxr-xr-x 3 mks  mks   4096 Jul 25  2022 update_manager
+-rw-r--r-- 1 mks  mks  14079 Jul 25  2022 webcam.py
+-rw-r--r-- 1 mks  mks  23003 Jul 25  2022 wled.py
+-rw-r--r-- 1 mks  mks   4181 Jul 25  2022 zeroconf.py
+mks@mkspi:~$
+###################
+mks@mkspi:~$ ls -al moonraker/moonraker/components/file_manager/
+total 140
+drwxr-xr-x 4 mks  mks   4096 Dec 14  2022 .
+drwxr-xr-x 5 mks  mks   4096 Dec 14  2022 ..
+-rw-r--r-- 1 mks  mks  76112 Jul 25  2022 file_manager.py
+-rw-r--r-- 1 mks  mks    440 Jul 25  2022 __init__.py
+-rwxr-xr-x 1 root root 41846 Aug  3 12:05 metadata.py
+drwxr-xr-x 2 mks  mks   4096 Jul 25  2022 __pycache__
+drwxr-xr-x 2 root root  4096 Dec 14  2022 update_manager
+mks@mkspi:~$
+
+####################
+mks@mkspi:~$ ls -al moonraker/moonraker/components/file_manager/update_manager/
+total 64
+drwxr-xr-x 2 root root  4096 Dec 14  2022 .
+drwxr-xr-x 4 mks  mks   4096 Dec 14  2022 ..
+-rw-r--r-- 1 root root 54134 Aug  3 12:05 update_manager.py
+mks@mkspi:~$
+
+###########################################################################################################
+# Moonraker-timelapses
+# ne pas utiliser le «make install» => moonraker utilise une autre structure pour les configurations :
+# ~/printer_data/config' au lieu de ~/klipper_config»
+#
+# Utiliser des liens symoboliques
+#
+mks@mkspi:~$ git clone https://github.com/mainsail-crew/moonraker-timelapse.git
+Cloning into 'moonraker-timelapse'...
+remote: Enumerating objects: 526, done.
+remote: Counting objects: 100% (203/203), done.
+remote: Compressing objects: 100% (70/70), done.
+remote: Total 526 (delta 148), reused 154 (delta 128), pack-reused 323
+Receiving objects: 100% (526/526), 187.75 KiB | 2.44 MiB/s, done.
+Resolving deltas: 100% (264/264), done.
+mks@mkspi:~$
+mks@mkspi:~/moonraker-timelapse$ ls -al
+total 80
+drwxr-xr-x  8 mks mks  4096 Aug 21 11:42 .
+drwxr-xr-x 34 mks mks  4096 Aug 21 11:42 ..
+drwxr-xr-x  2 mks mks  4096 Aug 21 11:42 component
+drwxr-xr-x  3 mks mks  4096 Aug 21 11:42 docs
+-rw-r--r--  1 mks mks   357 Aug 21 11:42 .editorconfig
+drwxr-xr-x  8 mks mks  4096 Aug 21 11:42 .git
+drwxr-xr-x  3 mks mks  4096 Aug 21 11:42 .github
+drwxr-xr-x  2 mks mks  4096 Aug 21 11:42 klipper_macro
+-rw-r--r--  1 mks mks 35149 Aug 21 11:42 LICENSE
+-rw-r--r--  1 mks mks  1033 Aug 21 11:42 Makefile
+-rw-r--r--  1 mks mks   917 Aug 21 11:42 README.md
+drwxr-xr-x  2 mks mks  4096 Aug 21 11:42 scripts
+mks@mkspi:~/moonraker-timelapse$ ls -al component/
+total 44
+drwxr-xr-x 2 mks mks  4096 Aug 21 11:42 .
+drwxr-xr-x 8 mks mks  4096 Aug 21 11:42 ..
+-rw-r--r-- 1 mks mks 33767 Aug 21 11:42 timelapse.py
+mks@mkspi:~/moonraker-timelapse$ ls -al klipper_macro/
+total 32
+drwxr-xr-x 2 mks mks  4096 Aug 21 11:42 .
+drwxr-xr-x 8 mks mks  4096 Aug 21 11:42 ..
+-rw-r--r-- 1 mks mks 22348 Aug 21 11:42 timelapse.cfg
+mks@mkspi:~/moonraker-timelapse$
+mks@mkspi:~/moonraker-timelapse$ ln -sf "/home/mks/moonraker-timelapse/component/timelapse.py" "/home/mks/moonraker/moonraker/components/timelapse.py"
+mks@mkspi:~/moonraker-timelapse$ ls -l ../moonraker/moonraker/components/timelapse.py
+lrwxrwxrwx 1 mks mks 52 Aug 21 11:46 ../moonraker/moonraker/components/timelapse.py -> /home/mks/moonraker-timelapse/component/timelapse.py
+mks@mkspi:~/moonraker-timelapse$
+mks@mkspi:~/moonraker-timelapse$ ln -sf "/home/mks/moonraker-timelapse/klipper_macro/timelapse.cfg" "/home/mks/klipper_config/timelapse.cfg"
+mks@mkspi:~/moonraker-timelapse$ ls -l ../klipper_config/timelapse.cfg
+lrwxrwxrwx 1 mks mks 57 Aug 21 11:49 ../klipper_config/timelapse.cfg -> /home/mks/moonraker-timelapse/klipper_macro/timelapse.cfg
+mks@mkspi:~/moonraker-timelapse$
+# Mettre à jour moonraker.conf en ajoutant la section «timelapse»
+
+[timelapse]
+output_path: ~/klipper_config/timelapses
+frame_path: ~/klipper_config/timelapse/tmp
+
+Créer les odssiers timelapses et timelapses/tmp mkdir -p ~/mks/klipper_config/timelapses/tmp
+# La place disponible sur l'EMMC de 8 Go est très limitée (< 512 Mo), il serait juiicieux soit 
+ - de remplacer l'EMMC par une de taille plus grande (16, 32 Go)
+ - monter une clé USB pour servir de stockage et indiquer dans la section [virtual_sdcard] du printer.cfg son point de montage
+[virtual_sdcard]
+path:/mnt/nom-du-point-de-montage
+
+######################################################################################################
+# QIDI
+# klipper / moonraker
+#
+mks@mkspi:~$ cd moonraker
+mks@mkspi:~/moonraker$ git status
+On branch master
+Your branch is behind 'origin/master' by 447 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   moonraker/components/file_manager/metadata.py
+        modified:   moonraker/components/klippy_apis.py
+        modified:   moonraker/components/machine.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        moonraker/components/file_manager/update_manager/
+        moonraker/components/timelapse.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+mks@mkspi:~/moonraker$
+
+mks@mkspi:~/moonraker$ cd ../klipper
+mks@mkspi:~/klipper$ git status
+On branch master
+Your branch is behind 'origin/master' by 379 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   klippy/extras/angle.py
+        modified:   klippy/extras/endstop_phase.py
+        modified:   klippy/extras/force_move.py
+        modified:   klippy/extras/probe.py
+        modified:   klippy/extras/spi_temperature.py
+        modified:   klippy/extras/tmc.py
+        modified:   klippy/extras/virtual_sdcard.py
+        modified:   klippy/gcode.py
+        modified:   klippy/klippy.py
+        modified:   klippy/mcu.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        klippy/extras/tmc2240.py
+        klippy/extras/x_twist_compensation.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+mks@mkspi:~/klipper$
+
+#################################################################################
+#
+# fluidd-config (mainsail-config)
+#
+cd ~
+git clone https://github.com/fluidd-core/fluidd-config.git
+ln -sf ~/fluidd-config/client.cfg ~/klipper_config/client.cfg
+
