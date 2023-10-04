@@ -1,6 +1,6 @@
 # Gestion date et heure
 
-La carte contrôleur ne possède pas de pile permettant de maintenir date et heure correctes. L'horodatage de certains fichiers permet aisé/ent de s'en rendre compte.
+La carte contrôleur ne possède pas de pile permettant de maintenir date et heure correctes. L'horodatage de certains fichiers permet aisément de s'en rendre compte.
 
 L'absence de pile RTC peut normalement être compensée en récupérant date et heure via connexions sur des serveurs de temps [(NTP)](https://fr.wikipedia.org/wiki/Network_Time_Protocol).
 
