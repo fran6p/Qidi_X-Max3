@@ -4,8 +4,6 @@ Ne pas utiliser le «make install» du dépôt cloné => moonraker utilise une a
 
 **~/printer_data/config** alors que QidiTech utilise encore l'ancien chemin **~/klipper_config**
 
-## Utiliser des liens symoboliques
-
 Cloner le dépôt :
 
 ```
@@ -85,3 +83,5 @@ L'espace disponible sur l'eMMC de 8 Go est très limitée (≃ 512 Mo), il serai
 [virtual_sdcard]
 path:/mnt/nom-du-point-de-montage
 ```
+
+Plus d'informations [Moonraker-timelapse](https://github.com/mainsail-crew/moonraker-timelapse)
