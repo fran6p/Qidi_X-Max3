@@ -6,7 +6,7 @@ L'absence de pile RTC peut normalement être compensée en récupérant date et 
 
 Mais, au moins sur mon système la consultation de ces serveurs de temps ne se fait pas.
 
-Deux sytèmes sont activés et entrent en conflis pour synchroniser heure  / date :
+Deux sytèmes sont activés et entrent en conflits pour synchroniser heure  / date :
 
 - chronyd
 - systemd-timesyncd
