@@ -1,6 +1,6 @@
 # Moonraker-timelapses
 
-Ne pas utiliser le «make install» => moonraker utilise une autre structure pour les configurations :
+Ne pas utiliser le «make install» du dépôt cloné => moonraker utilise une autre structure pour les configurations :
 
 **~/printer_data/config** alors que QidiTech utilise encore l'ancien chemin **~/klipper_config**
 
