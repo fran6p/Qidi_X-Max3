@@ -1,5 +1,6 @@
-# proprio / droits ficher gcode téléversés :
+# propriétaire / droits fichiers gcode téléversés :
 
+```
 mks@mkspi:~$ ls -l gcode_files/
 total 49596
 -rwxrwxrwx 1 root root  2433270 Dec 11  2022  3DBenchy.gcode
@@ -57,8 +58,11 @@ total 49596
 -rw-r--r-- 1 mks mks  2408699 Dec 11  2022  X.gcode
 -rw-r--r-- 1 mks mks  6363785 Dec 11  2022  yafic_v2_rounded.gcode
 mks@mkspi:~$
+```
 
-############################################################################################
+# propriétaire / droits fichiers «klipper_config»
+
+```
 mks@mkspi:~$ ls -al klipper_config/
 total 80
 drwxr-xr-x  2 mks  mks   4096 Aug 16 01:17 .
@@ -88,3 +92,4 @@ drwxr-xr-x 32 mks mks  4096 Aug 16 02:20 ..
 -rw-r--r--  1 mks mks 25015 Aug 16 02:39 printer.cfg
 -rw-r--r--  1 mks mks  2607 Jul 26  2022 webcam.txt
 mks@mkspi:~$
+```
