@@ -24,7 +24,7 @@ Les macros Qidi Tech regroupées dans un fichier séparé à inclure `qiditech_m
 
  </details>
  
-Les fichiers sont disponibles dans le dossier… Fichiers (clic droit pour enregistrer :smirk: ) :
+Les fichiers sont disponibles dans le dossier MyConfiguration, clic RAW puis clic droit pour enregistrer :smirk: ) :
 -  le [printer.cfg](https://raw.githubusercontent.com/fran6p/Qidi_X-Max3/main/Klipper/MyConfiguration/printer.cfg?token=GHSAT0AAAAAABZFBWDWD7Y46RSHZ47OITQEZI5MMCQ),
 -  les [macros QidiTech](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/qiditech_macros.cfg) .
 
