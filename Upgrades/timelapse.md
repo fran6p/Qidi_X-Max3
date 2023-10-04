@@ -1,7 +1,8 @@
 # Moonraker-timelapses
 
 Ne pas utiliser le «make install» => moonraker utilise une autre structure pour les configurations :
-~/printer_data/config' au lieu de ~/klipper_config»
+
+~/printer_data/config au lieu de ~/klipper_config»
 
 Utiliser des liens symoboliques
 
