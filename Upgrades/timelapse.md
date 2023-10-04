@@ -46,7 +46,7 @@ drwxr-xr-x 8 mks mks  4096 Aug 21 11:42 ..
 -rw-r--r-- 1 mks mks 22348 Aug 21 11:42 timelapse.cfg
 mks@mkspi:~/moonraker-timelapse$
 ```
-Créer des liens symboliques pour le fichier Python et le fichier de configuration :
+Créer des liens symboliques pour le fichier Python et le fichier de configuration, plutôt que copier ces fichiers dans ~/moonraker/components et ~/klipper_config. En procédant ainsi ces fcihers seront touojurs à jour même après mise à jour du dépôt "moonraker-timelapse" :
 
 ```
 mks@mkspi:~/moonraker-timelapse$ ln -sf "/home/mks/moonraker-timelapse/component/timelapse.py" "/home/mks/moonraker/moonraker/components/timelapse.py"
@@ -59,18 +59,10 @@ lrwxrwxrwx 1 mks mks 57 Aug 21 11:49 ../klipper_config/timelapse.cfg -> /home/mk
 mks@mkspi:~/moonraker-timelapse$
 ```
 
-## Mettre à jour moonraker.conf en ajoutant la section «timelapse»
+## Mettre à jour moonraker.conf en ajoutant la section minimale «timelapse»
 
 ```
 [timelapse]
-output_path: ~/klipper_config/timelapses
-frame_path: ~/klipper_config/timelapse/tmp
-```
-
-Créer les odssiers timelapses et timelapses/tmp (normalement inutile mais principe "ceintures + bretelles") :
-
-```
-mkdir -p ~/mks/klipper_config/timelapses/tmp
 ```
 
 **IMPORTANT**:
