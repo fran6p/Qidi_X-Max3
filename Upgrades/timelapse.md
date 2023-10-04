@@ -2,9 +2,11 @@
 
 Ne pas utiliser le «make install» => moonraker utilise une autre structure pour les configurations :
 
-~/printer_data/config au lieu de ~/klipper_config»
+**~/printer_data/config** alors que QidiTech utilise encore l'ancien chemin **~/klipper_config**
 
-Utiliser des liens symoboliques
+## Utiliser des liens symoboliques
+
+Cloner le dépôt :
 
 ```
 mks@mkspi:~$ git clone https://github.com/mainsail-crew/moonraker-timelapse.git
@@ -17,6 +19,7 @@ Receiving objects: 100% (526/526), 187.75 KiB | 2.44 MiB/s, done.
 Resolving deltas: 100% (264/264), done.
 mks@mkspi:~$
 ```
+Vérifier le contenu du dossier:
 
 ```
 mks@mkspi:~/moonraker-timelapse$ ls -al
@@ -45,6 +48,7 @@ drwxr-xr-x 8 mks mks  4096 Aug 21 11:42 ..
 -rw-r--r-- 1 mks mks 22348 Aug 21 11:42 timelapse.cfg
 mks@mkspi:~/moonraker-timelapse$
 ```
+Créer des liens symboliques pour le fichier Python et le fichier de configuration :
 
 ```
 mks@mkspi:~/moonraker-timelapse$ ln -sf "/home/mks/moonraker-timelapse/component/timelapse.py" "/home/mks/moonraker/moonraker/components/timelapse.py"
@@ -57,7 +61,7 @@ lrwxrwxrwx 1 mks mks 57 Aug 21 11:49 ../klipper_config/timelapse.cfg -> /home/mk
 mks@mkspi:~/moonraker-timelapse$
 ```
 
-# Mettre à jour moonraker.conf en ajoutant la section «timelapse»
+## Mettre à jour moonraker.conf en ajoutant la section «timelapse»
 
 ```
 [timelapse]
@@ -65,10 +69,13 @@ output_path: ~/klipper_config/timelapses
 frame_path: ~/klipper_config/timelapse/tmp
 ```
 
-Créer les odssiers timelapses et timelapses/tmp 
+Créer les odssiers timelapses et timelapses/tmp (normalement inutile mais principe "ceintures + bretelles") :
+
 ```
 mkdir -p ~/mks/klipper_config/timelapses/tmp
 ```
+
+**IMPORTANT**:
 
 L'espace disponible sur l'eMMC de 8 Go est très limitée (≃ 512 Mo), il serait juiicieux soit 
  - de remplacer l'EMMC par une de taille plus grande (16, 32 Go)
