@@ -11,7 +11,7 @@ Deux sytèmes sont activés et entrent en conflits pour synchroniser heure  / da
 - chronyd
 - systemd-timesyncd
 
-Ayant plus d'affinités avec chrony, on va désactiver le daemon ̀`systemd-timesync`
+Ayant plus d'affinités avec chrony, on va désactiver le daemon `systemd-timesync`
 
 ```
 systemctl status systemd-timesyncd
