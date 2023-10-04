@@ -1,16 +1,25 @@
 L'utilisateur th33xitus, auteur de [KIAUH](https://github.com/th33xitus/kiauh) a créé un module python permettant d'exécuter des scripts shell via des macros Klipper.
 
-La première étape est d'installer le script python au bon endroit pour que Klipper le gère.
-Toutes les manipulations sont effectuées en tant qu'utilisateur «root» :
+KIAUH est installé dans lîmage système de Qidi (c'est celle de Makerbase pour leur carte MKPI). On peut donc l'utiliser pour installer
+ce module Pytho :
+
+`~/kiauh/kiauh.sh`
+Option 4 [Advanced], puis 8 [G-Code Shell Command]
+Ne pas installer les exemples proposés, Qidi utilisant d'anciennes versions de Klipper / Moonraker, le chemin des fichiers de configurations attendu par KIAUH provoque une arreur du script d'installation. Le service klipper ayant été arrêté ne peut pas être relancé à cause de cette erreur.
+
+Autre possibilité d'installation :
+
+Installer le script python au bon endroit pour que Klipper le gère.
+Toutes les manipulations sont effectuées en tant qu'utilisateur «mks» :
 
 1- Se placer dans le répertoire souhaité :
 
-`cd /usr/share/klipper/klippy/extras`
+`cd ~/klipper/klippy/extras`
 
 2- Récupérer le script et le rendre exécutable :
 
 ```
-wget "https://raw.githubusercontent.com/th33xitus/kiauh/master/resources/gcode_shell_command.py"
+wget "(https://raw.githubusercontent.com/dw-0/kiauh/master/resources/gcode_shell_command.py)"
 chmod +x gcode_shell_command.py
 ```
 
