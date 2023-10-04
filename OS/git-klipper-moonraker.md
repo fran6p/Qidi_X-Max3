@@ -2,6 +2,7 @@
 
 ## Moonraker
 
+```
 mks@mkspi:~$ cd moonraker
 mks@mkspi:~/moonraker$ git status
 On branch master
@@ -24,9 +25,11 @@ Untracked files:
 
 no changes added to commit (use "git add" and/or "git commit -a")
 mks@mkspi:~/moonraker$
+```
 
 ## Klipper
 
+```
 mks@mkspi:~/moonraker$ cd ../klipper
 mks@mkspi:~/klipper$ git status
 On branch master
@@ -55,3 +58,5 @@ Untracked files:
         klippy/extras/x_twist_compensation.py
 
 no changes added to commit (use "git add" and/or "git commit -a")
+```
+
