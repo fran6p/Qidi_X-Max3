@@ -1,10 +1,11 @@
-###########################################################################################################
 # Moonraker-timelapses
-# ne pas utiliser le «make install» => moonraker utilise une autre structure pour les configurations :
-# ~/printer_data/config' au lieu de ~/klipper_config»
-#
-# Utiliser des liens symoboliques
-#
+
+Ne pas utiliser le «make install» => moonraker utilise une autre structure pour les configurations :
+~/printer_data/config' au lieu de ~/klipper_config»
+
+Utiliser des liens symoboliques
+
+```
 mks@mkspi:~$ git clone https://github.com/mainsail-crew/moonraker-timelapse.git
 Cloning into 'moonraker-timelapse'...
 remote: Enumerating objects: 526, done.
@@ -14,6 +15,9 @@ remote: Total 526 (delta 148), reused 154 (delta 128), pack-reused 323
 Receiving objects: 100% (526/526), 187.75 KiB | 2.44 MiB/s, done.
 Resolving deltas: 100% (264/264), done.
 mks@mkspi:~$
+```
+
+```
 mks@mkspi:~/moonraker-timelapse$ ls -al
 total 80
 drwxr-xr-x  8 mks mks  4096 Aug 21 11:42 .
@@ -39,6 +43,9 @@ drwxr-xr-x 2 mks mks  4096 Aug 21 11:42 .
 drwxr-xr-x 8 mks mks  4096 Aug 21 11:42 ..
 -rw-r--r-- 1 mks mks 22348 Aug 21 11:42 timelapse.cfg
 mks@mkspi:~/moonraker-timelapse$
+```
+
+```
 mks@mkspi:~/moonraker-timelapse$ ln -sf "/home/mks/moonraker-timelapse/component/timelapse.py" "/home/mks/moonraker/moonraker/components/timelapse.py"
 mks@mkspi:~/moonraker-timelapse$ ls -l ../moonraker/moonraker/components/timelapse.py
 lrwxrwxrwx 1 mks mks 52 Aug 21 11:46 ../moonraker/moonraker/components/timelapse.py -> /home/mks/moonraker-timelapse/component/timelapse.py
@@ -47,15 +54,26 @@ mks@mkspi:~/moonraker-timelapse$ ln -sf "/home/mks/moonraker-timelapse/klipper_m
 mks@mkspi:~/moonraker-timelapse$ ls -l ../klipper_config/timelapse.cfg
 lrwxrwxrwx 1 mks mks 57 Aug 21 11:49 ../klipper_config/timelapse.cfg -> /home/mks/moonraker-timelapse/klipper_macro/timelapse.cfg
 mks@mkspi:~/moonraker-timelapse$
+```
+
 # Mettre à jour moonraker.conf en ajoutant la section «timelapse»
 
+```
 [timelapse]
 output_path: ~/klipper_config/timelapses
 frame_path: ~/klipper_config/timelapse/tmp
+```
 
-Créer les odssiers timelapses et timelapses/tmp mkdir -p ~/mks/klipper_config/timelapses/tmp
-# La place disponible sur l'EMMC de 8 Go est très limitée (< 512 Mo), il serait juiicieux soit 
+Créer les odssiers timelapses et timelapses/tmp 
+```
+mkdir -p ~/mks/klipper_config/timelapses/tmp
+```
+
+L'espace disponible sur l'eMMC de 8 Go est très limitée (≃ 512 Mo), il serait juiicieux soit 
  - de remplacer l'EMMC par une de taille plus grande (16, 32 Go)
  - monter une clé USB pour servir de stockage et indiquer dans la section [virtual_sdcard] du printer.cfg son point de montage
+
+```
 [virtual_sdcard]
 path:/mnt/nom-du-point-de-montage
+```
