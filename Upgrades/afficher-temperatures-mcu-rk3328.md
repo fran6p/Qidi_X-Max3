@@ -4,7 +4,7 @@ Il est possible d'afficher les températures du contrôleur Rockchip (RK3328) ai
 Ajouter dans le printer.cfg :
 ```
 #==================  Temperatures host + μcontroler =================
-[temperature_sensor RK 3328]
+[temperature_sensor RK3328]
 sensor_type: temperature_host
 min_temp: 10
 max_temp: 75
