@@ -17,4 +17,4 @@ max_temp: 75
 
 Ce qui donne :
 
-![températures Mainsail](../Images/mainsail-températures.jpg)
+![températures](../Images/mcu+controler-temperatures.jpg)
