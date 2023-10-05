@@ -57,7 +57,11 @@ wget "(https://raw.githubusercontent.com/dw-0/kiauh/master/resources/gcode_shell
 
 ## Utilisation
 
-Ce script ajoute un GCode étendu: **RUN_SHELL_COMMAND** utilisable dans des macros Gcode. Un fichier shell_command.cfg doit être ajouté à la configuration via une directive «include» dans le printer.cfg. Celui contiendra des sections à l'identique de [gcode_macro] pour l'appel des scripts, via des macros «shell_command» [gcode_shell_command …]. Il suffit de créer les macros Gcode, les macros Shell_command et les scripts shell voulus.
+Ce script ajoute un GCode étendu: **RUN_SHELL_COMMAND** utilisable dans des macros Gcode.
+
+Un fichier shell_command.cfg est ajouté à la configuration via une directive «include» dans le printer.cfg (*je préfère ne pas avoir un gros fichier «printer.cfg» monolithique*). Celui-ci contiendra des sections [gcode_macro] incluant le Gcode étendu `RUN_SHELL_COMMAND`, des macros «shell_command» [gcode_shell_command …] précisant le script shell à utiliser.
+
+Il suffit donc de créer les macros Gcode, les macros Gcode_Shell_command et les scripts shell voulus (et tester ensuite leur bon déroulment).
 
 ## Exemples
 
