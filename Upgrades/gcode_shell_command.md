@@ -10,17 +10,21 @@ Plusieurs possibilités d'installation :
 A- Exécuter le script d'installation :
 
 `~/kiauh/kiauh.sh`
-![1](../images/kiauh-1.jpg)
 
-Choisir Option 4 [Advanced]
-![2](../images/kiauh-2.jpg)
-puis 8 [G-Code Shell Command]
-![3](../images/kiauh-3.jpg)
-confirmer (Y) puis saisir le mot de passe de l'utilisateur «mks» (*makerbase*)
-![4](../images/kiauh-4.jpg)
+![1](../Images/kiauh-1.jpg)
+
+
+
+![Choisir Option 4 [Advanced]](../Images/kiauh-2.jpg)
+
+![puis 8 [G-Code Shell Command]](../Images/kiauh-3.jpg)
+
+
+![confirmer (Y) puis saisir le mot de passe de l'utilisateur «mks» (*makerbase*)](../Images/kiauh-4.jpg)
+
 Ne pas installer les exemples proposés, Qidi utilisant d'anciennes versions de Klipper / Moonraker, le chemin des fichiers de configurations attendu par KIAUH provoque une arreur du script d'installation. Le service klipper ayant été arrêté ne peut pas être relancé à cause de cette erreur.
-Une fois installé
-![5](../images/kiauh-5.jpg)
+
+![Une fois installé](../images/kiauh-5.jpg)
 
 B- Création d'un lien symbolique :
 
