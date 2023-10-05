@@ -1,18 +1,30 @@
-L'utilisateur th33xitus, auteur de [KIAUH](https://github.com/th33xitus/kiauh) a créé un module python permettant d'exécuter des scripts shell via des macros Klipper.
+L'utilisateur th33xitus, désormais nommé dw-0, auteur de [KIAUH](https://github.com/th33xitus/kiauh) a créé un module python permettant d'exécuter des scripts shell via des macros Klipper.
 
-KIAUH est installé dans lîmage système de Qidi (c'est celle de Makerbase pour leur carte MKPI). On peut donc l'utiliser pour installer
+KIAUH est installé dans l'îmage système de Qidi (c'est celle de Makerbase pour leur carte MKPI). On peut donc l'utiliser pour installer
 ce module Python :
+
+Plusieurs possibilités d'installation :
+
+    Toutes les manipulations sont effectuées en tant qu'utilisateur «mks»
+
+A- Exécuter le script d'installation :
 
 `~/kiauh/kiauh.sh`
 
-Option 4 [Advanced], puis 8 [G-Code Shell Command]
+Choisir Option 4 [Advanced], puis 8 [G-Code Shell Command]
 
 Ne pas installer les exemples proposés, Qidi utilisant d'anciennes versions de Klipper / Moonraker, le chemin des fichiers de configurations attendu par KIAUH provoque une arreur du script d'installation. Le service klipper ayant été arrêté ne peut pas être relancé à cause de cette erreur.
 
-Autre possibilité d'installation :
+B- Création d'un lien symbolique :
 
-Installer le script python au bon endroit pour que Klipper le gère.
-Toutes les manipulations sont effectuées en tant qu'utilisateur «mks» :
+KIAUH étant installé, on peut créer un lien symbolique dans le répertoire `~/klipper/klippy/extras`. En procédant ainsi, une mise à jour du fichier Python de KIAUH sera prise en compte par Klipper :
+
+```
+cd ~/kiauh/resources
+ln -sf 
+```
+
+C- Installer le script python si/quand KIAUH n'est pas installé
 
 1- Se placer dans le répertoire souhaité :
 
