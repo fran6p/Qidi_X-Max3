@@ -1,10 +1,12 @@
 L'utilisateur th33xitus, auteur de [KIAUH](https://github.com/th33xitus/kiauh) a créé un module python permettant d'exécuter des scripts shell via des macros Klipper.
 
 KIAUH est installé dans lîmage système de Qidi (c'est celle de Makerbase pour leur carte MKPI). On peut donc l'utiliser pour installer
-ce module Pytho :
+ce module Python :
 
 `~/kiauh/kiauh.sh`
+
 Option 4 [Advanced], puis 8 [G-Code Shell Command]
+
 Ne pas installer les exemples proposés, Qidi utilisant d'anciennes versions de Klipper / Moonraker, le chemin des fichiers de configurations attendu par KIAUH provoque une arreur du script d'installation. Le service klipper ayant été arrêté ne peut pas être relancé à cause de cette erreur.
 
 Autre possibilité d'installation :
