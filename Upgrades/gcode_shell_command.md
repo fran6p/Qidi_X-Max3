@@ -10,18 +10,24 @@ Plusieurs possibilités d'installation :
 A- Exécuter le script d'installation :
 
 `~/kiauh/kiauh.sh`
+![](../images/kiauh-1.jpg)
 
-Choisir Option 4 [Advanced], puis 8 [G-Code Shell Command]
-
+Choisir Option 4 [Advanced]
+![](../images/kiauh-2.jpg)
+puis 8 [G-Code Shell Command]
+![](../images/kiauh-3.jpg)
+confirmer (Y) puis saisir le mot de passe de l'utilisateur «mks» (*makerbase*)
+![](../images/kiauh-4.jpg)
 Ne pas installer les exemples proposés, Qidi utilisant d'anciennes versions de Klipper / Moonraker, le chemin des fichiers de configurations attendu par KIAUH provoque une arreur du script d'installation. Le service klipper ayant été arrêté ne peut pas être relancé à cause de cette erreur.
+Une fois installé
+![](../images/kiauh-5.jpg)
 
 B- Création d'un lien symbolique :
 
 KIAUH étant installé, on peut créer un lien symbolique dans le répertoire `~/klipper/klippy/extras`. En procédant ainsi, une mise à jour du fichier Python de KIAUH sera prise en compte par Klipper :
 
 ```
-cd ~/kiauh/resources
-ln -sf 
+ln -sf "/home/mks/kiauh/resources/gcode_shell_command.py" "/home/mks/klipper/klippy/extras/gcode_shell_command.py"
 ```
 
 C- Installer le script python si/quand KIAUH n'est pas installé
@@ -30,19 +36,21 @@ C- Installer le script python si/quand KIAUH n'est pas installé
 
 `cd ~/klipper/klippy/extras`
 
-2- Récupérer le script et le rendre exécutable :
+2- Récupérer le script :
 
 ```
 wget "(https://raw.githubusercontent.com/dw-0/kiauh/master/resources/gcode_shell_command.py)"
-chmod +x gcode_shell_command.py
 ```
 
 Ce script ajoute un GCode étendu: RUN_SHELL_COMMAND utilisable dans des macros Gcode. Un fichier shell_command.cfg doit être ajouté à la configuration via une directive «include» dans le printer.cfg. Celui contiendra des sections à l'identique de [gcode_macro] pour l'appel des scripts, via des macros «shell_command» [gcode_shell_command …]. Il suffit de créer les macros Gcode, les macros Shell_command et les scripts shell voulus.
 
-Exemple extrait du fichier shell_command.cfg :
+## Exemples
+
+Exemple extrait de mon fichier shell_command.cfg :
+
 ```
 [gcode_shell_command adxl_x]
-command: sh /mnt/UDISK/printer_config/shell_commands/adxl_x.sh 
+command: bash /mnt/UDISK/printer_config/shell_commands/adxl_x.sh 
 timeout: 300.
 verbose: True
 
