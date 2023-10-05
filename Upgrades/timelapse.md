@@ -67,8 +67,9 @@ mks@mkspi:~/moonraker-timelapse$
 
 **IMPORTANT**:
 
-L'espace disponible sur l'eMMC de 8 Go est très limitée (≃ 512 Mo), il serait juiicieux soit 
+L'espace disponible sur l'eMMC de 8 Go est très limitée (≃ 512 Mo), il serait juidicieux soit 
  - de remplacer l'EMMC par une de taille plus grande (16, 32 Go)
+ - faire le ménage dans les paquets installés ( `sudo apt clean` est un bon début :smirk; )
  - monter une clé USB pour servir de stockage et indiquer dans la section [virtual_sdcard] du printer.cfg son point de montage
 
 ```
