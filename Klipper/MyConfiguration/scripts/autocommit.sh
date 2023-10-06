@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 #######################################################################
 ## NOTE: This script originates from here but I tweaked the pull     ##
