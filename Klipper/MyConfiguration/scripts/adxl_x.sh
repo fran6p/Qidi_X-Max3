@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 #
 # Create PNG from csv file issued after INPUT_SHAPING, X axis
 #
