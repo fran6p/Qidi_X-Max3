@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # Copyright (C) 2023 Chris Laprade
 # 
