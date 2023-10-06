@@ -18,4 +18,4 @@
 # You should have received a copy of the GNU General Public License
 # along with config.  If not, see <http://www.gnu.org/licenses/>.
 
-./home/mks/klipper_config/scripts/move_files.sh /home/mks/klipper_config/ /home/mks/klipper_config/backups/ "/home/mks/klipper_config/printer-\d{8}_\d{6}\.cfg"
+./home/mks/klipper_config/scripts/move_files.sh /home/mks/klipper_config/ /home/mks/klipper_config/backups/ "/home/mks/klipper_config/printer-202*\.cfg"
