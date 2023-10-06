@@ -10,4 +10,4 @@ SCRIPTS="~/klipper/scripts/calibrate_shaper.py"
 CSV_FILE="/tmp/calibration_data_y_*.csv"
 PNG_FILE="~/klipper_config/calibrations/shaper_calibrate_y_$DATE.png"
 
-$SCRIPTS $CSV_FILE -o $PNG_FILE
+python3 $SCRIPTS $CSV_FILE -o $PNG_FILE
