@@ -58,8 +58,10 @@ square_corner_velocity: 8
 
 ### Pilotes moteurs
 
-On trouve évidemment les déclarations de paramètres des moteurs pilotant les axes (stepper …). Les axes X et Y
-utilisent la mise à l'origine sans capteur permise grâce aux pilotes TMC 2209.
+On trouve évidemment les déclarations de paramètres des moteurs pilotant les axes (stepper …).
+
+Les axes X et Y utilisent la mise à l'origine sans capteur permise grâce aux pilotes TMC 2209.
+
 Exemple pour le pilote de l'axe X :
 
 ```
