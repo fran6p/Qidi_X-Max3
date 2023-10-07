@@ -362,9 +362,9 @@ Purger le nouveau filament puis reprendre l'impression (testé à deux reprises,
 
 Le processus de retrait de l'ancien filament s'effectue en trois étapes via l'appel à une macro Gcode M603:
 
-1- extrusion lente d'une petite quantité de filament
-2- pause
-3- retrait «rapide» de la quantité nécessaire à sortir le filament des roues dentées d'entrainement
+1. extrusion lente d'une petite quantité de filament
+2. pause
+3. retrait «rapide» de la quantité nécessaire à sortir le filament des roues dentées d'entrainement
 
 ```
     [gcode_macro M603]
