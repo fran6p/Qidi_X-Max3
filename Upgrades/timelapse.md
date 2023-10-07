@@ -1,10 +1,14 @@
 # Moonraker-timelapses
 
-Ne pas utiliser le «make install» du dépôt cloné => moonraker utilise une autre structure pour les configurations :
+Ne pas utiliser le «make install» du dépôt cloné => 
+- Moonraker utilise un autre chemin d'accès pour enregistrer les fichiers de configurations ( **~/printer_data/config** )
+- QidiTech utilise encore l'ancien chemin ( **~/klipper_config** )
 
-**~/printer_data/config** alors que QidiTech utilise encore l'ancien chemin **~/klipper_config**
+Manipulations à réaliser en accès `ssh` en tant qu'utilisateur **mks** (mot de passe: *makerbase*) 
 
-Cloner le dépôt :
+## Installation
+
+1. Cloner le dépôt :
 
 ```
 mks@mkspi:~$ git clone https://github.com/mainsail-crew/moonraker-timelapse.git
@@ -17,7 +21,7 @@ Receiving objects: 100% (526/526), 187.75 KiB | 2.44 MiB/s, done.
 Resolving deltas: 100% (264/264), done.
 mks@mkspi:~$
 ```
-Vérifier le contenu du dossier:
+2. Vérifier le contenu du dossier:
 
 ```
 mks@mkspi:~/moonraker-timelapse$ ls -al
@@ -46,7 +50,7 @@ drwxr-xr-x 8 mks mks  4096 Aug 21 11:42 ..
 -rw-r--r-- 1 mks mks 22348 Aug 21 11:42 timelapse.cfg
 mks@mkspi:~/moonraker-timelapse$
 ```
-Créer des liens symboliques pour le fichier Python et le fichier de configuration, plutôt que copier ces fichiers dans ~/moonraker/components et ~/klipper_config. En procédant ainsi ces fcihers seront touojurs à jour même après mise à jour du dépôt "moonraker-timelapse" :
+3. Créer des liens symboliques pour le fichier Python et le fichier de configuration, plutôt que copier ces fichiers dans ~/moonraker/components et ~/klipper_config (*en procédant ainsi ces fcihers seront toujours à jour même après mise à jour du dépôt "moonraker-timelapse"*) :
 
 ```
 mks@mkspi:~/moonraker-timelapse$ ln -sf "/home/mks/moonraker-timelapse/component/timelapse.py" "/home/mks/moonraker/moonraker/components/timelapse.py"
@@ -67,14 +71,14 @@ mks@mkspi:~/moonraker-timelapse$
 
 **IMPORTANT**:
 
-L'espace disponible sur l'eMMC de 8 Go est très limitée (≃ 512 Mo), il serait judicieux soit 
+L'espace disponible sur l'eMMC de 8 Go est très limité (≃ 512 Mo), il serait judicieux soit 
  - de remplacer l'EMMC par une de taille plus grande (16, 32 Go)
  - faire le ménage dans les paquets installés ( `sudo apt clean` est un bon début :smirk; )
  - monter une clé USB pour servir de stockage et indiquer dans la section [virtual_sdcard] du printer.cfg son point de montage
 
 ```
 [virtual_sdcard]
-path:/mnt/nom-du-point-de-montage
+path: /mnt/nom-du-point-de-montage
 ```
 
 Plus d'informations [Moonraker-timelapse](https://github.com/mainsail-crew/moonraker-timelapse)
