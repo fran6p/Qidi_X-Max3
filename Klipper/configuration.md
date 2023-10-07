@@ -3,7 +3,7 @@
 QIDI TEch fournit un fichier monolithique regroupant les paramètres matériels et des macros G-code. Avec mes autres imprimantes fonctionnant sous Klipper, je préfère avoir un `printer.cfg` dans lequel ne sont présents que les paramètres matériels, les macros étant
 ajoutées via des directives `[include …]` au début du fichier. De plus, les macros additionnelles sont classées dans un dossier `macros`.
 
-Le printer.cfg expurgé des macros «Qidi Tech» (configuration matérielle seule) corrigé pour n'utiliser que le caractère **« : »** après le nom du paramètre, au lieu du caractère ***« = »***, suivi d'un espace afin de séparer le nom du paramètre de sa valeur :
+Le printer.cfg expurgé des macros «Qidi Tech» (configuration matérielle seule) corrigé pour n'utiliser que le caractère **« : »** après le nom du paramètre, au lieu du caractère **« = »**, suivi d'un espace afin de séparer le nom du paramètre de sa valeur :
 
 <details>
   <summary>(Cliquez pour agrandir!)</summary>
