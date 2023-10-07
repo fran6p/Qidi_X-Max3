@@ -25,13 +25,13 @@ Et quelques directives, elles aussi indispensables :
 
 Les macros dont le nom débute par le caractère souligné « _ » sont des aides pour les autres macros et ne devraient pas être modifiées.
 
-    La présence de ce caractére en début du nom de la macro permet de ne pas les afficher dans la liste des macros des interfaces Web, c'est un peu ***l'équivalent du point « . » au début d'un nom de fichier pour le cacher sous Linux***.
+> La présence de ce caractére en début du nom de la macro permet de ne pas les afficher dans la liste des macros des interfaces Web, c'est un peu ***l'équivalent du point « . » au début d'un nom de fichier pour le cacher sous Linux***.
 
 ### Installation
 
 Connexion en ssh sur la carte, utilisateur « mks » et son mot de passe, cloner le dépôt, créer le lien symbolique pour en profiter :
 
-```
+```bash
 cd ~
 git clone https://github.com/fluidd-core/fluidd-config.git
 ln -sf ~/fluidd-config/client.cfg ~/klipper_config/client.cfg
