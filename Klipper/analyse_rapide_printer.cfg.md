@@ -60,7 +60,7 @@ square_corner_velocity: 8
 
 On trouve évidemment les déclarations de paramètres des moteurs pilotant les axes (stepper …).
 
-Les axes X et Y utilisent la mise à l'origine sans capteur permise grâce aux pilotes TMC 2209.
+Les axes X et Y utilisent la **mise à l'origine sans capteur** permise grâce aux pilotes TMC 2209.
 
 Exemple pour le pilote de l'axe X :
 
@@ -75,8 +75,8 @@ driver_SGTHRS: 85
 …
 ```
 
-L'utilisation de ce mode nécessite la modification du processus de mise à l'origine via la directive
-[homing_override] (réduction du courant envoyé aux pilotes le temps de cette mise à l'origine) :
+L'utilisation de ce mode nécessite la **modification du processus de mise à l'origine** via la directive
+[homing_override] (réduction du courant envoyé aux pilotes moteurs, le temps de cette mise à l'origine) :
 
 
 ```
