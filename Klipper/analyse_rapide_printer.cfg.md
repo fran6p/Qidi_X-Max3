@@ -5,7 +5,7 @@ Qiditech fournit dans ce fichier à la fois:
 - la configuration matérielle de tous les composants gérés par le firmware Klipper flashé sur les deux cartes contrôleurs
 - un ensemble de macros
 
-Ayant plutôt l'habitude de séparer «serviettes et torchons», ma première modification a été de scinder et
+Ayant plutôt l'habitude de séparer «serviettes et torchons», [ma première modification](./configuration.md) a été de scinder et
 réorganiser ce gros fichiers en deux parties:
 
 - printer.cfg => configuration matérielle uniquement
