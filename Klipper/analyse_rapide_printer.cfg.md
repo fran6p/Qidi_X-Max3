@@ -308,7 +308,7 @@ en utilisant la commande `SET_PIN PIN=broche_a_actionner VALUE=valeur` (exemple:
     shutdown_value: 0.0
 ```
 
-#### Refroidissement du filament (auxilaire) soufflant sur le plateau => fan2
+#### Refroidissement du filament (auxilaire soufflant sur le plateau) => fan2
 
 ```
     [output_pin fan2]
