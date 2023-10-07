@@ -265,8 +265,10 @@ vérification de ce capteur
 
 ### Ventilateur de refroidissement du radiateur de la tête
 
+Celui-ci se déclenche au-dessus de la température indiquée dans `heater_temp`
+
 ```
-    [heater_fan hotend_fan]
+[heater_fan hotend_fan]
     pin: MKS_THR:gpio1
     max_power: 1.0
     kick_start_time: 0.5
@@ -277,6 +279,8 @@ vérification de ce capteur
 ```
 
 ### Surveillance des températures hôte et MCU
+
+Affichage des températures des contrôleurs dans le tableau des températures de l'interface Web.
 
 ```
     [temperature_sensor RK3328]
