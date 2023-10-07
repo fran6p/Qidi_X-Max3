@@ -21,7 +21,7 @@ Les macros Qidi Tech regroupées dans un fichier séparé à inclure `qidi_macro
 
  </details>
  
-Clic RAW puis clic droit pour enregistrer.
+Clic RAW puis clic droit pour enregistrer le fichier.
 
 ![RAW](../Images/gh-raw.jpg)
 
