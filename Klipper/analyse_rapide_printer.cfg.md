@@ -8,8 +8,8 @@ Qiditech fournit dans ce fichier à la fois:
 Ayant plutôt l'habitude de séparer «serviettes et torchons», ma première modification a été de scinder et
 réorganiser ce gros fichiers en deux parties:
 
-- printer.cfg (configuration matérielle uniquement)
-- qidi_macros.cfg (les macros QIDI utilisées via une directive [include qidi_macros.cfg] au début du fichier ci-dessus
+- printer.cfg => configuration matérielle uniquement
+- qidi_macros.cfg =>les macros QIDI utilisées via une directive [include qidi_macros.cfg] au début du fichier ci-dessus
 
 ## Analyse de la configuration matérielle
 
