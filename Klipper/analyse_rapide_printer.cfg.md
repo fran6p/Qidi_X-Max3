@@ -287,12 +287,13 @@ Affichage des températures des contrôleurs dans le tableau des températures d
 ```
     [temperature_sensor RK3328]
     sensor_type: rpi_temperature
-    sensor_type: temperature_host
-    min_temp: 5
-    max_temp: 80
+    min_temp: 10
+    max_temp: 75
 
     [temperature_sensor STM32F402]
     sensor_type: temperature_mcu
+    min_temp: 10
+    max_temp: 75
 ```
 
 ### Ventilateurs
