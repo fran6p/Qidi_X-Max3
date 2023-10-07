@@ -282,7 +282,7 @@ Celui-ci se déclenche au-dessus de la température indiquée dans `heater_temp`
 
 ### Surveillance des températures hôte et MCU
 
-Affichage des températures des contrôleurs dans le tableau des températures de l'interface Web (voir [ici](../Upgrades/afficher-temperatures-mcu.md).
+Affichage des températures des contrôleurs dans le tableau des températures de l'interface Web (voir [ici](../Upgrades/afficher-temperatures-mcu-rk3328.md)).
 
 ```
     [temperature_sensor RK3328]
@@ -491,7 +491,7 @@ et fréquence pour chaque axe ) est enregistré à la fin du printer.cfg dans la
 #*# shaper_freq_y = 45.2
 ```
 
-Comme j'ai ajouté l'extension `G-Code Shell Command` (un script Python) de KIAUH (Kiauh est installé
+Comme j'ai ajouté l'extension `G-Code Shell Command` (voir [ici](../Upgrades/gcode_shell_command.md)) de KIAUH (Kiauh est installé
 dans le répertoire de l'utilisateur «mks»), créé les scripts shell et les macros Gcode nécessaires
 pour produire les graphiques :
 
@@ -554,14 +554,14 @@ informatique (clic droit sur le fichier, téléchargé)
 
 ### Reste de la configuration
 
-Emplacement du stockage de la carte SD virtuelle :
+#### Emplacement du stockage de la carte SD virtuelle :
 
 ```
 [virtual_sdcard]
 path: ~/gcode_files
 ```
 
-Quelques paramètres utiles ( exclusion d'objet, gestion des courbes, délai d'inactivité ) :
+#### Quelques paramètres utiles ( exclusion d'objet, gestion des courbes, délai d'inactivité ) :
 
 ```
 [exclude_object]
@@ -573,4 +573,4 @@ resolution: 0.1 # 1.0
 timeout: 5400 # en secondes
 ```
 
-Voilà pour l'essentiel du fichier «printer.cfg» 
+Voilà pour l'essentiel du fichier «**printer.cfg**» 
