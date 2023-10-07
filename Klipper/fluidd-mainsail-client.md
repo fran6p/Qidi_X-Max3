@@ -14,7 +14,7 @@ Quelques macros facilitant la mise en pause de l'impression et l'obtention de st
 - SET_PAUSE_AT_LAYER
 - SET_PRINT_STATS_INFO
  
-Une section `[gcode_macro _CLIENT_VARIABLE]` à recopier au début du `printer.cfg` et à modifier (ou pas) pour tenir compte de caractéristiques de son matériel.
+Une section `[gcode_macro _CLIENT_VARIABLE]` à recopier au début du `printer.cfg` et à modifier (ou pas) pour tenir compte des caractéristiques de son matériel.
 
 Et quelques directives, elles aussi indispensables :
 
