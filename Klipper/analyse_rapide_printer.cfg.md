@@ -282,7 +282,7 @@ Celui-ci se déclenche au-dessus de la température indiquée dans `heater_temp`
 
 ### Surveillance des températures hôte et MCU
 
-Affichage des températures des contrôleurs dans le tableau des températures de l'interface Web.
+Affichage des températures des contrôleurs dans le tableau des températures de l'interface Web (voir [ici](../Upgrades/afficher-temperatures-mcu.md).
 
 ```
     [temperature_sensor RK3328]
