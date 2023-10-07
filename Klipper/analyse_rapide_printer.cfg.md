@@ -78,7 +78,8 @@ driver_SGTHRS: 85
 L'utilisation de ce mode nécessite la **modification du processus de mise à l'origine** via la directive
 [homing_override] (réduction du courant envoyé aux pilotes moteurs, le temps de cette mise à l'origine) :
 
-
+<details>
+    
 ```
 ## Modification du processus de mise à l'origine
 [homing_override]
@@ -143,7 +144,8 @@ gcode:
     SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CUR}
     M204 S10000
 ```
-
+</details>
+    
 ## Gestion des mises en chauffe et surveillance des températures
 
 ### Lit chauffant
