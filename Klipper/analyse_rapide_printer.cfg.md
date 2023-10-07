@@ -492,9 +492,7 @@ et fréquence pour chaque axe ) est enregistré à la fin du printer.cfg dans la
 #*# shaper_freq_y = 45.2
 ```
 
-Comme j'ai ajouté l'extension `G-Code Shell Command` (voir [ici](../Upgrades/gcode_shell_command.md)) de KIAUH (Kiauh est installé
-dans le répertoire de l'utilisateur «mks»), créé les scripts shell et les macros Gcode nécessaires
-pour produire les graphiques :
+Comme j'ai ajouté l'extension `G-Code Shell Command` (voir [ici](../Upgrades/gcode_shell_command.md)) de KIAUH, créé les scripts shell et les macros Gcode nécessaires permettant de générer les graphiques :
 
 ```
 # Process csv files issued from "input_shaping" to obtain png files
@@ -529,7 +527,9 @@ gcode:
 ```
 
 Ce fichier shell_command.cfg est inclus au début du fichier printer.cfg via une directive [include shell_command.cfg].
-Un répertoire nommé «scripts» créé dans ~/klipper_config me permet de stocker les scripts shell.
+
+Un répertoire nommé «scripts» créé dans ~/klipper_config me permet de regrouper tous les scripts shell.
+
 Exemple pour l'axe X (remplacer x par y pour obtenir le script de l'axe Y) :
 
 ```bash
@@ -549,9 +549,10 @@ PNG_FILE="/home/mks/klipper_config/calibrations/shaper_calibrate_x_$DATE.png"
 $SCRIPTS $CSV_FILE -o $PNG_FILE
 ```
 
-L'appel de la macro «PROCESS_SHAPER_DATA» dans la console Fluidd permet d'obtenir les graphiques.
+L'appel de la macro `PROCESS_SHAPER_DATA` dans la console Fluidd permet de créer les graphiques.
+
 Étant enregistrés dans `~/klipper_config/calibrations/`, ils sont facilement téléchargeables sur un matériel
-informatique (clic droit sur le fichier, téléchargé)
+informatique (clic droit sur le fichier, télécharger)
 
 ### Reste de la configuration
 
