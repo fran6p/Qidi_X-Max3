@@ -291,9 +291,9 @@ vérification de ce capteur
 
 ### Ventilateurs
 
-Les ventilateurs sont gérés via des directives `[output_pin]` et sont actionnés via des macros Gcode
+Les ventilateurs gérés via des directives `[output_pin]` sont actionnés via des macros Gcode
 en utilisant la commande `SET_PIN PIN=broche_a_actionner VALUE=valeur` (exemple: `SET_PIN PIN=fan0 VALUE=127`
-=> le ventilateur «fan0» est à 50%
+=> le ventilateur «fan0» est à 50%)
 
 #### Refroidissement du filament (buse) => fan0
 
