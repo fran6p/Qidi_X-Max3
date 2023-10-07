@@ -1,4 +1,4 @@
-# Fichiers de configuration utilisés avec ma QIDI X-Max 3
+## Fichiers de configuration utilisés avec ma QIDI X-Max 3
 
 QIDI TEch fournit un fichier monolithique regroupant les paramètres matériels et des macros G-code. Avec mes autres imprimantes fonctionnant sous Klipper, je préfère avoir un `printer.cfg` dans lequel ne sont présents que les paramètres matériels, les macros étant
 ajoutées via des directives `[include …]` au début du fichier. De plus, les macros additionnelles sont classées dans un dossier `macros`.
@@ -22,6 +22,10 @@ Les macros Qidi Tech regroupées dans un fichier séparé à inclure `qidi_macro
  </details>
  
 Clic RAW puis clic droit pour enregistrer.
+
+!(RAW)[../Images/gh-raw.jpg]
+
+!(Save as)[../Images/gh-raw-save-as.jpg]
 
 :smirk:
 
