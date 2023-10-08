@@ -5,6 +5,6 @@
 
 # Paths
 CSV_FILE="/tmp/calibration_data_*.csv"
-DIR_CONF="/home/mks/klipper_config/calibrations"
+DIR_CONF="/home/mks/klipper_config/adxl_results"
 
 cp $CSV_FILE $DIR_CONF
