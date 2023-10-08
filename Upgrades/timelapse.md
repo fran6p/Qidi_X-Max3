@@ -81,7 +81,7 @@ mks@mkspi:~/moonraker-timelapse$
 
 Ma section [timelapse] comprend en plus les paramètres :
 
-<Paramètres>
+<Paramètres/>
 
 ```
 #enabled: True
