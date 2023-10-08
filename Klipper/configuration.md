@@ -11,7 +11,6 @@ Le printer.cfg expurgé des macros «Qidi Tech» (configuration matérielle seul
 - suppression de lignes vides
 
 <details>
-  <summary>(Cliquez pour agrandir!)</summary>
 
 [printer.cfg](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/printer.cfg)
 
@@ -20,7 +19,6 @@ Le printer.cfg expurgé des macros «Qidi Tech» (configuration matérielle seul
 Les macros Qidi Tech regroupées dans un fichier séparé à inclure `qidi_macros.cfg` (voir au début du fichier printer.cfg, la directive [include macros/qidi_macros.cfg]). Purement esthétique donc absolument indispendable, j'ai réorganisé ces macros en les classant par ordre numérique croissant (Gxx, Mxxx) :
 
 <details>
-  <summary>(Cliquez pour agrandir!)</summary>
 
 [macros QidiTech](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/macros/qidi_macros.cfg)
 
