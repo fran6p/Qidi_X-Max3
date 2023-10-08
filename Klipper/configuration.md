@@ -6,7 +6,9 @@ Avec mes autres imprimantes fonctionnant sous Klipper, je préfère avoir un `pr
 
 J'ai aussi l'habitude de regrouper les macros additionnelles dans un dossier `macros`.
 
-Le printer.cfg expurgé des macros «Qidi Tech» (configuration matérielle seule) corrigé pour n'utiliser que le caractère **« : »** après le nom du paramètre, au lieu du caractère **« = »**, suivi d'un espace afin de séparer le nom du paramètre de sa valeur :
+Le printer.cfg expurgé des macros «Qidi Tech» (configuration matérielle seule) :
+- corrigé pour n'utiliser que le caractère **« : »** après le nom du paramètre, au lieu du caractère **« = »**, suivi d'un espace afin de séparer le nom du paramètre de sa valeur,
+- suppression de lignes vides
 
 <details>
   <summary>(Cliquez pour agrandir!)</summary>
