@@ -81,7 +81,7 @@ mks@mkspi:~/moonraker-timelapse$
 
 Ma section [timelapse] comprend en plus les paramètres :
 
-<Paramètres/>
+<details>
 
 ```
 #enabled: True
@@ -117,7 +117,7 @@ park_travel_speed: 600
 #wget_skip_cert_check: False
 ```
 
-</Paramètres>
+</details>
 
 Ces paramètres pourraient ne pas être dans cette section, pour les modifier alors, il faut utiliser la macro G-Code `_TIME`
 en lui passant les valeurs souhaitées.
