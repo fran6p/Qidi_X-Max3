@@ -9,6 +9,6 @@
 DATE=$(date +"%Y%m%d")
 SCRIPTS="~/klipper/scripts/calibrate_shaper.py"
 CSV_FILE="/tmp/calibration_data_x_*.csv"
-PNG_FILE="~/klipper_config/calibrations/shaper_calibrate_x_$DATE.png"
+PNG_FILE="~/klipper_config/adxl_results/shaper_calibrate_x_$DATE.png"
 
 python3 $SCRIPTS $CSV_FILE -o $PNG_FILE
