@@ -119,8 +119,19 @@ park_travel_speed: 600
 
 </details>
 
-Ces paramètres pourraient ne pas être dans cette section, pour les modifier alors, il faut utiliser la macro G-Code `_TIME`
-en lui passant les valeurs souhaitées.
+Ces paramètres pourraient ne pas être dans cette section, pour les modifier alors, il faut utiliser la macro G-Code `_SET_TIMELAPSE_SETUP` en lui passant les valeurs souhaitées :
+
+```
+################################################################################################
+#                                                                                              #
+# Use _SET_TIMELAPSE_SETUP [ENABLE=value] [VERBOSE=value] [PARK_ENABLE=value] [PARK_POS=value] #
+#                          [PARK_TIME=value] [CUSTOM_POS_X=value] [CUSTOM_POS_Y=value]         #
+#                          [CUSTOM_POS_DZ=value][TRAVEL_SPEED=value] [RETRACT_SPEED=value]     #
+#                          [EXTRUDE_SPEED=value] [EXTRUDE_DISTANCE=value]                      #
+#                          [RETRACT_DISTANCE=value] [FW_RETRACT=value]                         #
+#                                                                                              #
+################################################################################################
+```
 
 **IMPORTANT**:
 
