@@ -8,8 +8,8 @@ Plusieurs possibilités d'installation :
 
 ### KIAUH est présent sur le système
 
-KIAUH est installé dans l'îmage système de Qidi (c'est celle de Makerbase pour leur carte MKPI). On peut donc l'utiliser pour installer
-ce module Python.
+KIAUH est installé dans l'îmage système de Qidi (c'est celle de Makerbase pour leur carte MKS SKIPR).
+On peut donc l'utiliser pour installer ce module Python.
 
 A- Exécution du script d'installation :
 
@@ -25,7 +25,7 @@ Option 8 [G-Code Shell Command]
 
 ![8 [G-Code Shell Command]](../Images/kiauh-3.jpg)
 
-Confirmer (Y) puis saisir le mot de passe de l'utilisateur «mks» (*makerbase*)
+Confirmer (Y) puis saisir le mot de passe de l'utilisateur «mks» (*makerbase*), nécessaire à l'arrêt du service klipper
 
 ![confirmer l'installation](../Images/kiauh-4.jpg)
 
@@ -61,7 +61,7 @@ Ce script ajoute un GCode étendu: **RUN_SHELL_COMMAND** utilisable dans des mac
 
 Un fichier shell_command.cfg est ajouté à la configuration via une directive «include» dans le printer.cfg (*je préfère ne pas avoir un gros fichier «printer.cfg» monolithique*). Celui-ci contiendra des sections [gcode_macro] incluant le Gcode étendu `RUN_SHELL_COMMAND`, des macros «shell_command» [gcode_shell_command …] précisant le script shell à utiliser.
 
-Il suffit donc de créer les macros Gcode, les macros Gcode_Shell_command et les scripts shell voulus (et tester ensuite leur bon déroulement).
+Il suffit donc de créer les **macros Gcode**, les **macros Gcode_Shell_command** et les **scripts shell** voulus (et tester ensuite leur bon déroulement).
 
 ## Exemples
 
@@ -102,14 +102,14 @@ Scripts shell exécutés via gcode_shell_command :
 DATE=$(date +"%Y%m%d")
 SCRIPTS="/home/mks/klipper/scripts/calibrate_shaper.py"
 CSV_FILE="/tmp/calibration_data_x_*.csv"
-PNG_FILE="/home/mks/klipper_config/calibrations/shaper_calibrate_x_$DATE.png"
+PNG_FILE="/home/mks/klipper_config/adxl_results/shaper_calibrate_x_$DATE.png"
 
 $SCRIPTS $CSV_FILE -o $PNG_FILE
 ```
 
 Le script shell pour l'axe Y peut être déduit du précédent :smirk:
 
-A l'extinction de l'imprimante, le répertoire /tmp est vidé, les fichiers CSV issus des tests de résonances seront perdus. Si on veut pouvoir les réutiliser , il faut les transférer dans un endroit persistant (/home/mks/klipper_config/calibrations par exemple).
+A l'extinction de l'imprimante, le répertoire /tmp est vidé, les fichiers CSV issus des tests de résonances seront perdus. Si on veut pouvoir les réutiliser , il faut les transférer dans un endroit persistant (/home/mks/klipper_config/adxl_results par exemple).
 
 Là encore un script shell permet d'automatiser cette recopie :
 
@@ -122,7 +122,7 @@ Là encore un script shell permet d'automatiser cette recopie :
 # Paths
 #
 CSV_FILE="/tmp/calibration_data_*.csv"
-DIR_CONF="/home/mks/klipper_config/calibrations"
+DIR_CONF="/home/mks/klipper_config/adxl_results"
 
 cp $CSV_FILE $DIR_CONF
 ```
