@@ -1,7 +1,7 @@
 ## Mise à jour du système
 
 Aucune notification de la part du système ne nous signale quand / s’il y a une mise à jour disponible.
-C’est à l’utilisateur d’aller consulter soit le Github de la X-Max, soit cette page du site QidiTech.
+C’est à l’utilisateur d’aller consulter soit le [Github de la X-Max 3](https://github.com/QIDITECH/QIDI_MAX3/releases), soit [cette page](https://qidi3d.com/pages/software-firmware?z_code=p12711140855145122921) du site QidiTech.
 
 Quelques constats :
 
