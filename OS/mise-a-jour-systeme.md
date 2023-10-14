@@ -30,7 +30,7 @@ Via ssh, en tant qu'utilisateur `mks`, j'arrête les services `moonraker` et `kl
 sudo systemctl stop moonraker
 sudo systemctl stop klipper
 cp ~/klipper_config/printer.cfg ~/klipper_config/printer-qidi-v4310.cfg
-
+```
 
 Via WinSCP, je recopie le dossier  `~/.moonraker_database` dans le home de mks, idem pour le dossier `klipper_config`
 
