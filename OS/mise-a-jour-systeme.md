@@ -32,5 +32,10 @@ Via ssh, en tant qu'utilisateur `mks`, j'arrête les services `moonraker` et `kl
 
 Via WinSCP, je recopie le dossier  `~/.moonraker_database` dans le home de mks, idem pour le dossier `klipper_config`
 
-Je cherches les modifications apportées au fichier printer.cfg (diff, Winmerge) et les reporte manuellement dans mon printer.cfg sauvegardé.
+Via ssh, je relance les services 
+
+    `sudo systemctl start moonraker`
+    `sudo systemctl start klipper`
+
+Je cherche les modifications apportées au fichier printer.cfg (diff, Winmerge) et les reporte manuellement dans mon printer.cfg sauvegardé.
 
