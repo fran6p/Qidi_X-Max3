@@ -5,7 +5,8 @@ D'origine, la carte eMMC installée sur la carte Qidi MKS SKIPR possède une pet
 
 Makerbase propose une eMMC de capacité identique. En cherchant un peu sur Internet, des eMMC de capacités supérieures (16 Go+) peuvent être trouvées.
 
-Mon choix s'est porté sur celle-ci de 16 Go (malheureusement je n'en ai pas trouvé d'identique à celle de MKS avec ses deux fixations pour maintenir l'eMMC sur la carte).
+Mon choix s'est porté sur [celle-ci](https://fr.aliexpress.com/item/4001208491195.html) de 16 Go.
+Malheureusement je n'en ai pas trouvé d'identique à celle de MKS avec ses deux fixations pour maintenir l'eMMC sur la carte. Une petite modélisation permettra d'imprimer une pièce permettant de la maintenir un peu mieux.
 
 Après quelques semaines de délais, le temps que ce composant arrive «à pieds par la Chine», le facteur l'a déposé dans la boite à lettres.
 
@@ -16,7 +17,7 @@ Retrait de l'eMMC originelle pour pouvoir en faire une image système qui sera e
 
 ### imager le système originel
 
-Sous Windows, j'utilise depuis longtemps un outil fort pratique : imageUSB
+Sous Windows, j'utilise depuis longtemps un outil fort pratique : [imageUSB](https://www.osforensics.com/tools/write-usb-images.html)
 1- créer l'image complète en la sauvegardant à un endroit approprié
 2- «graver» cette image sur la nouvelle eMMC
 3- Installer cette nouvelle eMMC sur la carte contrôleur
@@ -25,15 +26,19 @@ Sous Windows, j'utilise depuis longtemps un outil fort pratique : imageUSB
 ### Accéder en ssh en root
 
 Vérifier l'occupation des partitions :
+
 `df -h`
+
 L'image correspond encore à une carte 8 Go
 
 Obtenir les informations du partitionnement de cette carte :
+
 `fdisk -l /dev/mmcblk1`
 
 On passe aux choses sérieuses :
 
 - fdisk permet de modifier la table de partitionnement :
+
   `fdisk /dev/mmcblk1`
   
   - p
