@@ -8,7 +8,7 @@ Makerbase propose une eMMC de capacité identique. En cherchant un peu sur Inter
 Mon choix s'est porté sur [celle-ci](https://fr.aliexpress.com/item/4001208491195.html) de 16 Go.
 Malheureusement je n'en ai pas trouvé d'identique à celle de MKS avec ses deux fixations pour maintenir l'eMMC sur la carte. Une petite modélisation permettra d'imprimer une pièce permettant de la maintenir un peu mieux.
 
-Après quelques semaines de délais, le temps que ce composant arrive «à pieds par la Chine», le facteur l'a déposé dans la boite à lettres.
+Après quelques semaines de délais, le temps que ce composant arrive «*à pieds par la Chin*», le facteur l'a déposé dans la boite à lettres.
 
 Retrait du capot arrière avec ses huit (8) vis de maintien (clé Allen de 2), dévissage des deux (2) vis de fixation de l'eMMC sur la carte (vis cruciforme).
 Retrait de l'eMMC originelle pour pouvoir en faire une image système qui sera ensuite «gravée» sur la nouvelle eMMC de 16 Go.
