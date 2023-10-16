@@ -18,10 +18,11 @@ Retrait de l'eMMC originelle pour pouvoir en faire une image système qui sera e
 ### imager le système originel
 
 Sous Windows, j'utilise depuis longtemps un outil fort pratique : [imageUSB](https://www.osforensics.com/tools/write-usb-images.html)
-1- créer l'image complète en la sauvegardant à un endroit approprié
-2- «graver» cette image sur la nouvelle eMMC
-3- Installer cette nouvelle eMMC sur la carte contrôleur
-4- Allumer l'imprimante pour vérifier que cette image démarre correctement.
+
+1. créer l'image complète en la sauvegardant à un endroit approprié
+2. «graver» cette image sur la nouvelle eMMC
+3. Installer cette nouvelle eMMC sur la carte contrôleur
+4. Allumer l'imprimante pour vérifier que cette image démarre correctement.
 
 ### Accéder en ssh en root
 
