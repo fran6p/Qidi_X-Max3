@@ -1,12 +1,12 @@
 ## Remplacement eMMC 8Go par une 16Go
 
 D'origine, la carte eMMC installée sur la carte Qidi MKS SKIPR possède une petite capacité (8 Go). En plus l'image du système d'exploitation
-(Armbian) est une version «Desktop» dont un bon nombre de packages occupe de la place.
+(Armbian) est une version «Desktop» => un bon nombre de packages occupe de la place inutilement.
 
 Makerbase propose une eMMC de capacité identique. En cherchant un peu sur Internet, des eMMC de capacités supérieures (16 Go+) peuvent être trouvées.
 
 Mon choix s'est porté sur [celle-ci](https://fr.aliexpress.com/item/4001208491195.html) de 16 Go.
-Malheureusement je n'en ai pas trouvé d'identique à celle de MKS avec ses deux fixations pour maintenir l'eMMC sur la carte. Une petite modélisation permettra d'imprimer une pièce permettant de la maintenir un peu mieux.
+Malheureusement je n'en ai pas trouvé d'identique à celle de MKS avec ses deux fixations pour maintenir l'eMMC sur la carte. Une [petite modélisation](../Images/fixation_emmc.stl) permettra d'imprimer une pièce permettant de la maintenir un peu mieux.
 
 Après quelques semaines de délais, le temps que ce composant arrive «*à pieds par la Chine*», le facteur l'a déposé dans la boite à lettres.
 
