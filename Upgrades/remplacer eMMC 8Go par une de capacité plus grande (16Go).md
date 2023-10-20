@@ -3,7 +3,7 @@
 D'origine, la carte eMMC installée sur la carte Qidi MKS SKIPR possède une petite capacité (8 Go).
 Ce qui laisse peu de place pour stocker des gcodes et autres fichiers.
 
-![eMMC originelle](../Images/emmc-8Go.png)
+![eMMC originelle](../Images/emmc-8go.png)
 
 En plus l'image du système d'exploitation (Armbian) est une version «Desktop» => nombre de packages occupent de la place inutilement.
 
