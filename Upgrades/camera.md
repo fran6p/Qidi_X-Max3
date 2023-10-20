@@ -1,8 +1,8 @@
 D'origine, la Qidi X-Max 3 n'est pas équipée d'une caméra interne.
 
-J'ai une caméra inutilisée dans mon stock de matériel pour le cas où [ce modèle](https://www.amazon.fr/gp/product/B07WHQYM2W).
+J'ai une caméra inutilisée dans mon stock de matériel pour le cas où ( [ce modèle](https://www.amazon.fr/gp/product/B07WHQYM2W) ).
 Il lui faut simplement un boitier pour la protéger.
-Procrastinateur invétéré, ( [ce modèle](https://www.printables.com/fr/model/176428-voron-camera-hbv-5640wa) ) issue d'une recherche sur printables.com me convient.
+Procrastinateur invétéré, [ce modèle](https://www.printables.com/fr/model/176428-voron-camera-hbv-5640wa) issue d'une recherche sur printables.com me convient.
 J'ai juste refait une [autre patte de maintien](../Images/patte_camera.stl) pour intégrér un magnet dans celle-ci.
 
 Un emplacement USB est disponible pour connecter cette Webcam sur la carte contrôleur, le passage du
