@@ -382,7 +382,7 @@ A noter que l'extrudeur ne possède pas de levier permettant la libération / l'
 Le mieux est d'extraire le PTFE guidant le filament vers la tête au niveau de celle-ci (pas très pratique
 ni facile quand on a des gros doigts ou qu'on imprime avec le caisson totalement fermé).
 
-La chaine Youtube Qiditech propose une vidéo pour le processus de changement de filament (d'autree vidéos
+La chaine Youtube Qiditech propose une vidéo pour le processus de changement de filament (d'[autres vidéos](https://www.youtube.com/@QIDITech/videos)
 sont également disponibles pour tout ce qui concerne la maintenance 😉).
 
 ### Nivelage du lit d'impression
