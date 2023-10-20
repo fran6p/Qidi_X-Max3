@@ -15,7 +15,7 @@ Retrait de l'eMMC originelle pour pouvoir en faire une image système qui sera e
 
 ## Les étapes
 
-### imager le système originel
+### Faire une image du système originel
 
 Sous Windows, j'utilise depuis longtemps un outil fort pratique : [imageUSB](https://www.osforensics.com/tools/write-usb-images.html)
 
