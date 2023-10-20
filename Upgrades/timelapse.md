@@ -136,7 +136,7 @@ Ces paramètres pourraient ne pas être dans cette section, pour les modifier al
 **IMPORTANT**:
 
 L'espace disponible sur l'eMMC de 8 Go est très limité (≃ 512 Mo), il serait judicieux soit 
- - de remplacer l'EMMC par une de taille plus grande (16, 32 Go)
+ - de [remplacer l'EMMC](https://github.com/fran6p/Qidi_X-Max3/blob/main/Upgrades/remplacer%20eMMC%208Go%20par%20une%20de%20capacit%C3%A9%20plus%20grande%20(16Go).md) par une de taille plus grande (16, 32 Go)
  - faire le ménage dans les paquets installés ( `sudo apt clean` est un bon début :smirk: )
  - monter une clé USB pour servir de stockage et indiquer dans la section [virtual_sdcard] du printer.cfg son point de montage
 
