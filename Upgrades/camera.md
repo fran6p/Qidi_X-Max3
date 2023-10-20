@@ -17,5 +17,7 @@ L'interface Web, Fluidd, affiche le flux de celle-ci :
 
 ![Fluidd](../Images/fluidd-webcam.jpg)
 
+L'ajout d'une caméra permet de visualiser celle-ci dans l'interface Web, on peut même ajouter de quoi faire des [timelapses](https://github.com/fran6p/Qidi_X-Max3/blob/main/Upgrades/timelapse.md) 
+
 Depuis mi-octobre 2023, Qidi Tech vend [une caméra](https://qidi3d.com/collections/x-max-3-accessories/products/x-max-3-x-plus-3-x-smart-3-camera)
 adaptée aux modèles de ses séries «3». Elle se place à l'intérieur de la structure, à l'avant droit.
