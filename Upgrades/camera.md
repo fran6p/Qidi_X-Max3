@@ -13,17 +13,17 @@ Les pattes de fixation munies de magnets permettent de fixer la Webcam à l'avan
 
 ![Webcam](../Images/my_webcam.jpg)
 
-Dans Fluidd, on configure de la manière suivante :
-- Configuration de l'interface web → caméra → ajouter
+Dans Fluidd, la configuration se fait de la manière suivante :
+- Configuration → Caméra → Ajouter
    ![Fluidd](../Images/fluidd-camera-configuration.jpg)
   
-- Activer la caméra → configurer le nom → type de flux sélectionner le flux vidéo MJPEG, enregistrer
+- Activer → Configurer le nom → Type de flux, sélectionner "flux vidéo MJPEG", Enregistrer
    ![Fluidd](../Images/fluidd-camera-configuration-ajout.jpg) 
 
 - Revenir à l'interface principale pour visualiser l'image.
    ![Fluidd](../Images/fluidd-webcam.jpg)
 
-L'ajout d'une caméra en plus de permettre de visualiser l'impression dans l'interface Web, autorise de l'enregistrement vidéo en ajoutant de quoi faire des [timelapses](https://github.com/fran6p/Qidi_X-Max3/blob/main/Upgrades/timelapse.md) 
+En plus de permettre de visualiser l'impression dans l'interface Web, on pourra enregistrer des vidéos après avoir installé de quoi faire des [timelapses](https://github.com/fran6p/Qidi_X-Max3/blob/main/Upgrades/timelapse.md) 
 
 ### MISE A JOUR
 
