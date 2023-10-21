@@ -41,8 +41,8 @@ Ce fichier sera ensuite inclus via un `[include client.cfg]` dans le printer.cfg
 
 **NB:** le `printer.cfg` de Qidi Tech possédant lui aussi des macros PAUSE, RESUME, CANCEL_PRINT, il faudra :
 - soit supprimer celles-ci du fichier,
-- soit placer la directive `include` après ces macros G-Code,
-- soit encore scinder le `printer.cfg` en deux (voir [Ma configuration](./configuration.md))
+- soit placer la directive `include` après ces macros G-Code (si / quand une macro portant le même nom est rencontré, c'est la dernière lue qui l'emporte),
+- soit encore scinder le `printer.cfg` en deux (voir [Ma configuration](./MyConfiguration.md))
 
 Plus d'informations [Fluidd-config](https://github.com/fluidd-core/fluidd-config) ou [Mainsail-config](https://github.com/mainsail-crew/mainsail-config)
 
