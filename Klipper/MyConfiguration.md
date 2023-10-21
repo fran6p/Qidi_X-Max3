@@ -24,11 +24,16 @@ Les macros Qidi Tech regroupées dans un fichier séparé à inclure `qidi_macro
 
  </details>
  
+---
 Cliquer le bouton [RAW] pour ouvrir le fichier «plein texte», puis clic droit pour enregistrer le fichier ou sélectionner une partie (la totalité) du contenu, CTRL+C pour le copier / coller à un autre endroit.
 
 ![RAW](../Images/gh-raw.jpg)
 
+---
+
 ![Save as](../Images/gh-raw-save-as.jpg)
+
+---
 
 ### IMPORTANT
 
@@ -39,7 +44,7 @@ cd ~/klipper_config
 sudo chown -R mks:mks *
 ```
 
-Si des scripts sont utilisés, idem que ci-dessus et les rendre exécutables
+Si des scripts shell sont utilisés, idem que ci-dessus et les rendre exécutables
 
 ```
 cd ~/klipper_config/scripts
