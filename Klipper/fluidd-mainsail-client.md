@@ -45,3 +45,20 @@ Ce fichier sera ensuite inclus via un `[include client.cfg]` dans le printer.cfg
 - soit encore scinder le `printer.cfg` en deux (voir [Ma configuration](./configuration.md))
 
 Plus d'informations [Fluidd-config](https://github.com/fluidd-core/fluidd-config) ou [Mainsail-config](https://github.com/mainsail-crew/mainsail-config)
+
+### QIDI TECH
+
+La version Qidi de Klipper étant ancienne (basée sur une version 0.10), l'inclusion telle quelle du fichier `client.cfg` empêche
+le bon démarrage de Klipper (`SET_PRINT_STATS_INFO` n'est pas reconnu comme Gcode).
+
+Solution :
+
+1. Ne pas inclure ce fichier
+2. Hacker le fichier client.cfg ( mais ce fichier est en lecture seule: on ne peut donc le modifier via Fluidd ) :
+    - en utilisateur `root` via ssh :
+        - Ajouter un dièse ( # ) au début de la ligne `rename_existing` de la macro `SET_PRINT_STATS_INFO`
+        ```
+        [gcode_macro SET_PRINT_STATS_INFO]
+        #rename_existing: SET_PRINT_STATS_INFO_BASE
+        description: Overwrite, to get pause_next_layer and pause_at_layer feature
+        ```
