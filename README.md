@@ -10,7 +10,7 @@ Ce dépôt regroupe une partie des recherches effectuées lors de ce test.
 - le répertoire ***OS*** concerne plutôt le système d'exploitation (Armbian) installé sur la carte clône SKRPI de Makerbase
   - permettre l'[affichage correct des dates et heures système ](./OS/date-heures-synchronisees.md)
   - notes sur la [mise à jour du système](./OS/mise-a-jour-systeme.md)
-  - [récupérer de la place](./OS/recupere-place.md) sur la mémoire de stockage
+  - [récupérer de la place](./OS/recuperer-place.md) sur la mémoire de stockage
   - [versions des éléments de base](./OS/git-klipper-moonraker.md)
   - liste des [paquets installés](./OS/paquets-installes.md)
   - incohérence attribuées aux [droits utilisateurs[(droits-utilisateur.md)
