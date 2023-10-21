@@ -11,14 +11,14 @@ Ce dépôt regroupe une partie des recherches effectuées lors de ce test.
   - permettre l'[affichage correct des dates et heures système ](./OS/date-heures-synchronisees.md)
   - notes sur la [mise à jour du système](./OS/mise-a-jour-systeme.md)
   - [récupérer de la place](./OS/recupere-place.md) sur la mémoire de stockage
-  - [versions des éléments de base](git-klipper-moonraker.md)
+  - [versions des éléments de base](./OS/git-klipper-moonraker.md)
   - liste des [paquets installés](./OS/paquets-installes.md)
   - incohérence attribuées aux [droits utilisateurs[(droits-utilisateur.md)
   - …
 - le répertoire ***Klipper*** concerne les fichiers de configuration du firmware Klipper :
     - le sous-répertoire *QidiConfigurations* regroupe les [fichiers originaux de Qidi Tech](./Klipper/QidiConfigurations.md)
     - le sous-répertoire *MyConfiguration* est [mon interprétation](./Klipper/MyConfiguration.md) de la configuration de mon imprimante
-    - une analyse sommaire du fichier [printer.cfg](analyse_rapide_printer.cfg.md)
+    - une analyse sommaire du fichier [printer.cfg](./Klipper/analyse_rapide_printer.cfg.md)
     - le [client](./Klipper/fluidd-mainsail-client.md) Fluidd / Mainsail
     - …
 - le répertoire ***Upgrades*** regroupe des «*améliorations*» possibles :
