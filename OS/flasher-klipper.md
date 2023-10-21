@@ -21,4 +21,4 @@ Et ensuite les flasher chacun en utilisant un processus différent :
 - mettre à jour la tête d'impression (2) [voir ici](https://github.com/makerbase-mks/MKS-THR36-THR42-UTC#thr3642-firmware-update)
     - presser physiquement sur le bouton de démarrage (boot) de la tête d'impression au démarrage de l'imprimante
     pour faire apparaître un lecteur spécial dans Linux (via le MCU) sur lequel on copie le micrologiciel (.uf2),
-    le flashage se réalise seul une fois le fcihier copié.
+    le flashage se réalise seul une fois le fichier copié.
