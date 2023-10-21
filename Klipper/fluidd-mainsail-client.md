@@ -48,13 +48,13 @@ Plus d'informations [Fluidd-config](https://github.com/fluidd-core/fluidd-config
 
 ### QIDI TECH
 
-La version Qidi de Klipper étant ancienne (basée sur une version 0.10), l'inclusion telle quelle du fichier `client.cfg` empêche
-le bon démarrage de Klipper (`SET_PRINT_STATS_INFO` n'est pas reconnu comme Gcode).
+**La version Qidi de Klipper étant ancienne (basée sur une version 0.10), l'inclusion telle quelle du fichier `client.cfg` empêche
+le bon démarrage de Klipper (`SET_PRINT_STATS_INFO` n'est pas reconnu comme Gcode)**.
 
 Solution :
 
 1. Ne pas inclure ce fichier
-2. Hacker le fichier client.cfg ( mais ce fichier est en lecture seule: on ne peut donc le modifier via Fluidd ) :
+2. Hacker le fichier client.cfg ( ***ce fichier étant en lecture seule, on ne peut le modifier directement dans Fluidd*** ) :
     - en utilisateur `root` via ssh :
         - Ajouter un dièse ( # ) au début de la ligne `rename_existing` de la macro `SET_PRINT_STATS_INFO`
         ```
