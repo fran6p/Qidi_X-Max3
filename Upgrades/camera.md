@@ -14,15 +14,18 @@ Les pattes de fixation munies de magnets permettent de fixer la Webcam à l'avan
 ![Webcam](../Images/my_webcam.jpg)
 
 Dans Fluidd, on configure de la manière suivante :
-1. Configuration de l'interface web → caméra → ajouter des caméras
-   ![Fluidd](../Images/fluidd-camera-configuration.jpg) 
-2. Activer la caméra → configurer le nom de la caméra → streamtype sélectionner le flux vidéo MJPEG, puis enregistrer, revenir à l'interface principale pour visualiser l'image.
+- Configuration de l'interface web → caméra → ajouter
+   ![Fluidd](../Images/fluidd-camera-configuration.jpg)
+  
+- Activer la caméra → configurer le nom → type de flux sélectionner le flux vidéo MJPEG, enregistrer
    ![Fluidd](../Images/fluidd-camera-configuration-ajout.jpg) 
 
-Et voilà :
-![Fluidd](../Images/fluidd-webcam.jpg)
+- Revenir à l'interface principale pour visualiser l'image.
+   ![Fluidd](../Images/fluidd-webcam.jpg)
 
-L'ajout d'une caméra permet de visualiser celle-ci dans l'interface Web, on peut même ajouter de quoi faire des [timelapses](https://github.com/fran6p/Qidi_X-Max3/blob/main/Upgrades/timelapse.md) 
+L'ajout d'une caméra en plus de permettre de visualiser l'impression dans l'interface Web, autorise de l'enregistrement vidéo en ajoutant de quoi faire des [timelapses](https://github.com/fran6p/Qidi_X-Max3/blob/main/Upgrades/timelapse.md) 
+
+### MISE A JOUR
 
 Depuis mi-octobre 2023, Qidi Tech vend [une caméra](https://qidi3d.com/collections/x-max-3-accessories/products/x-max-3-x-plus-3-x-smart-3-camera)
 adaptée aux modèles de ses séries «3». Elle se place à l'intérieur de la structure, à l'avant droit.
