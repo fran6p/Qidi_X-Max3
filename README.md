@@ -13,7 +13,7 @@ Ce dépôt regroupe une partie des recherches effectuées lors de ce test.
   - [récupérer de la place](./OS/recuperer-place.md) sur la mémoire de stockage
   - [versions des éléments de base](./OS/git-klipper-moonraker.md)
   - liste des [paquets installés](./OS/paquets-installes.md)
-  - incohérences d'attribution des [droits utilisateurs](droits-utilisateur.md)
+  - incohérences d'attribution des [droits utilisateurs](./OS/droits-utilisateur.md)
   - …
 - le répertoire ***Klipper*** concerne les fichiers de configuration du firmware Klipper :
     - le sous-répertoire *QidiConfigurations* regroupe les [fichiers originaux de Qidi Tech](./Klipper/QidiConfigurations.md)
