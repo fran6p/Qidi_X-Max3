@@ -5,7 +5,8 @@ Si l'on mettait à jour Klipper (v0.11+), il faudrait reflasher les différents 
 
 Sinon après démarrage, Klipper le signalerait et tant que cela n'aurait pas été fait, l'imprimante ne serait plus fonctionnelle.
 
-    Message d'erreur : « ***version mismatch : one of your mcu versions is outdated*** » (incompatibilité de version : une des versions des mcu est obsolète)
+    Message d'erreur : « version mismatch : one of your mcu versions is outdated »
+    (incompatibilité de version : une des versions des mcu est obsolète)
 
 Il faudrait compiler trois firmwares (on peut utiliser KIAUH installé sur lesystème pour se faciliter le travail ou aller consulter la [documentation](https://www.klipper3d.org/fr/Installation.html#compilation-et-flashage-du-micro-controleur):
 1. un pour le MCU (STM32F402),
