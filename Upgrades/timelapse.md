@@ -50,7 +50,7 @@ drwxr-xr-x 8 mks mks  4096 Aug 21 11:42 ..
 -rw-r--r-- 1 mks mks 22348 Aug 21 11:42 timelapse.cfg
 mks@mkspi:~/moonraker-timelapse$
 ```
-3. Créer des liens symboliques pour le fichier Python et le fichier de configuration, plutôt que copier ces fichiers dans ~/moonraker/components et ~/klipper_config (*en procédant ainsi ces fcihers seront toujours à jour même après mise à jour du dépôt "moonraker-timelapse"*) :
+3. Créer des liens symboliques pour le fichier Python et le fichier de configuration, plutôt que copier ces fichiers dans ~/moonraker/components et ~/klipper_config (*en procédant ainsi ces fichiers seront toujours à jour même après mise à jour du dépôt "moonraker-timelapse"*) :
 
 ```
 mks@mkspi:~/moonraker-timelapse$ ln -sf "/home/mks/moonraker-timelapse/component/timelapse.py" "/home/mks/moonraker/moonraker/components/timelapse.py"
@@ -136,7 +136,7 @@ Ces paramètres pourraient ne pas être dans cette section, pour les modifier al
 **IMPORTANT**:
 
 L'espace disponible sur l'eMMC de 8 Go est très limité (≃ 512 Mo), il serait judicieux soit 
- - de [remplacer l'EMMC](https://github.com/fran6p/Qidi_X-Max3/blob/main/Upgrades/remplacer%20eMMC%208Go%20par%20une%20de%20capacit%C3%A9%20plus%20grande%20(16Go).md) par une de taille plus grande (16, 32 Go)
+ - de [remplacer l'EMMC](./remplacer_eMMC.md) par une de taille plus grande (16, 32 Go)
  - faire le ménage dans les paquets installés ( `sudo apt clean` est un bon début :smirk: )
  - monter une clé USB pour servir de stockage et indiquer dans la section [virtual_sdcard] du printer.cfg son point de montage
 
