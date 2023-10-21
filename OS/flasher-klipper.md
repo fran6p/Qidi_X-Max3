@@ -16,7 +16,7 @@ Il faudrait compiler trois firmwares (on peut utiliser KIAUH installé sur le sy
 
 Et ensuite les flasher chacun en utilisant un processus différent :
 
-- le MCU (1) nécessite l'utilisation de la carte SD sur la carte contrôleur [voir ici](https://www.klipper3d.org/fr/SDCard_Updates.html#mises-a-jour-via-la-carte-sd),
+- le MCU (1) nécessite l'utilisation de la carte SD sur la carte contrôleur [voir ici](https://www.klipper3d.org/fr/SDCard_Updates.html#mises-a-jour-via-la-carte-sd), même s'îl doit être possible de mettre à jour via un `make flash …` (le firmware étant déjà installé),
 - la mise à jour du «Pi» (3) est la plus facile et peut être faite sous Linux [voir ici](https://www.klipper3d.org/fr/RPi_microcontroller.html#microcontroleur-rpi)..
 - mettre à jour la tête d'impression (2) [voir ici](https://github.com/Esoterical/voron_canbus/tree/main/toolhead_flashing#if-you-dont-have-canboot-installed)
     - presser physiquement sur le bouton de démarrage (boot) de la tête d'impression au démarrage de l'imprimante
