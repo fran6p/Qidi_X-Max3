@@ -30,5 +30,22 @@ Cliquer le bouton [RAW] pour ouvrir le fichier «plein texte», puis clic droit 
 
 ![Save as](../Images/gh-raw-save-as.jpg)
 
+### IMPORTANT
+
+Les fichiers, dossiers doivent tous appartenir à l'utilisateur `mks`
+
+```
+cd ~/klipper_config
+sudo chown -R mks:mks *
+```
+
+Si des scripts sont utilisés, idem que ci-dessus et les rendre exécutables
+
+```
+cd ~/klipper_config/scripts
+sudo chown mks:mks *
+chmod +x *
+```
+
 :smirk:
 
