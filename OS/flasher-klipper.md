@@ -8,7 +8,7 @@ Sinon après démarrage, Klipper le signalerait et tant que cela n'aurait pas é
     Message d'erreur : « version mismatch : one of your mcu versions is outdated »
     (incompatibilité de version : une des versions des mcu est obsolète)
 
-Il faudrait compiler trois firmwares (on peut utiliser KIAUH installé sur le système ou aller consulter la [documentation](https://www.klipper3d.org/fr/Installation.html#compilation-et-flashage-du-micro-controleur) :
+Il faudrait compiler trois firmwares (on peut utiliser KIAUH installé sur le système ou aller consulter la [documentation](https://www.klipper3d.org/fr/Installation.html#compilation-et-flashage-du-micro-controleur) ) :
 
 1. un pour le MCU (STM32F402),
 2. un pour la carte de la tête d'impression (RP2040) et
