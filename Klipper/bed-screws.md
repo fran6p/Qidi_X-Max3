@@ -2,7 +2,7 @@
 
 D'origne, le lit d'impression est plutôt bien réglé en sortie d'usine (en tout cas pour mon imprimante).
 
-Au cas ou il faille régler le parallélisme du plateau par rapport aux axes X/Y, la X Max 3 utilisant une sonde de palpage (Bltouch ou Inductif), ce réglage peut être facilité.
+Au cas où il faille régler le parallélisme du plateau par rapport aux axes X/Y, la X Max 3 utilisant une sonde de palpage (Bltouch ou Inductif), ce réglage peut être facilité.
 
 La [section suivante](https://www.klipper3d.org/fr/Config_Reference.html#bed_screws) (**à ajouter dans le printer.cfg**) permet
 d'utiliser un Gcode étendu `BED_SCREWS_ADJUST`
