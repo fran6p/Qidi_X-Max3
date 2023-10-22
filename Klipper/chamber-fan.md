@@ -14,7 +14,7 @@ scale: 255
 shutdown_value: 0.0
 ```
 
-La surveillacne de la température (**à ajouter dans le printer.cfg**) s'effectue à l'aide de cette section :
+La surveillance de la température (**à ajouter dans le printer.cfg**) s'effectue à l'aide de cette section :
 ```
 [temperature_fan chamber] #fan3
 pin: PC9
@@ -39,7 +39,7 @@ min_speed: 0.0
 gcode_id: chamber #hot
 ```
 
-Le chauffage de l'enceinte est réglé via la section `[heater_generic …]` [documentation Klipper](https://www.klipper3d.org/fr/Config_Reference.html#heater_generic).
+Le chauffage de l'enceinte est réglé via la section `[heater_generic …]` ([documentation Klipper](https://www.klipper3d.org/fr/Config_Reference.html#heater_generic)).
 ```
 [heater_generic chamber]
 #[heater_generic hot] ; Qidi
