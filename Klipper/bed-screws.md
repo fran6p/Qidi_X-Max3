@@ -23,7 +23,8 @@ screw4_name: ArriereGauche
 
 La [section suivante](https://www.klipper3d.org/fr/Config_Reference.html#screws_tilt_adjust) (**à ajouter dans le printer.cfg**) permet
 d'utiliser la sonde pour indiquer les réglages à faire afin de niveler le plateau via un Gcode étendu `SCREWS_TILT_CALCULATE`
-[screws_tilt_adjust]
+[screws_tilt_adjust].
+```
 # BLT (à droite/devant la buse : 28 / 4,4 )
 # x=> -28, y=> +4.4
 screw1: 9,41.4
