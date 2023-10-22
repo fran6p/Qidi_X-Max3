@@ -58,12 +58,12 @@ min_temp: -100
 max_temp: 70
 ```
 
-La section `[temperature_fan chamber]` utilise des broches déjà définies (PA1, PC9) dans les sections `[output_pin fan3] et [heater_generic chamber]`. La section suivante (**à ajouter dans le printer.cfg**) permet d'éviter l'affichage d'une erreur :
+La section `[temperature_fan chamber]` utilise des broches déjà définies (PA1, PC9) dans les sections `[output_pin fan3] et [heater_generic chamber]`. La [section suivante](https://www.klipper3d.org/fr/Config_Reference.html#duplicate_pin_override) (**à ajouter dans le printer.cfg**) permet d'éviter l'affichage d'une erreur :
 ```
 [duplicate_pin_override]
 pins: PA1,PC9
 ```
 
-Après redémarrage de Klipper, une nouvelle ligne s'affiche dans la section Températures de Fluidd :
+Après redémarrage de Klipper, une nouvelle ligne s'affiche dans la section «**Température**» de Fluidd :
 ![Ventilateur de l'enceinte](../Images/fluidd-températures-chamber.jpg)
 
