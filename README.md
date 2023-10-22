@@ -28,5 +28,8 @@ Ce dépôt regroupe une partie des recherches effectuées lors de ce test.
     - afficher les [températures](./Upgrades/afficher-temperatures-mcu-rk3328.md) du processeur (RK3328) et du contrôleur (STM32) dans l'interface Fluidd
     - [remplacer l'eMMC](./Upgrades/remplacer_eMMC.md) originelle par une de plus grande capacité
     - …
+- le répertoire ***Trancheur*** concerne le trancheur QidiSlicer, dérivé de PrusaSlicer :
+    - prendre en compte la chauffe de l' [enceinte](./Trancheur/M141.md)
+    - …
 
 :smiley:
