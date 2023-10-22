@@ -14,7 +14,7 @@ scale: 255
 shutdown_value: 0.0
 ```
 
-La surveillacne de la température s'effectue à l'aide de cette section :
+La surveillacne de la température (**à ajouter dans le printer.cfg**) s'effectue à l'aide de cette section :
 ```
 [temperature_fan chamber] #fan3
 pin: PC9
@@ -58,7 +58,7 @@ min_temp: -100
 max_temp: 70
 ```
 
-La section `[temperature_fan chamber]` utilise des broches déjà définies (PA1, PC9) dans les sections `[output_pin fan3] et [heater_generic chamber]` afin d'éviter l'affichage d'une erreur :
+La section `[temperature_fan chamber]` utilise des broches déjà définies (PA1, PC9) dans les sections `[output_pin fan3] et [heater_generic chamber]`. La section suivante (**à ajouter dans le printer.cfg**) permet d'éviter l'affichage d'une erreur :
 ```
 [duplicate_pin_override]
 pins: PA1,PC9
