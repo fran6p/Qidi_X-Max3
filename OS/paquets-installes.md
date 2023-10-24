@@ -1,5 +1,7 @@
 ## Liste des paquets installés ( :smirk: )
 
+Listing de tous les paquets installés usr le système avec leur version d'installation. Ceux pouvant être mis à jour sont indiqués (…, upgradable to: xx.yy.zz)
+
 <details>
   
 `apt list --installed`
