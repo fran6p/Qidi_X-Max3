@@ -1,13 +1,19 @@
-
 ### Moonraker.conf
 
-Il faut ajouter une section `[power …]` au fichier `moonraker.conf`. Le contenu de cette section dépend du type de prise connectée [documentation](https://moonraker.readthedocs.io/en/latest/configuration/#power)
+Il faut ajouter une section `[power …]` au fichier `moonraker.conf.
+
+Le contenu de cette section dépend du type de prise connectée [documentation](https://moonraker.readthedocs.io/en/latest/configuration/#power)
+
 ```
 ## Gestion prise électrique via Tasmota
 [power Qidi_XMax3]
 type: tasmota
 address: 192.168.1.186
 ```
+
+Cette section une fois ajoutée permet d'obtenir un bouton supplémtnaire dans l'interface Fluidd permettant d'éteindre l'imprimante
+![fluidd-power](../Images/fluidd-power-off.jpg)
+
 ### Macros
 
 Seule la macro `POWER_OFF_PRINTER` est utilisable, la carte Qidi Tech faisant à la fois office d'ordinateur monocarte (Small Board Computer (SBC))
@@ -48,3 +54,4 @@ gcode:
   ```
 </details>
 
+Le fichier est [là](../Klipper/MyConfiguration/macros/HA_power_macros.cfg)
