@@ -1,4 +1,4 @@
-La macros [save_variables.cfg](./MyConfiguration/macros/save_variables.cfg) débute par la section [save_variables]
+La macro [save_variables.cfg](./MyConfiguration/macros/save_variables.cfg) débute par la section [save_variables]
 qui précise le nom complet (chemin d'accès inclus) du fichier où seront enregistrées les variables persistantes.
 
 Qidi Tech ne stocke pas, par exemple, le Zoffset en fin du fichier `printer.cfg` dans la section #*# DO NOT EDIT … mais
