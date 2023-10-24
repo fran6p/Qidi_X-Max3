@@ -6,7 +6,7 @@ Avec mes autres imprimantes fonctionnant sous Klipper, je préfère avoir un `pr
 
 J'ai aussi l'habitude de regrouper les macros additionnelles dans un dossier `macros`.
 
-Le printer.cfg expurgé des macros «Qidi Tech» (configuration matérielle seule) :
+Le [printer.cfg](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/printer.cfg) expurgé des macros «Qidi Tech» (configuration matérielle seule) :
 - corrigé pour n'utiliser que le caractère **« : »** après le nom du paramètre, au lieu du caractère **« = »**, suivi d'un espace afin de séparer le nom du paramètre de sa valeur,
 - suppression de lignes vides
 - ajouts :
@@ -14,20 +14,14 @@ Le printer.cfg expurgé des macros «Qidi Tech» (configuration matérielle seul
     - affichage / réglage du [ventilateur de chauffage de la chambre](../Klipper/chamber-fan.md),
     - modification «cosmétique» pour le nom du chauffage de l'enceinte ( hot => chamber ),
     - … 
-
-<details>
-
-[printer.cfg](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/printer.cfg)
-
- </details>
   
-Les macros Qidi Tech regroupées dans un fichier séparé à inclure `qidi_macros.cfg` (voir au début du fichier printer.cfg, la directive [include macros/qidi_macros.cfg]). Purement esthétique donc absolument indispendable, j'ai réorganisé ces macros en les classant par ordre numérique croissant (Gxx, Mxxx) :
+Les [macros Qidi Tech](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/macros/qidi_macros.cfg) regroupées dans un fichier séparé à inclure (voir au début du fichier printer.cfg, la directive [include macros/qidi_macros.cfg]). Purement esthétique donc absolument indispendable, j'ai réorganisé ces macros en les classant par ordre numérique croissant (Gxx, Mxxx) :
 
 Pour récupérer un fichier individuellement (au cas où) :
 
 <details>
 
-[macros QidiTech](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/macros/qidi_macros.cfg)
+
 
  </details>
  
