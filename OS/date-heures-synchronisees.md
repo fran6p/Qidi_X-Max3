@@ -13,7 +13,7 @@ Deux sytèmes sont activés et entrent en conflits pour synchroniser heure  / da
 
 Ayant plus d'affinités avec chrony, on va désactiver le daemon `systemd-timesync`
 
-```python
+```bash
 systemctl status systemd-timesyncd
 systemctl stop systemd-timesyncd
 systemctl disable --now systemd-timesyncd.service
@@ -21,7 +21,7 @@ systemctl status systemd-timesyncd
 ```
 
 Activer après configuration de son fichier de configuration, le daemon `chrony`
-```python
+```javascript
 cat /etc/chrony/chrony.conf
 sudo nano /etc/chrony/chrony.conf
 sudo systemctl restart chronyd
