@@ -11,17 +11,19 @@ type: tasmota
 address: 192.168.1.186
 ```
 
-Cette section une fois ajoutée permet d'obtenir un bouton supplémtnaire dans l'interface Fluidd permettant d'éteindre l'imprimante
+Cette section une fois ajoutée permet d'obtenir un bouton supplémentaire dans l'interface Fluidd permettant d'éteindre l'imprimante
+
 ![fluidd-power](../Images/fluidd-power-off.jpg)
 
 ### Macros
 
 Seule la macro `POWER_OFF_PRINTER` est utilisable, la carte Qidi Tech faisant à la fois office d'ordinateur monocarte (Small Board Computer (SBC))
-et de carte pilotant le matériel, après extinction, on ne peut plus piloter la prise connectée.
+et de carte pilotant le matériel, après extinction, on ne peut plus piloter la prise connectée via la carte.
 
 L'imprimante s'éteint automatiquement après un délai d'inactivité de 15 minutes.
 
 <details>
+  
   ```
 #=====================================================
 # Power Operations / HA Plug
@@ -50,8 +52,8 @@ gcode:
   M84 ; disable steppers
   TURN_OFF_HEATERS
   UPDATE_DELAYED_GCODE ID=delayed_printer_off DURATION=900
-  
   ```
+
 </details>
 
 Le fichier est [là](../Klipper/MyConfiguration/macros/HA_power_macros.cfg)
