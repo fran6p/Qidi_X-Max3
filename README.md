@@ -1,6 +1,6 @@
 ![QIDI X-Max 3](./Images/X-MAX3-le-test.jpg)
 
-Notes et recherches collectées lors du test de l'imprimante Qidi Tech X-max 3 pour le forum français **lesimprimantes3d.fr** :
+Notes et recherches collectées lors du test de l'imprimante Qidi Tech X-max 3 pour le site français **[lesimprimantes3d.fr](http://www.lesimprimantes3d.fr)** :
 
 - mon parcours lors de [sa découverte](https://www.lesimprimantes3d.fr/forum/topic/54298-la-qidi-tech-x-max-3-revue-d%C3%A9taill%C3%A9e/)
 - puis [son test final](https://www.lesimprimantes3d.fr/test-qidi-x-max-3-20231010/)
