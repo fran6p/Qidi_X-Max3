@@ -1,6 +1,6 @@
 ## Liste des paquets installés ( :smirk: )
 
-Listing de tous les paquets installés usr le système avec leur version d'installation. Ceux pouvant être mis à jour sont indiqués (…, upgradable to: xx.yy.zz)
+Listing de tous les paquets installés sur le système avec leur version d'installation. Ceux pouvant être mis à jour sont indiqués (…, upgradable to: xx.yy.zz)
 
 <details>
   
@@ -1356,3 +1356,4 @@ zsh/oldoldstable,oldstable,now 5.7.1-1+deb10u1 arm64 [installed,automatic]
     
 </details>    
 
+Consulter également [ce document](./recupere-place.md) pour connaitre la taille occupée par chacun et si un paquet nécessite une (des) dépendance(s).
