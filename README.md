@@ -1,4 +1,4 @@
-# Qidi_X-Max3
+![QIDI X-Max 3](./Images/X-MAX3-le-test.jpg)
 
 Notes et recherches collectées lors du test de l'imprimante Qidi Tech X-max 3 pour le forum français **lesimprimantes3d.fr** :
 
