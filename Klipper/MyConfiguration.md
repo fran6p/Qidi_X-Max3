@@ -23,12 +23,16 @@ Le printer.cfg expurgé des macros «Qidi Tech» (configuration matérielle seul
   
 Les macros Qidi Tech regroupées dans un fichier séparé à inclure `qidi_macros.cfg` (voir au début du fichier printer.cfg, la directive [include macros/qidi_macros.cfg]). Purement esthétique donc absolument indispendable, j'ai réorganisé ces macros en les classant par ordre numérique croissant (Gxx, Mxxx) :
 
+Pour récupérer un fichier individuellement (au cas où) :
+
 <details>
 
 [macros QidiTech](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/macros/qidi_macros.cfg)
 
  </details>
  
+<details>
+
 ---
 Cliquer le bouton [RAW] pour ouvrir le fichier «plein texte», puis clic droit pour enregistrer le fichier ou sélectionner une partie (la totalité) du contenu, CTRL+C pour le copier / coller à un autre endroit.
 
@@ -57,5 +61,7 @@ sudo chown mks:mks *
 chmod +x *
 ```
 
-:smirk:
+</details>
+
+Les [macros additionnelles](./macros-additionnelles.md) dont on peut se passer ***mais ce serait dommage*** :smirk:
 
