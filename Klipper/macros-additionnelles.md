@@ -52,7 +52,7 @@ Mises à l'origine uniquement si les axes n'y sont pas déjà
 [include macros/homing_alternate.cfg]
 ```
 
-Utilisant pour la domotique HomeAssistant, mes prises électriques avec firmware Tasmota peuvent être gérées via Moonraker et quelques macros [voir ce document](./ha.md).
+Utilisant pour la domotique HomeAssistant, mes prises électriques avec firmware Tasmota peuvent être gérées via Moonraker et quelques macros [voir ce document](../Upgrades/ha.md).
 ```
 #       SHUTDOWN / REBOOT      #
 [include macros/HA_power_macros.cfg]
