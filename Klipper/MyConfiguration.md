@@ -18,12 +18,6 @@ Le [printer.cfg](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfi
 Les [macros Qidi Tech](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/macros/qidi_macros.cfg) regroupées dans un fichier séparé à inclure (voir au début du fichier printer.cfg, la directive [include macros/qidi_macros.cfg]). Purement esthétique donc absolument indispendable, j'ai réorganisé ces macros en les classant par ordre numérique croissant (Gxx, Mxxx) :
 
 Pour récupérer un fichier individuellement (au cas où) :
-
-<details>
-
-
-
- </details>
  
 <details>
 
@@ -38,7 +32,7 @@ Cliquer le bouton [RAW] pour ouvrir le fichier «plein texte», puis clic droit 
 
 ---
 
-### IMPORTANT
+#### IMPORTANT
 
 Les fichiers, dossiers doivent tous appartenir à l'utilisateur `mks`
 
