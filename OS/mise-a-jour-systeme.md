@@ -23,7 +23,7 @@ Avant toute mise à jour, je sauvegarde via WinSCP:
 - le dossier `~/klipper_config`
 - le dossier caché `~/.moonraker_database`
 
-Je procède ensuite à la mise à jour du système (mi-octobre 2023, V4.3.10) via la clé USB dans laquelle le dossier QD_Update et son contenu ont été copié.
+Je procède ensuite à la mise à jour du système (mi-octobre 2023, V4.3.10) via la clé USB dans laquelle le dossier QD_Update et son contenu ont été copié à la racine de la clé sans nom :smirk: .
 
 Via ssh, en tant qu'utilisateur `mks`, j'arrête les services `moonraker` et `klipper` et fais une copie du nouveau `printer.cfg`
 
@@ -44,3 +44,4 @@ sudo systemctl start klipper
 
 Je cherche les modifications apportées au fichier printer.cfg (diff, Winmerge) et les reporte manuellement dans mon printer.cfg sauvegardé si nécessaire.
 
+:smile:
