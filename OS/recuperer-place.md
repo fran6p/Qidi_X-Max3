@@ -3,15 +3,10 @@ L'image système «Armbian» installée est basée sur une version «Desktop».
 Certains paquets (packages) installés sont inutiles et occupent de la place qui pourrait servir à stocker plus de gcodes ou à installer
 des compléments pour Klipper (OctoEverywhere ou Obico, gestionnaires de macros, …).
 
-Quels paquets ne nécessitent pas de dépendances ?
+Quelle place occupe les paquets installés ?
 
-La commande suivante permet de lister tous les paquets installés n'ayant pas de dépendances :
 ```
-dpkg-query --show --showformat='${Package;-50}\t${Installed-Size}\n' `aptitude --display-format '%p' search '?installed!?automatic'` | sort -k 2 -n | grep -v deinstall | awk '{printf "%.3f MB \t %s\n", $2/(1024), $1}'
-```
-Il suffit d'ajouter `>/tmp/packages-that-no-packages-depends-on.txt` pour récupérer cette liste dans un fichier, ce qui donne :
-```
-dpkg-query --show --showformat='${Package;-50}\t${Installed-Size}\n' `aptitude --display-format '%p' search '?installed!?automatic'` | sort -k 2 -n | grep -v deinstall | awk '{printf "%.3f MB \t %s\n", $2/(1024), $1}>/tmp/packages-that-no-packages-depends-on.txt'
+dpkg-query --show --showformat='${Package;-50}\t${Installed-Size}\n' `aptitude --display-format '%p' search '?installed!?automatic'` | sort -k 2 -n | grep -v deinstall | awk '{printf "%.3f MB \t %s\n", $2/(1024), $1}' >/tmp/largest-installed-packages.txt
 ```
 
 Les paquets listés dans l'ordre de poids croissant : 
@@ -1039,58 +1034,145 @@ Les paquets listés dans l'ordre de poids croissant :
 524.755 MB 	 libnewlib-arm-none-eabi
 </details>
 
-Quelle place occupe les paquets ?
 
-```
-dpkg-query --show --showformat='${Package;-50}\t${Installed-Size}\n' `aptitude --display-format '%p' search '?installed!?automatic'` | sort -k 2 -n | grep -v deinstall | awk '{printf "%.3f MB \t %s\n", $2/(1024), $1}' >/tmp/largest-installed-packages.txt
-```
+Quels paquets ne nécessitent pas de dépendances ?
 
-Un extrait des paquets listés dans l'ordre de poids croissant : 
+La commande suivante permet de lister tous les paquets installés n'ayant pas de dépendances; en ajoutant `>/tmp/packages-that-no-packages-depends-on.txt`, on récupère cette liste dans un fichier, ce qui donne :
+```
+ dpkg-query --show --showformat='${Package}\t${Status}\n' | tac | awk '/installed$/ {print $1}' | xargs apt-cache rdepends --installed | tac | awk '{ if (/^ /) ++deps; else if (!/:$/) { if (!deps) print; deps = 0 } }'
+>/tmp/packages-that-no-packages-depends-on.txt'
+```
 
 <details>
-0.000 MB 	 armbian-config
+armbian-bsp-cli-mkspi
 
-0.000 MB 	 armbian-zsh
+armbian-buster-desktop-xfce
 
-0.000 MB 	 makerbase-client
+armbian-firmware
 
-0.001 MB 	 armbian-bsp-cli-mkspi
+armbian-zsh
 
-0.001 MB 	 armbian-buster-desktop-xfce
+avrdude
 
-0.001 MB 	 armbian-firmware
+chrony
 
-0.001 MB 	 linux-u-boot-mkspi-edge
+cpufrequtils
 
-0.008 MB 	 printer-driver-all
+dfu-util
 
-0.010 MB 	 libboost-all-dev
+dhcpcd5
 
-…
+diffutils
 
-28.179 MB 	 fonts-nanum
+ethtool
 
-28.228 MB 	 binutils-arm-none-eabi
+evtest
 
-30.833 MB 	 libicu63
+f3
 
-34.398 MB 	 git
+fake-hwclock
 
-35.333 MB 	 unicode-data
+fbset
 
-41.216 MB 	 avr-libc
+gzip
 
-47.330 MB 	 numix-icon-theme
+haveged
 
-68.302 MB 	 gcc-avr
+hdparm
 
-89.584 MB 	 linux-image-edge-rockchip64
+hostname
 
-183.311 MB 	 libgl1-mesa-dri
+htop
 
-473.239 MB 	 gcc-arm-none-eabi
+i2c-tools
 
-524.755 MB 	 libnewlib-arm-none-eabi
+ifenslave
+
+iotop
+
+iozone3
+
+iputils-arping
+
+iputils-ping
+
+libboost-all-dev
+
+libcairo2-dev
+
+libcurl4-openssl-dev
+
+libdbus-1-dev
+
+libgirepository1.0-dev
+
+liblmdb-dev
+
+libncurses-dev
+
+libnl-genl-3-dev
+
+libnss-myhostname
+
+libproc-processtable-perl
+
+libsodium-dev
+
+libv4l-dev
+
+libwebsocketpp-dev
+
+libwebsocketpp-doc
+
+libwrap0-dev
+
+linux-dtb-edge-rockchip64
+
+linux-image-edge-rockchip64
+
+linux-u-boot-mkspi-edge
+
+lshw
+
+makerbase-client
+
+matchbox-keyboard
+
+mmc-utils
+
+nano
+
+netcat-openbsd
+
+netplan.io
+
+nlohmann-json3-dev
+
+perl-openssl-defaults
+
+python3-libgpiod
+
+python3-matplotlib
+
+screen
+
+smartmontools
+
+stm32flash
+
+stress
+
+sysstat
+
+unicode-data
+
+vlan
+
+wireguard-tools
+
+wireless-regdb
+
+xinput
 </details>
 
 Quelques paquets candidats à suppression :
