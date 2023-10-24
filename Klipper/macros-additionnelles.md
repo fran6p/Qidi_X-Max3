@@ -99,3 +99,5 @@ Ne palper le plateau qu'en fonction de la pièce imprimée [KAMP](./kamp.md)
 # Klipper Adaptative Mesh Purge #
 [include Adaptive_Mesh.cfg]
 ```
+
+Pour en apprendre plus sur les macros, je recommande chaudement la lecture de [ce guide](https://github.com/rootiest/zippy_guides/blob/main/guides/macros.md)
