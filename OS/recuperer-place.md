@@ -16,9 +16,10 @@ dpkg-query --show --showformat='${Package;-50}\t${Installed-Size}\n' `aptitude -
 
 Les paquets listés dans l'ordre de poids croissant : 
 <details>
-    0.000 MB 	 armbian-config
+0.000 MB 	 armbian-config
+
 0.000 MB 	 armbian-zsh
-    
+
 0.000 MB 	 makerbase-client
 
 0.001 MB 	 armbian-bsp-cli-mkspi
@@ -1048,28 +1049,47 @@ Un extrait des paquets listés dans l'ordre de poids croissant :
 
 <details>
 0.000 MB 	 armbian-config
+
 0.000 MB 	 armbian-zsh
+
 0.000 MB 	 makerbase-client
+
 0.001 MB 	 armbian-bsp-cli-mkspi
+
 0.001 MB 	 armbian-buster-desktop-xfce
+
 0.001 MB 	 armbian-firmware
+
 0.001 MB 	 linux-u-boot-mkspi-edge
+
 0.008 MB 	 printer-driver-all
+
 0.010 MB 	 libboost-all-dev
 
 …
 
 28.179 MB 	 fonts-nanum
+
 28.228 MB 	 binutils-arm-none-eabi
+
 30.833 MB 	 libicu63
+
 34.398 MB 	 git
+
 35.333 MB 	 unicode-data
+
 41.216 MB 	 avr-libc
+
 47.330 MB 	 numix-icon-theme
+
 68.302 MB 	 gcc-avr
+
 89.584 MB 	 linux-image-edge-rockchip64
+
 183.311 MB 	 libgl1-mesa-dri
+
 473.239 MB 	 gcc-arm-none-eabi
+
 524.755 MB 	 libnewlib-arm-none-eabi
 </details>
 
