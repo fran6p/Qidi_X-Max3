@@ -13,7 +13,7 @@ Deux sytèmes sont activés et entrent en conflits pour synchroniser heure  / da
 
 Ayant plus d'affinités avec chrony, on va désactiver le daemon `systemd-timesync`
 
-```bash
+```javascript
 systemctl status systemd-timesyncd
 systemctl stop systemd-timesyncd
 systemctl disable --now systemd-timesyncd.service
