@@ -6,7 +6,7 @@ Listing de tous les paquets installés sur le système avec leur version d'insta
   
 `apt list --installed`
 
-```
+```bash
 Listing...
 acl/oldoldstable,now 2.2.53-4 arm64 [installed,automatic]
 adduser/oldoldstable,oldoldstable,now 3.118 all [installed]
