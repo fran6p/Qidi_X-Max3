@@ -1,6 +1,6 @@
 ### Moonraker.conf
 
-Il faut ajouter une section `[power …]` au fichier `moonraker.conf.
+Il faut ajouter une section `[power …]` au fichier `moonraker.conf`.
 
 Le contenu de cette section dépend du type de prise connectée [documentation](https://moonraker.readthedocs.io/en/latest/configuration/#power)
 
