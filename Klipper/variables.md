@@ -8,6 +8,7 @@ de l'imprimante 🙁
 Avec cette macro, la valeur du Zoffset est également préservée dans le fichier `variables.cfg`
 
 <details>
+  
 ```
 # Useful parameters and macros
 [save_variables]
@@ -41,7 +42,8 @@ gcode:
     _SET_GCODE_OFFSET {% for axis, offset in zoffset.items() if zoffset[axis] %}{ "%s=%s " % (axis, offset) }{% endfor %}
     { action_respond_info("Z-Offset loaded from variables.cfg file: %s" % (zoffset)) }
   {% endif %}
-```  
+```
+
 </details>
 
 D'autres macros pourront utiliser le fichier `variables.cfg` pour y enregistrer leurs valeurs.
