@@ -5,7 +5,7 @@ Qidi Tech ne stocke pas, par exemple, le Zoffset en fin du fichier `printer.cfg`
 dans le fichier de configuration de l'écran `config.mksini` dans la section [babystep]. Ce réglage doit être réalisé uniquement via l'écran 
 de l'imprimante 🙁
 
-Avec cette macro, le Zoffset est également préservé dans le fichier `variables.cfg`
+Avec cette macro, la valeur du Zoffset est également préservée dans le fichier `variables.cfg`
 
 <details>
 ```
@@ -44,3 +44,4 @@ gcode:
 ```  
 </details>
 
+D'autres macros pourront utiliser le fichier `variables.cfg` pour y enregistrer leurs valeurs.
