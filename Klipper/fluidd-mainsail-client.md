@@ -169,6 +169,8 @@ Et quelques directives, elles aussi indispensables :
 - [display_status]
 - [respond]
 
+***NOTE:*** il faut que le printer.cfg comporte une section [virtual_sdcard] avec un chemin d'accès différent pour les QidiTech ( `path: ~/gcode_files` (au format de l'ancienne version de moonraker).
+
 <details>
 
 ```
