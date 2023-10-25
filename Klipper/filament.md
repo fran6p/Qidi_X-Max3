@@ -1,6 +1,6 @@
 ### Gestion du filament
 
-Deux macros permettant d'acitver et désactiver le détecteur de fin de filament
+Deux macros permettant d'activer et désactiver le détecteur de fin de filament
 ```
 [gcode_macro _DISABLE_FS]
 description: disables filament sensor that might trigger an M600 in the middle of a load/unload/M600...
@@ -11,6 +11,7 @@ gcode:
 description: enables filament sensor
 gcode:
     SET_FILAMENT_SENSOR SENSOR=fila ENABLE=1
+```
 
 ```
 [gcode_macro UNLOAD_FILAMENT]
