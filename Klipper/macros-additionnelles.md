@@ -46,7 +46,7 @@ Klipper n'utilise pas d'origine pas tous les [Gcodes](https://www.klipper3d.org/
 #[include macros/marlin_macros.cfg]
 ```
 
-[Mises à l'origine](./homing+alt.md) uniquement si les axes n'y sont pas déjà
+[Mises à l'origine](./homing-alt.md) uniquement si les axes n'y sont pas déjà
 ```
 #            HOMING            #
 [include macros/homing_alternate.cfg]
