@@ -44,3 +44,26 @@ gcode:
   SAVE_CONFIG
  
 ```
+
+Qidi Tech dans ses macros fourni un `M303`
+
+```
+[gcode_macro M303]
+gcode:
+  {% if params.E is defined %}
+    {% if params.S is defined %}
+      {% if (params.E|int)==-1 %} 
+        PID_CALIBRATE HEATER=heater_bed TARGET={params.S|int}
+      {% endif %}
+      {% if (params.E|int)==0 %}
+        PID_CALIBRATE HEATER=extruder TARGET={params.S|int}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+```
+
+On peut réaliser l'étalonnage des PID via :
+- `M303 E0 S250` (pour la tête à 250°C)
+- `M303 E-1 S85` (pour le lit chauffant à 85°C)
+
+
