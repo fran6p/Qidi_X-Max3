@@ -15,6 +15,7 @@ Qidi dans ses macros utilise plusieurs macros lors du nivellement ( `G29`, `G30`
     {% endif %}
     ```
 - G31 et G32 : active/désactive le mode KAMP de la macro G29 (par défaut activé => k=1)
+
    G30 : effectue un nivellement «classique» (tout le plateau) après avoir effacé celui enregistré
     ```
     [gcode_macro G30]
