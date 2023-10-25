@@ -1,6 +1,6 @@
 ### Gestion du filament
 
-Deux macros permettant d'activer et désactiver le détecteur de fin de filament
+1. Deux macros permettant d'activer et désactiver le détecteur de fin de filament
 ```
 [gcode_macro _DISABLE_FS]
 description: disables filament sensor that might trigger an M600 in the middle of a load/unload/M600...
@@ -13,7 +13,7 @@ gcode:
     SET_FILAMENT_SENSOR SENSOR=fila ENABLE=1
 ```
 
-#### Aide au déchargement du filament
+2. Aide au déchargement du filament
 
 Utilise la macro M603 de Qidi Tech (correspond à l'écran au déchargement du filament) qui «forme» la pointe du filament
 en extrudant d'abord une petite quantié puis en extrayant le filament juste au-dessus des deux roues dentées d'entrainement
@@ -42,7 +42,7 @@ gcode:
   {% endif %}
 ```
 
-Une fois le filament réinséré, permet de purger autant que nécessaire le filament (50mm par défaut).
+3. Une fois le filament réinséré, permet de purger autant que nécessaire le filament (50mm par défaut).
 ``` 
 [gcode_macro PURGE_FILAMENT]
 description: Extrudes filament, used to clean out previous filament
@@ -58,7 +58,7 @@ gcode:
   {% endif %}
 ```
 
-Macro minimale permettant le changement de couleur (M600 à insérer via le trancheur) :
+4. Macro minimale permettant le changement de couleur (M600 à insérer via le trancheur) :
 - vérifie que l'extrudeur est en capacité d'extruder du filament (température ⩾ 180°C)
 - met en pause (parque la tête via la macro PAUSE, cf. client.cfg)
 - désactive le détecteur de filament
@@ -77,7 +77,7 @@ gcode:
   {% endif %}
 ```
 
-Appelle la macro PAUSE du client.cfg (Fluidd / Mainsail) et modifie le délai d'attente à 30 minutes
+5. Appelle la macro PAUSE du client.cfg (Fluidd / Mainsail) et modifie le délai d'attente à 30 minutes
 ```
 [gcode_macro PAUSE_MACRO]
 description: Pauses Print
