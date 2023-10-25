@@ -2,7 +2,7 @@
 
 Fluidd et Mainsail fournissent un fichier client regroupant des macros G-code étendu indispensables au bon fonctionnement de Klipper.
 
-Ces trois macros sont également présentes dans le fichier `printer.cfg` de la X-Max 3 sous une forme différente :
+Les trois macros ci-dessous sont également présentes dans les macros du fichier `printer.cfg` de la X-Max 3 sous une forme différente :
 
 - CANCEL_PRINT
 - PAUSE
