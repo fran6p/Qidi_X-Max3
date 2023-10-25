@@ -81,6 +81,7 @@ gcode:
 ```
 
 </details>
+
 Quelques macros facilitant la mise en pause de l'impression et l'obtention de statistiques :
 
 - SET_PAUSE_NEXT_LAYER
