@@ -39,14 +39,14 @@ Les macros Qidi Tech et les paramètres système de la platine de tête (déjà 
 #[include MKS_THR.cfg]
 ```
 
-Klipper ne gère d'origne pas tous les Gcodes Marlin => création de macros pour les ajouter.
+Klipper n'utilise pas d'origine pas tous les [Gcodes](https://www.klipper3d.org/fr/G-Codes.html#g-codes) Marlin mais fait un usage intensif de Gcodes étendus => création de macros pour en reproduire quelques uns [marlin](./marlin.md).
 ```
 #        MARLIN G-CODE         #
 #[include macros/heater_override.cfg]
 #[include macros/marlin_macros.cfg]
 ```
 
-Mises à l'origine uniquement si les axes n'y sont pas déjà
+[Mises à l'origine](./homing+alt.md) uniquement si les axes n'y sont pas déjà
 ```
 #            HOMING            #
 [include macros/homing_alternate.cfg]
