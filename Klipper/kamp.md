@@ -262,3 +262,7 @@ gcode:
     SET_GCODE_VARIABLE MACRO=LINE_PURGE  VARIABLE=y_default     VALUE={params.Y_DEFAULT|default(10)|float}
     SET_GCODE_VARIABLE MACRO=LINE_PURGE  VARIABLE=distance_to_object_y     VALUE={params.DISTANCE_TO_OBJECT_Y|default(10)|float}
 ```
+
+**A NOTER:**
+Le Gcode de démarrage de QidiSlicer réalise une ligne de purge. On pourrait commenter les lignes de Gcode qui le font et utiliser à la place
+la macro LINE_PURGE de KAMP :smirk:
