@@ -35,7 +35,10 @@ Qidi dans ses macros utilise plusieurs macros lors du nivellement ( `G29`, `G30`
 Le réglage du mode KAMP dépend de l'activation ou pas de la case à cocher sur l'écran quand on demande une impression.
 Par défaut, le Gcode de démarrage du trancheur QidiSlicer utilise systématiquement un G29 pour lequel KAMP est activé.
 
-Le contenu de Adaptive_Mesh.cfg :      
+Le contenu de Adaptive_Mesh.cfg :
+
+<details>
+    
 ```
 # # # Klipper Adaptive Meshing # # #
 
@@ -262,6 +265,8 @@ gcode:
     SET_GCODE_VARIABLE MACRO=LINE_PURGE  VARIABLE=y_default     VALUE={params.Y_DEFAULT|default(10)|float}
     SET_GCODE_VARIABLE MACRO=LINE_PURGE  VARIABLE=distance_to_object_y     VALUE={params.DISTANCE_TO_OBJECT_Y|default(10)|float}
 ```
+
+</details>
 
 **A NOTER:**
 Le Gcode de démarrage de QidiSlicer réalise une ligne de purge. On pourrait commenter les lignes de Gcode qui le font et utiliser à la place
