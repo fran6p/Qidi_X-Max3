@@ -1,4 +1,4 @@
-Macros facilitant la calibration des PIDs de la tête et du lit chauffant
+Macros facilitant la calibration des PIDs de la tête (**PID_EXTRUDER**) et du lit chauffant (**PID_BED**)
 
 Chacune des macros peut être appelée sans paramètre additionnel mais on peut toutefois préciser la température ciblée
 
