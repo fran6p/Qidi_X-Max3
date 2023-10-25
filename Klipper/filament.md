@@ -86,3 +86,14 @@ gcode:
     SET_IDLE_TIMEOUT TIMEOUT={ 30 * 60 }  # 30 minutes
 ```
 
+On peut également mettre en pause une impression pour changer le filament via les macros Qidi Tech (**M0** et **M25**)
+```
+[gcode_macro M0]
+gcode:
+  PAUSE
+
+[gcode_macro M25]
+rename_existing: M9925
+gcode:
+  PAUSE
+```
