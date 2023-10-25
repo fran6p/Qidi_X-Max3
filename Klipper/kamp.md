@@ -3,7 +3,7 @@
 Modifie le Gcode étendu `BED_MESH_CALIBRATE` afin de ne palper le plateau qu'aux dimensions de la pièce imprimée.
 
 Qidi dans ses macros utilise plusieurs macros lors du nivellement ( `G29`, `G30`, `G31`, `G32` )
-- G29 par défaut effectue un nivellement partiel (uniquement aux dimensions de la pièce), le profil peut être sauvegardé (inutile car dépend des dimensions de la pièce) sous le nom «kamp»
+- G29 par défaut effectue un nivellement partiel (uniquement aux dimensions de la pièce), le profil peut être sauvegardé (*inutile car dépend des dimensions de la pièce*) sous le nom «kamp»
     ```
     [gcode_macro G29]
     variable_k:1
