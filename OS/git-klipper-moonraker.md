@@ -1,12 +1,12 @@
 # QIDI
 
-Les versions de Moonraker et Klipper sont anciennes et certains fichiers Python ont été modifiés.
+**Les versions de Moonraker et Klipper sont anciennes et certains fichiers Python ont été modifiés**.
+
+    `git` est un outil puissant qui pemret de suivre l'évolution des modifications apportées à un dépôt de fichiers.
 
 ## Moonraker
 
-`git` est un outil puissant qui pemret de suivre l'évolution des modifications apportées à un dépôt de fichiers.
-
-Une commande simple permet d'avoir un aperçu des fichiers ayant été modifiés : `git status`
+En ligne de commande, un simple `git status` permet d'obtenir un aperçu des fichiers ayant été modifiés :
 
 ```
 mks@mkspi:~$ cd moonraker
@@ -33,7 +33,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 mks@mkspi:~/moonraker$
 ```
 
-En utilisant à la suite le modificateur `-vv`, les modifications apparaissent encore plus clairement.
+En utilisant à la suite de la commande précédente le modificateur `-vv`, les modifications apparaissent encore plus clairement.
 
 `git status -vv`
 
