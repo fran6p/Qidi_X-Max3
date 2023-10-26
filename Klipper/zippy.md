@@ -2,6 +2,8 @@
 
 1. [Affichage des coordonnées min/max/actuel de la sonde](./MyConfiguration/macros/zippy/get_probe_limits.cfg)
 
+<details>
+
 ```
 # Macro to calculate the probe min/max/current coordinates
 
@@ -60,7 +62,11 @@ gcode:
     {% endif %}
 ```
 
-2. [test de vitesses](./MyCoinfiguration/macros/zippy/test_speed.cfg)
+</details>
+
+2. [Test de vitesses](./MyCoinfiguration/macros/zippy/test_speed.cfg)
+
+<details>
 
 ```
 # Home, get position, throw around toolhead, home again.
@@ -172,7 +178,11 @@ gcode:
 	RESTORE_GCODE_STATE NAME=TEST_SPEED
 ```
 
+</details>
+
 3. [Tunes](./MyCoinfiguration/macros/zippy/tunes.cfg)
+
+La musique adoucit les moeurs, dit-on :smile:
 
 <details>
   
