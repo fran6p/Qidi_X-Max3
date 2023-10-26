@@ -48,14 +48,14 @@ Je cherche les modifications apportées au fichier printer.cfg (diff, Winmerge) 
 
 L'archive QD_Update.zip (version 4.3.8) contient trois fichiers :
 1. `printer.cfg`, le fichier de configuration de l'imprimante regroupant à la fois les paramètres matériels et les macros Qidi
-2. `QD_Max_SOC` (lui même une arhive, 7Zip (et autres logiciels de même fonctionnalité) peut l'ouvrir) contient
+2. `QD_Max_SOC` (lui même une archive que 7Zip (et autres logiciels de même fonctionnalité) peut ouvrir)
 3. `QD_Max3_UI5.0` est le firmware de l'écran tactile, c'est lui qui prend autant de temps à être flashé en mode série
 
 Comme vu plus haut, lors du flashage, le `printer.cfg` est  purement et simplement remplacé par celui de l'archive… ***Rien n'empêche avant la recopie du dossier QD_Update de remplacer le `printer.cfg` par le vôtre*** :smirk:
 
 #### QD_Max_SOC
 
-7zip peut décompresser ce «fichier»: il contient une autre archive `data.tar` que l'on peut aussi décompresser, ce qui donne cette arborescence :
+7zip peut décompresser ce «fichier»: il contient une autre archive `data.tar` qui une fois décompressée donne cette arborescence :
 
 ![qd_max_soc](../Images/qd_update-qd_max_soc-path.jpg)
 
