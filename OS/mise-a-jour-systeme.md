@@ -15,7 +15,7 @@ Quelques constats :
         - compensation de résonances (Input shaping)
 - les paramètres de connexion de l'accès Wifi sont perdus, il faut le reparamétrer (ou utiliser  une connexion Ethernet)
 - l’historique des impressions est remis à zéro
-   - => ce point là est vraiment «pénible» (faire une sauvegarde du dossier caché `.moonraker_database` du répertoire utilisateur `/home/mks` et le recopier après la mise à jour pour remplacer la base remise à zéro).
+   - => ce point là est vraiment «pénible» (faire une sauvegarde du dossier caché `.moonraker_database` du répertoire utilisateur `/home/mks` et le recopier après la mise à jour pour remplacer la base de données de l'historique des impressions qui a été remise à zéro).
 
 ### Comment je procède avant de mettre à jour le système
 
@@ -27,7 +27,7 @@ Je procède ensuite à la mise à jour du système (mi-octobre 2023, V4.3.10) vi
 
 Via ssh, en tant qu'utilisateur `mks`, j'arrête les services `moonraker` et `klipper` et fais une copie du nouveau `printer.cfg`
 
-```bash
+```
 sudo systemctl stop moonraker
 sudo systemctl stop klipper
 cp ~/klipper_config/printer.cfg ~/klipper_config/printer-qidi-v4310.cfg
@@ -37,7 +37,7 @@ Via WinSCP, je recopie le dossier  `~/.moonraker_database` dans le home de mks, 
 
 Via ssh, je relance les services 
 
-```bash
+```
 sudo systemctl start moonraker
 sudo systemctl start klipper
 ```
