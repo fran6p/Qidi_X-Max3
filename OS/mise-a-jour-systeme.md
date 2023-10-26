@@ -258,7 +258,7 @@ KERNEL=="sd[a-z]*", ACTION=="remove",	RUN+="/usr/bin/systemctl --no-block restar
 
 #### /root
 
-Remplace quelques fichiers dans me dossier perso de l'utilisateur `root`
+Remplace quelques fichiers dans le dossier perso de l'utilisateur `root`
 
 ![root](../Images/dossiers-data-tar-root.jpg)
 
