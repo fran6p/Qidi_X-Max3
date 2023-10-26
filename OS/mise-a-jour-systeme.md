@@ -59,6 +59,240 @@ Comme vu plus haut, lors du flashage, le `printer.cfg` est  purement et simpleme
 
 ![qd_max_soc](../Images/qd_update-qd_max_soc-path.jpg)
 
+#### /usr/bin
+
+Contient un script shell d'auto montage de clé USB : `makerbase-automount`
+
+<details>
+
+```
+#!/bin/sh
+#$1 = <dev>
+
+# Default options to use for mounting
+AUTOMOUNT_OPTS='users'
+# Default type to use for mounting
+AUTOMOUNT_TYPE='auto'
+
+# Directory to look for type-specific settings
+confdir=/etc/makerbase-automount.d
+
+# Directory to use as parent media dir for mountpoints
+# mediadir=/media
+mediadir=/home/mks/gcode_files
+
+[ $(id -u) != 0 ] && {
+    echo "This tool requires root permissions"
+    exit 1
+}
+
+log() {
+    echo "$*" | systemd-cat -p ${loglevel:-info} -t "media-automount"
+}
+
+alias debuglog="loglevel=debug log"
+alias errorlog="loglevel=err log"
+
+if ! [ "$1" ]
+then
+    errorlog "missing arguments! a device name must be provided"
+    exit 1
+else
+    dev=/dev/${1##/*/}
+fi
+
+#pwtest:dev中没有对应的块文件显示但是挂载点任然存在的情况
+if ! [ -b /dev/sda1 ] && [ -d /home/mks/gcode_files/sda1 ]
+then
+    mountpoint /home/mks/gcode_files/sda1
+    if [ $?==0 ]
+    then
+        umount /dev/sda1
+        rmdir /home/mks/gcode_files/sda1
+    fi
+fi
+#本来想写循环，但是实际上应该不会有多次插拔情况，直接多执行两次判断就好
+if ! [ -b /dev/sdb1 ] && [ -d /home/mks/gcode_files/sdb1 ]
+then
+    mountpoint /home/mks/gcode_files/sdb1
+    if [ $?==0 ]
+    then
+        umount /dev/sdb1
+        rmdir /home/mks/gcode_files/sdb1
+    fi
+fi
+#pwtest:end
+
+
+# Check if the device exists, if not but mounted, umount it
+if ! [ -b $dev ]
+then
+    if grep /etc/mtab -qe "^$dev"
+    then
+        log "$dev device removed, umounting and cleaning $mediadir"
+        if umount "$dev"
+        then
+            exitcode=0
+        else
+            exitcode=$?
+            errorlog "Error umounting $dev errcode:$exitcode"
+            errorlog "Command was: umount $dev"
+        fi
+    else
+        # prevent it from failing on nonexistent devices and degrading systemctl boot
+        exitcode=0
+        errorlog "device doesn't exist anymore or is not a block device: $dev"
+    fi
+
+    # cleanup
+    for dir in "$mediadir"/*
+    do
+        # Only clean non active mountpoints that have no /etc/fstab entry
+        if [ -d "$dir" ] && ! mountpoint -q "$dir" && awk '$2=="'$dir'"{exit 1}' /etc/fstab; then
+            rmdir "$dir"
+        fi
+    done
+    exit $exitcode
+fi
+
+# Load additional info for the block device
+eval $(blkid -po export $dev)
+
+# Devices with unknown type will be ignored
+if [ -z "$TYPE" ]
+then
+    debuglog "$dev has no known filesystem type, ignoring mount request"
+    exit 0
+fi
+
+# Check /etc/fstab for an entry corresponding to the device
+[ "$UUID" ] && fstab=$(grep /etc/fstab -e "^[^#]*${UUID}") || \
+[ "$LABEL" ] && fstab=$(grep /etc/fstab -e "^[^#]*${LABEL}") || \
+fstab=$(grep /etc/fstab -e "^[ \t]*$dev[ \t]")
+
+# Don't manage devices that are already in fstab
+if [ "$fstab" ]
+then
+    debuglog "$dev already in /etc/fstab, automount won't manage it: ${fstab#\t}"
+    exit 0
+fi
+
+# directory name
+# AUTOMOUNT_DIR="${mediadir}/${LABEL:-${dev##*/}}.$TYPE"
+# AUTOMOUNT_DIR="${mediadir}/${LABEL:-${dev##*/}}"
+AUTOMOUNT_DIR="${mediadir}/${1##*/}"
+
+# Avoid conflicts when multiple devices have the same label
+if [ -e "$AUTOMOUNT_DIR" ] && mountpoint -q "$AUTOMOUNT_DIR"
+then
+    dups=$(find "${AUTOMOUNT_DIR}*" -maxdepth 0 -printf '.' | wc -c)
+    AUTOMOUNT_DIR="${AUTOMOUNT_DIR}_$((dups+1))"
+fi
+
+# Load Filesystem-specific configuration for mounting
+if [ -e "$confdir/$TYPE" ]
+then
+    debuglog "loading configuration for fs type $TYPE"
+    . "$confdir/$TYPE"
+elif [ -e "$confdir/auto" ]
+then
+    . "$confdir/auto"
+fi
+
+
+log "mounting device $dev in $AUTOMOUNT_DIR"
+mkdir -p "$AUTOMOUNT_DIR"
+if mount -t "$AUTOMOUNT_TYPE" -o "$AUTOMOUNT_OPTS" "$dev" "$AUTOMOUNT_DIR"
+then
+    # Notify
+    username="$(ps au | awk '$11 ~ /^xinit/ { print $1; exit }')"
+    [ "$username" ] && DISPLAY=:0 runuser -u "$username" xdg-open "$AUTOMOUNT_DIR"
+    log "Device successfully mounted: $AUTOMOUNT_DIR"
+#    exit 0
+else
+    errorlog "Mount error: $?"
+    errorlog "Command was : mount -t $AUTOMOUNT_TYPE -o $AUTOMOUNT_OPTS $dev $AUTOMOUNT_DIR"
+
+    rmdir "$AUTOMOUNT_DIR"
+#    exit 1
+fi
+```
+  
+</details>
+
+#### /lib/udev/rules.d
+
+Contient deux règles «udev» déclenchant le montage lors de l'insertion d'une clé USB :
+- 60-usbmount.rules
+- 99-makerbase-automount.rules
+
+<details>
+
+***60-usbmount.rules***
+```
+# KERNEL=="sd[a-z]", NAME="%k", SYMLINK+="%k", GROUP="users"
+
+# ACTION=="add", KERNEL=="sd[a-z][0-9]", SYMLINK+="%k", GROUP="users", NAME="%k"
+
+# ACTION=="add", KERNEL=="sd[a-z][0-9]", RUN+="/bin/mkdir -p /home/mks/gcode_files/%k"
+
+# ACTION=="add", KERNEL=="sd[a-z][0-9]", RUN+="/bin/systemd-mount --no-block --collect /dev/%k /home/mks/gcode_files/%k"
+
+# ACTION=="remove", KERNEL=="sd[a-z][0-9]", RUN+="/bin/systemd-umount /home/mks/gcode_files/%k"
+
+# ACTION=="remove", KERNEL=="sd[a-z][0-9]", RUN+="/bin/rm -rf /home/mks/gcode_files/%k"
+
+# mount the device when added
+KERNEL=="sd[a-z]*", ACTION=="add",  	RUN+="/usr/bin/systemctl --no-block restart makerbase-automount@%k.service"
+
+# clean up after device removal
+KERNEL=="sd[a-z]*", ACTION=="remove",	RUN+="/usr/bin/systemctl --no-block restart makerbase-automount@%k.service"
+```
+
+***99-makerbase-automount.rules***
+```
+# none
+```
+
+</details>
+
+#### /root
+
+Remplace quelques fichiers dans me dossier perso de l'utilisateur `root`
+
+![root](../Images/dossiers-data-tar-root.jpg)
+
+#### /home/mks
+
+Écrase en remplaçant certains fichiers du répertoire perso de l'utilisateur `mks` :
+1. `klipper` les modifications apportées par Qidi à Klipper
+2. `moonraker` les modifications apportées par Qidi à Moonraker
+3. `klipper_config` le dossier de configurations de Klipper
+
+##### klipper_config
+
+Remplace la configuration du nivellement adaptatif (en fonction de la taille de l'objet imprimé) `Adaptive_Mesh.cfg` ainsi qu'une sauvegarde de la configuration des paramétres de l'écran `config.mksini.bak`
+
+**NOTE**: ces deux fichiers bien que dans le répertoire perso de «mks» appartiennent à l'utilisateur «root»
+
+##### moonraker
+
+Fichiers Python modifiés par Qidi (diffèrent du Moonraker «officiel») :
+- `klippy_apis.py`
+- `machine.py`
+- `components/metadata.py`
+- `components/update_manager/update_manager.py`
+
+##### klipper/klippy
+
+Fichiers Python modifiés par Qidi (diffèrent du Klipper «officiel») :
+- `gcode.py`
+- `klippy.py`
+- `mcu.py`
+- `extras/force_move.py`
+- `extras/probe.py`
+- `extras/rpi_temperature.py`
+- `extras/x_twist_compensation.py`
 
 
 :smile:
