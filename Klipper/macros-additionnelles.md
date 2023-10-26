@@ -19,6 +19,7 @@ L'utilisateur [@frix-x](https://github.com/Frix-x/klippain) fournit un jeu de ma
 ```
 
 L'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) fournit un jeu de macros apportant tout un tas de possibilités. Je détaille celles que j'utilise dans ce [document](./zippy.md).
+
 ```
 #       ZIPPY (rootiest)       #
 #[include macros/zippy/bed_leveling.cfg]
@@ -32,6 +33,7 @@ L'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) four
 ```
 
 Les macros Qidi Tech et les paramètres système de la platine de tête (déjà inclus dans le printer.cfg sauf la section [mcu MKS_THR] que j'ai ajouté dans mon printer.cfg. La ligne [include …] est donc commentée (doublon)).
+
 ```
 #        QIDI TECH macros      #
 [include macros/qidi_macros.cfg]
@@ -39,7 +41,8 @@ Les macros Qidi Tech et les paramètres système de la platine de tête (déjà 
 #[include MKS_THR.cfg]
 ```
 
-Klipper n'utilise pas d'origine pas tous les [Gcodes](https://www.klipper3d.org/fr/G-Codes.html#g-codes) Marlin mais fait un usage intensif de Gcodes étendus => création de macros pour en reproduire quelques uns [marlin](./marlin.md).
+Klipper n'utilise pas d'origine la totalité des [Gcodes](https://www.klipper3d.org/fr/G-Codes.html#g-codes) Marlin mais fait un usage intensif de Gcodes étendus => création de macros pour en reproduire quelques uns [marlin](./marlin.md).
+
 ```
 #        MARLIN G-CODE         #
 #[include macros/heater_override.cfg]
@@ -47,54 +50,63 @@ Klipper n'utilise pas d'origine pas tous les [Gcodes](https://www.klipper3d.org/
 ```
 
 [Mises à l'origine](./homing-alt.md) uniquement si les axes n'y sont pas déjà
+
 ```
 #            HOMING            #
 [include macros/homing_alternate.cfg]
 ```
 
 Utilisant pour la domotique HomeAssistant, mes prises électriques avec firmware Tasmota peuvent être gérées via Moonraker et quelques macros [voir ce document](../Upgrades/ha.md).
+
 ```
 #       SHUTDOWN / REBOOT      #
 [include macros/HA_power_macros.cfg]
 ```
 
 Gestion du chargement / déchargement / purge du filament [filament](filament.md) 
+
 ```
 #           FILAMENT            #
 #[include macros/filament.cfg]
 ```
 
 Utilisation de scripts shell [GSC](../Upgrades/gcode_shell_command.md)
+
 ```
 #         SHELL_COMMAND         #
 [include macros/shell_command.cfg]
 ```
 
 Gestion des [PIDs](./pids.md)
+
 ```
 #        PID HOTEND / BED       #
 [include macros/pid.cfg]
 ```
 
 [Sauvegarde](variables.md) de paramètres dans des variables afin de pouvoir les réutiliser ultérieurement
+
 ```
 #           Variables           #
 [include macros/save_variables.cfg]
 ```
 
 Le client «universel» Fluidd / Mainsail [ici](./fluidd-mainsail-client.md)
+
 ```
 #    Client Fluidd / Mainsail   #
 [include client.cfg]
 ```
 
 Complément après installation d'une caméra pour faire des vidéos «[timelapse](../Upgrades/timelapse.md)»
+
 ```
 #      TIMELAPSE PLUGIN         #
 [include timelapse.cfg]
 ```
 
 Ne palper le plateau qu'en fonction de la pièce imprimée [KAMP](./kamp.md)
+
 ```
 # Klipper Adaptative Mesh Purge #
 [include Adaptive_Mesh.cfg]
