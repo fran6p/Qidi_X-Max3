@@ -1,4 +1,4 @@
-## Mise à jour du système
+# Mise à jour du système
 
 Aucune notification de la part du système ne nous signale quand / s’il y a une mise à jour disponible.
 C’est à l’utilisateur d’aller consulter soit le [Github de la X-Max 3](https://github.com/QIDITECH/QIDI_MAX3/releases), soit [cette page](https://qidi3d.com/pages/software-firmware?z_code=p12711140855145122921) du site QidiTech.
@@ -17,7 +17,7 @@ Quelques constats :
 - l’historique des impressions est remis à zéro
    - => ce point là est vraiment «pénible» (faire une sauvegarde du dossier caché `.moonraker_database` du répertoire utilisateur `/home/mks` et le recopier après la mise à jour pour remplacer la base de données de l'historique des impressions qui a été remise à zéro).
 
-### Comment je procède avant de mettre à jour le système
+## Comment je procède avant de mettre à jour le système
 
 Avant toute mise à jour, je sauvegarde via WinSCP:
 - le dossier `~/klipper_config`
@@ -44,7 +44,7 @@ sudo systemctl start klipper
 
 Je cherche les modifications apportées au fichier printer.cfg (diff, Winmerge) et les reporte manuellement dans mon printer.cfg sauvegardé si nécessaire.
 
-### Examen rapide des fichiers constituants une mise à jour
+## Examen rapide des fichiers constituants une mise à jour
 
 L'archive QD_Update.zip (version 4.3.8) contient trois fichiers :
 1. `printer.cfg`, le fichier de configuration de l'imprimante regroupant à la fois les paramètres matériels et les macros Qidi
@@ -53,7 +53,7 @@ L'archive QD_Update.zip (version 4.3.8) contient trois fichiers :
 
 Comme vu plus haut, lors du flashage, le `printer.cfg` est  purement et simplement remplacé par celui de l'archive… ***Rien n'empêche avant la recopie du dossier QD_Update de remplacer le `printer.cfg` par le vôtre*** :smirk:
 
-#### QD_Max_SOC
+### QD_Max_SOC
 
 7zip peut décompresser ce «fichier»: il contient une autre archive `data.tar` qui une fois décompressée donne cette arborescence :
 
@@ -265,19 +265,21 @@ Remplace quelques fichiers dans le dossier perso de l'utilisateur `root`
 #### /home/mks
 
 Écrase en remplaçant certains fichiers du répertoire perso de l'utilisateur `mks` :
+
 1. `klipper` les modifications apportées par Qidi à Klipper
 2. `moonraker` les modifications apportées par Qidi à Moonraker
 3. `klipper_config` le dossier de configurations de Klipper
 
-##### klipper_config
+##### /home/mks/klipper_config
 
 Remplace la configuration du nivellement adaptatif (en fonction de la taille de l'objet imprimé) `Adaptive_Mesh.cfg` ainsi qu'une sauvegarde de la configuration des paramétres de l'écran `config.mksini.bak`
 
 **NOTE**: ces deux fichiers bien que dans le répertoire perso de «mks» appartiennent à l'utilisateur «root»
 
-##### moonraker
+##### /home/mks/moontaker/moonraker
 
 Fichiers Python modifiés par Qidi (diffèrent du Moonraker «officiel») :
+
 - `klippy_apis.py`
 - `machine.py`
 - `components/metadata.py`
@@ -286,6 +288,7 @@ Fichiers Python modifiés par Qidi (diffèrent du Moonraker «officiel») :
 ##### klipper/klippy
 
 Fichiers Python modifiés par Qidi (diffèrent du Klipper «officiel») :
+
 - `gcode.py`
 - `klippy.py`
 - `mcu.py`
@@ -293,6 +296,7 @@ Fichiers Python modifiés par Qidi (diffèrent du Klipper «officiel») :
 - `extras/probe.py`
 - `extras/rpi_temperature.py`
 - `extras/x_twist_compensation.py`
+
 
 
 :smile:
