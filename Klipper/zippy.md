@@ -1,1 +1,2233 @@
-z
+### Testées
+
+1. [Affichage des coordonnées min/max/actuel de la sonde](./MyConfiguration/macros/zippy/get_probe_limits.cfg)
+
+```
+# Macro to calculate the probe min/max/current coordinates
+
+##########################DEPENDENCIES##########################
+# 
+# This config section is required to output text to the console
+# which is used by the macro. If you already have an equivalent
+# config section elsewhere, you can comment this one out.
+#[respond]
+# 
+################################################################
+
+[gcode_macro GET_PROBE_LIMITS]
+description: Calculates the probe min/max/current coordinates
+gcode: 
+    {% set config = printer.configfile.settings %}
+    # Find probe config in configfile
+    {% if config["bltouch"] %}
+        # bltouch section found
+        {% set probe = config["bltouch"] %}
+        {% set has_probe = True %}
+    {% elif config["probe"] %}
+        # probe section found
+        {% set probe = config["probe"] %}
+        {% set has_probe = True %}
+    {% elif config["beacon"] %}
+        # probe section found
+        {% set probe = config["beacon"] %}
+        {% set has_probe = True %}
+    {% else %}
+        # No probe or bltouch sections found
+        RESPOND MSG="Failed to detect probe in configfile"
+    {% endif %}
+    {% if has_probe %}
+        {% set stepperx = config["stepper_x"] %}
+        {% set steppery = config["stepper_y"] %}
+        {% set xprobemin = stepperx["position_min"]|float + probe["x_offset"]|float %} 
+        {% set xprobemax = stepperx["position_max"]|float + probe["x_offset"]|float %} 
+        {% set yprobemin = steppery["position_min"]|float + probe["y_offset"]|float %} 
+        {% set yprobemax = steppery["position_max"]|float + probe["y_offset"]|float %}
+        RESPOND MSG="Configured Probe X-Offset {probe.x_offset}"
+        RESPOND MSG="Configured Probe Y-Offset {probe.y_offset}"
+        {% if probe.z_offset is defined %}
+            RESPOND MSG="Configured Probe Z-Offset {probe.z_offset}"
+        {% elif probe.trigger_distance is defined %}
+            RESPOND MSG="Configured Probe Trigger Distance {probe.trigger_distance}"
+        {% endif %}
+        RESPOND MSG="Minimum PROBE position X={xprobemin} Y={yprobemin}" 
+        RESPOND MSG="Maximum PROBE position X={xprobemax} Y={yprobemax}"
+        # check if printer homed
+        {% if "xyz" in printer.toolhead.homed_axes %} 
+            {% set curprobex = printer.toolhead.position.x|float + probe["x_offset"]|float %} 
+            {% set curprobey = printer.toolhead.position.y|float + probe["y_offset"]|float %} 
+            RESPOND MSG="Current PROBE position X={curprobex} Y={curprobey}"
+        {% endif %}
+    {% endif %}
+```
+
+2. [test de vitesses](./MyCoinfiguration/macros/zippy/test_speed.cfg)
+
+```
+# Home, get position, throw around toolhead, home again.
+# If MCU stepper positions (first line in GET_POSITION) are greater than a full step different (your number of microsteps), then skipping occured.
+# We only measure to a full step to accomodate for endstop variance.
+# Example: TEST_SPEED SPEED=300 ACCEL=5000 ITERATIONS=10
+
+[gcode_macro TEST_SPEED]
+gcode:
+	# Speed
+	{% set speed  = params.SPEED|default(printer.configfile.settings.printer.max_velocity)|int %}
+	# Iterations
+	{% set iterations = params.ITERATIONS|default(5)|int %}
+	# Acceleration
+	{% set accel  = params.ACCEL|default(printer.configfile.settings.printer.max_accel)|int %}
+	# Bounding inset for large pattern (helps prevent slamming the toolhead into the sides after small skips, and helps to account for machines with imperfectly set dimensions)
+	{% set bound = params.BOUND|default(20)|int %}
+	# Size for small pattern box
+	{% set smallpatternsize = SMALLPATTERNSIZE|default(20)|int %}
+	
+	# Large pattern
+		# Max positions, inset by BOUND
+		{% set x_min = printer.toolhead.axis_minimum.x + bound %}
+		{% set x_max = printer.toolhead.axis_maximum.x - bound %}
+		{% set y_min = printer.toolhead.axis_minimum.y + bound %}
+		{% set y_max = printer.toolhead.axis_maximum.y - bound %}
+	
+	# Small pattern at center
+		# Find X/Y center point
+		{% set x_center = (printer.toolhead.axis_minimum.x|float + printer.toolhead.axis_maximum.x|float ) / 2 %}
+		{% set y_center = (printer.toolhead.axis_minimum.y|float + printer.toolhead.axis_maximum.y|float ) / 2 %}
+		
+		# Set small pattern box around center point
+		{% set x_center_min = x_center - (smallpatternsize/2) %}
+		{% set x_center_max = x_center + (smallpatternsize/2) %}
+		{% set y_center_min = y_center - (smallpatternsize/2) %}
+		{% set y_center_max = y_center + (smallpatternsize/2) %}
+
+	# Save current gcode state (absolute/relative, etc)
+	SAVE_GCODE_STATE NAME=TEST_SPEED
+	
+	# Output parameters to g-code terminal
+	{ action_respond_info("TEST_SPEED: starting %d iterations at speed %d, accel %d" % (iterations, speed, accel)) }
+	
+	# Home and get position for comparison later:
+		G28
+		# QGL if not already QGLd (only if QGL section exists in config)
+		{% if printer.configfile.settings.quad_gantry_level %}
+			{% if printer.quad_gantry_level.applied == False %}
+				QUAD_GANTRY_LEVEL
+				G28 Z
+			{% endif %}
+		{% endif %}	
+		G90
+		G0 X{printer.toolhead.axis_maximum.x-1} Y{printer.toolhead.axis_maximum.y-1} F{30*60}
+		G4 P1000 
+		GET_POSITION
+
+	# Go to starting position
+	G0 X{x_min} Y{y_min} Z{bound + 10} F{speed*60}
+
+	# Set new limits
+	SET_VELOCITY_LIMIT VELOCITY={speed} ACCEL={accel} ACCEL_TO_DECEL={accel / 2}
+
+	{% for i in range(iterations) %}
+		# Large pattern
+			# Diagonals
+			G0 X{x_min} Y{y_min} F{speed*60}
+			G0 X{x_max} Y{y_max} F{speed*60}
+			G0 X{x_min} Y{y_min} F{speed*60}
+			G0 X{x_max} Y{y_min} F{speed*60}
+			G0 X{x_min} Y{y_max} F{speed*60}
+			G0 X{x_max} Y{y_min} F{speed*60}
+			
+			# Box
+			G0 X{x_min} Y{y_min} F{speed*60}
+			G0 X{x_min} Y{y_max} F{speed*60}
+			G0 X{x_max} Y{y_max} F{speed*60}
+			G0 X{x_max} Y{y_min} F{speed*60}
+		
+		# Small pattern
+			# Small diagonals 
+			G0 X{x_center_min} Y{y_center_min} F{speed*60}
+			G0 X{x_center_max} Y{y_center_max} F{speed*60}
+			G0 X{x_center_min} Y{y_center_min} F{speed*60}
+			G0 X{x_center_max} Y{y_center_min} F{speed*60}
+			G0 X{x_center_min} Y{y_center_max} F{speed*60}
+			G0 X{x_center_max} Y{y_center_min} F{speed*60}
+			
+			# Small box
+			G0 X{x_center_min} Y{y_center_min} F{speed*60}
+			G0 X{x_center_min} Y{y_center_max} F{speed*60}
+			G0 X{x_center_max} Y{y_center_max} F{speed*60}
+			G0 X{x_center_max} Y{y_center_min} F{speed*60}
+	{% endfor %}
+
+	# Restore max speed/accel/accel_to_decel to their configured values
+	SET_VELOCITY_LIMIT VELOCITY={printer.configfile.settings.printer.max_velocity} ACCEL={printer.configfile.settings.printer.max_accel} ACCEL_TO_DECEL={printer.configfile.settings.printer.max_accel_to_decel} 
+
+	# Re-home and get position again for comparison:
+		G28
+		# Go to XY home positions (in case your homing override leaves it elsewhere)
+		G90
+		G0 X{printer.toolhead.axis_maximum.x-1} Y{printer.toolhead.axis_maximum.y-1} F{30*60}
+		G4 P1000 
+		GET_POSITION
+
+	# Restore previous gcode state (absolute/relative, etc)
+	RESTORE_GCODE_STATE NAME=TEST_SPEED
+```
+
+3. [Tunes](./MyCoinfiguration/macros/zippy/tunes.cfg)
+
+<details>
+  
+```
+[gcode_macro start_tones]
+description: chirp to indicate starting
+gcode:
+    M300 S1000 P500
+    M300 S440  P200
+    M300 S220  P100
+
+[gcode_macro print_start_tune]
+description: tune to indicate starting to print
+gcode:
+    M300 S1000 P500
+    M300 S440  P200
+    M300 S220  P250
+    M300 S440  P200
+    M300 S220  P250
+    M300 S440  P200
+    M300 S1000 P1000
+
+[gcode_macro end_tones]
+description: Make Print Completed Tones
+gcode:
+    M300 S440 P200 
+    M300 S660 P250
+    M300 S880 P300
+
+[gcode_macro end_tune]
+description: Ending tune
+gcode:
+    M300 S3135 P75
+    M300 S3135 P150
+    M300 S1760 P150
+    M300 S1760 P150
+    M300 S2637 P150
+    M300 S2637 P150
+    M300 S3135 P150
+
+[gcode_macro change_tune]
+description: Change filament tune
+gcode:
+    M300 S440 P200
+    M300 S660 P250
+    M300 S880 P300
+
+[gcode_macro mesh_tune]
+description: Bed meshing
+gcode:
+    M300 S440 P200
+    M300 S880 P300
+    M300 S660 P250
+
+[gcode_macro starter_tune]
+description: Boot up Tune
+gcode:
+    M300 S1174 P125
+    M300 S1174 P125
+    M300 S2349 P125
+    M300 S0 P125
+    M300 S880 P187
+    M300 S0 P187
+    M300 S1661 P125
+    M300 S1567 P125
+    M300 S0 P125
+    M300 S1396 P250
+    M300 S1174 P125
+    M300 S1396 P125
+    M300 S1567 P125
+    M300 S1046 P125
+    M300 S1046 P125
+    M300 S2349 P125
+    M300 S0 P125
+    M300 S880 P187
+    M300 S0 P187
+    M300 S1661 P125
+    M300 S1567 P125
+    M300 S0 P125
+    M300 S1396 P250
+    M300 S1174 P125
+    M300 S1396 P125
+    M300 S1567 P125
+    M300 S493 P125
+    M300 S493 P125
+    M300 S2349 P125
+    M300 S0 P125
+    M300 S880 P187
+    M300 S0 P187
+    M300 S1661 P125
+    M300 S1567 P125
+    M300 S0 P125
+    M300 S1396 P250
+    M300 S1174 P125
+    M300 S1396 P125
+    M300 S1567 P125
+    M300 S466 P125
+    M300 S466 P125
+    M300 S2349 P125
+    M300 S0 P125
+    M300 S880 P187
+    M300 S0 P187
+    M300 S1661 P125
+    M300 S1567 P125
+    M300 S0 P125
+    M300 S1396 P250
+    M300 S1174 P125
+    M300 S1396 P125
+    M300 S1567 P125
+
+[gcode_macro cena_tune]
+gcode:
+    M300 S2800 P300
+    M300 S2900 P100
+    M300 S2400 P250
+    M300 S2700 P1500
+    M300 s3000 P300
+    M300 S2900 P100
+    M300 S2400 P250
+    M300 S2700 P1500
+    M300 S2800 P300
+    M300 S2900 P100
+    M300 S2400 P250
+    M300 S2700 P1500
+    M300 S3000 P300
+    M300 S2900 P100
+    M300 S2400 P250
+    M300 S2700 P1500
+
+[gcode_macro mario_tune]
+description: Super Mario level completed tune
+gcode:
+    M300 S1046 P150
+    M300 S1318 P150
+    M300 S1567 P150
+    M300 S2093 P150
+    M300 S2637 P150
+    M300 S3135 P400
+    M300 S2637 P400
+    M300 S1046 P150
+    M300 S1244 P150
+    M300 S1661 P150
+    M300 S2093 P150
+    M300 S2489 P150
+    M300 S3322 P400
+    M300 S2489 P400
+    M300 S1174 P150
+    M300 S1396 P150
+    M300 S932 P150
+    M300 S2349 P150
+    M300 S2793 P150
+    M300 S1864 P150
+    M300 S0 P400
+    M300 S1864 P120
+    M300 S0 P60
+    M300 S1864 P120
+    M300 S0 P60
+    M300 S1864 P120
+    M300 S0 P60
+    M300 S4186 P900 ;Congrats
+
+[gcode_macro game_over_tune]
+description: Super Mario game over tune
+gcode:
+    M300 P200 S523
+    M300 P200 S0
+    M300 P200 S392
+    M300 P200 S0
+    M300 P300 S330
+    M300 P233 S440
+    M300 P233 S494
+    M300 P233 S440
+    M300 P300 S415
+    M300 P300 S466
+    M300 P300 S415
+    M300 P150 S392
+    M300 P150 S349
+    M300 P1800 S392
+
+[gcode_macro imperial_tune]
+description: Imperial March tune
+gcode:
+    ; EMPIRE
+    M300 S392 P436
+    M300 S0 P109
+    M300 S392 P436
+    M300 S0 P109
+    M300 S392 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S392 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S392 P872
+    M300 S0 P218
+    M300 S587 P436
+    M300 S0 P109
+    M300 S587 P436
+    M300 S0 P109
+    M300 S587 P436
+    M300 S0 P109
+    M300 S622 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S370 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S392 P872
+    M300 S0 P218
+    M300 S784 P436
+    M300 S0 P109
+    M300 S392 P326
+    M300 S0 P81
+    M300 S392 P108
+    M300 S0 P27
+    M300 S784 P436
+    M300 S0 P109
+    M300 S740 P326
+    M300 S0 P81
+    M300 S698 P108
+    M300 S0 P27
+    M300 S659 P108
+    M300 S0 P27
+    M300 S622 P108
+    M300 S0 P27
+    M300 S659 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S415 P217
+    M300 S0 P54
+    M300 S554 P436
+    M300 S0 P109
+    M300 S523 P326
+    M300 S0 P81
+    M300 S494 P108
+    M300 S0 P27
+    M300 S466 P108
+    M300 S0 P27
+    M300 S440 P108
+    M300 S0 P27
+    M300 S466 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S311 P217
+    M300 S0 P54
+    M300 S370 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S370 P108
+    M300 S0 P27
+    M300 S466 P436
+    M300 S0 P109
+    M300 S392 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S587 P872
+    M300 S0 P218
+    M300 S784 P436
+    M300 S0 P109
+    M300 S392 P326
+    M300 S0 P81
+    M300 S392 P108
+    M300 S0 P27
+    M300 S784 P436
+    M300 S0 P109
+    M300 S740 P326
+    M300 S0 P81
+    M300 S698 P108
+    M300 S0 P27
+    M300 S659 P108
+    M300 S0 P27
+    M300 S622 P108
+    M300 S0 P27
+    M300 S659 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S415 P217
+    M300 S0 P54
+    M300 S554 P436
+    M300 S0 P109
+    M300 S523 P326
+    M300 S0 P81
+    M300 S494 P108
+    M300 S0 P27
+    M300 S466 P108
+    M300 S0 P27
+    M300 S440 P108
+    M300 S0 P27
+    M300 S466 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S311 P217
+    M300 S0 P54
+    M300 S370 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S392 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S392 P872
+    M300 S0 P218
+    M300 S392 P436
+    M300 S0 P109
+    M300 S392 P436
+    M300 S0 P109
+    M300 S392 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S392 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S392 P872
+    M300 S0 P218
+    M300 S587 P436
+    M300 S0 P109
+    M300 S587 P436
+    M300 S0 P109
+    M300 S587 P436
+    M300 S0 P109
+    M300 S622 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S370 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S392 P872
+    M300 S0 P218
+    M300 S784 P436
+    M300 S0 P109
+    M300 S392 P326
+    M300 S0 P81
+    M300 S392 P108
+    M300 S0 P27
+    M300 S784 P436
+    M300 S0 P109
+    M300 S740 P326
+    M300 S0 P81
+    M300 S698 P108
+    M300 S0 P27
+    M300 S659 P108
+    M300 S0 P27
+    M300 S622 P108
+    M300 S0 P27
+    M300 S659 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S415 P217
+    M300 S0 P54
+    M300 S554 P436
+    M300 S0 P109
+    M300 S523 P326
+    M300 S0 P81
+    M300 S494 P108
+    M300 S0 P27
+    M300 S466 P108
+    M300 S0 P27
+    M300 S440 P108
+    M300 S0 P27
+    M300 S466 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S311 P217
+    M300 S0 P54
+    M300 S370 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S392 P436
+    M300 S0 P109
+    M300 S311 P326
+    M300 S0 P81
+    M300 S466 P108
+    M300 S0 P27
+    M300 S392 P872
+    M300 S0 P218
+    M300 S0 P436
+    M300 S0 P109
+    M300 S294 P217
+    M300 S0 P54
+    M300 S311 P217
+    M300 S0 P54
+    M300 S262 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S466 P217
+    M300 S0 P54
+    M300 S440 P217
+    M300 S0 P54
+    M300 S370 P217
+    M300 S0 P54
+    M300 S587 P217
+    M300 S0 P54
+    M300 S554 P217
+    M300 S0 P54
+    M300 S440 P217
+    M300 S0 P54
+    M300 S523 P217
+    M300 S0 P54
+    M300 S466 P217
+    M300 S0 P54
+    M300 S370 P217
+    M300 S0 P54
+    M300 S311 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S294 P217
+    M300 S0 P54
+    M300 S311 P217
+    M300 S0 P54
+    M300 S262 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S466 P217
+    M300 S0 P54
+    M300 S440 P217
+    M300 S0 P54
+    M300 S370 P217
+    M300 S0 P54
+    M300 S784 P217
+    M300 S0 P54
+    M300 S587 P217
+    M300 S0 P54
+    M300 S466 P217
+    M300 S0 P54
+    M300 S415 P217
+    M300 S0 P54
+    M300 S311 P217
+    M300 S0 P54
+    M300 S247 P217
+    M300 S0 P54
+    M300 S208 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S294 P217
+    M300 S0 P54
+    M300 S311 P217
+    M300 S0 P54
+    M300 S262 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S466 P217
+    M300 S0 P54
+    M300 S440 P217
+    M300 S0 P54
+    M300 S370 P217
+    M300 S0 P54
+    M300 S587 P217
+    M300 S0 P54
+    M300 S554 P217
+    M300 S0 P54
+    M300 S440 P217
+    M300 S0 P54
+    M300 S523 P217
+    M300 S0 P54
+    M300 S466 P217
+    M300 S0 P54
+    M300 S370 P217
+    M300 S0 P54
+    M300 S311 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S311 P217
+    M300 S0 P54
+    M300 S330 P217
+    M300 S0 P54
+    M300 S277 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S494 P217
+    M300 S0 P54
+    M300 S466 P217
+    M300 S0 P54
+    M300 S392 P217
+    M300 S0 P54
+    M300 S831 P217
+    M300 S0 P54
+    M300 S622 P217
+    M300 S0 P54
+    M300 S494 P217
+    M300 S0 P54
+    M300 S440 P217
+    M300 S0 P54
+    M300 S330 P217
+    M300 S0 P54
+    M300 S262 P217
+    M300 S0 P54
+    M300 S220 P217
+    M300 S0 P54
+    M300 S440 P436
+    M300 S0 P109
+    M300 S440 P436
+    M300 S0 P109
+    M300 S440 P436
+    M300 S0 P109
+    M300 S349 P326
+    M300 S0 P81
+    M300 S523 P108
+    M300 S0 P27
+    M300 S440 P436
+    M300 S0 P109
+    M300 S349 P326
+    M300 S0 P81
+    M300 S523 P108
+    M300 S0 P27
+    M300 S440 P872
+    M300 S0 P218
+    M300 S659 P436
+    M300 S0 P109
+    M300 S659 P436
+    M300 S0 P109
+    M300 S659 P436
+    M300 S0 P109
+    M300 S698 P326
+    M300 S0 P81
+    M300 S523 P108
+    M300 S0 P27
+    M300 S415 P436
+    M300 S0 P109
+    M300 S349 P326
+    M300 S0 P81
+    M300 S523 P108
+    M300 S0 P27
+    M300 S440 P872
+    M300 S0 P218
+    M300 S880 P436
+    M300 S0 P109
+    M300 S440 P326
+    M300 S0 P81
+    M300 S440 P108
+    M300 S0 P27
+    M300 S880 P436
+    M300 S0 P109
+    M300 S831 P326
+    M300 S0 P81
+    M300 S784 P108
+    M300 S0 P27
+    M300 S740 P108
+    M300 S0 P27
+    M300 S698 P108
+    M300 S0 P27
+    M300 S740 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S466 P217
+    M300 S0 P54
+    M300 S622 P436
+    M300 S0 P109
+    M300 S587 P326
+    M300 S0 P81
+    M300 S554 P108
+    M300 S0 P27
+    M300 S523 P108
+    M300 S0 P27
+    M300 S494 P108
+    M300 S0 P27
+    M300 S523 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S349 P217
+    M300 S0 P54
+    M300 S415 P436
+    M300 S0 P109
+    M300 S349 P326
+    M300 S0 P81
+    M300 S523 P108
+    M300 S0 P27
+    M300 S440 P436
+    M300 S0 P109
+    M300 S349 P326
+    M300 S0 P81
+    M300 S523 P108
+    M300 S0 P27
+    M300 S440 P872
+    M300 S0 P218
+    M300 S880 P436
+    M300 S0 P109
+    M300 S440 P326
+    M300 S0 P81
+    M300 S440 P108
+    M300 S0 P27
+    M300 S880 P436
+    M300 S0 P109
+    M300 S831 P326
+    M300 S0 P81
+    M300 S784 P108
+    M300 S0 P27
+    M300 S740 P108
+    M300 S0 P27
+    M300 S698 P108
+    M300 S0 P27
+    M300 S740 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S466 P217
+    M300 S0 P54
+    M300 S622 P436
+    M300 S0 P109
+    M300 S587 P326
+    M300 S0 P81
+    M300 S554 P108
+    M300 S0 P27
+    M300 S523 P108
+    M300 S0 P27
+    M300 S494 P108
+    M300 S0 P27
+    M300 S523 P217
+    M300 S0 P54
+    M300 S0 P436
+    M300 S0 P109
+    M300 S349 P217
+    M300 S0 P54
+    M300 S415 P436
+    M300 S0 P109
+    M300 S349 P326
+    M300 S0 P81
+    M300 S523 P108
+    M300 S0 P27
+    M300 S440 P436
+    M300 S0 P109
+    M300 S349 P326
+    M300 S0 P81
+    M300 S523 P108
+    M300 S0 P27
+    M300 S440 P653
+    M300 S0 P163
+
+[gcode_macro be_mine_tune]
+gcode:
+    M300 S440 P200 ;A4: 440
+    M300 S0 P200 ;
+    M300 S440 P200 ;A4: 440
+    M300 S330 P200 ;E4: 330
+    M300 S392 P200 ;G4: 392
+    M300 S440 P200 ;A4: 440
+    M300 S0 P200 ;
+    M300 S440 P200 ;A4: 440
+    M300 S0 P200 ;
+    M300 S524 P200 ;C5: 524
+    M300 S588 P200 ;D5: 588
+    M300 S524 P200 ;C5: 524
+    M300 S588 P200 ;D5: 588
+    M300 S524 P200 ;C5: 524
+    M300 S440 P200 ;A4: 440
+    M300 S392 P200 ;G4: 392
+    ;------------------------
+    M300 S440 P200 ;A4: 440
+    M300 S0 P200 ;
+    M300 S440 P200 ;A4: 440
+    M300 S330 P200 ;E4: 330
+    M300 S392 P200 ;G4: 392
+    M300 S440 P200 ;A4: 440
+    M300 S0 P200 ;
+    M300 S440 P200 ;A4: 440
+    M300 S0 P200 ;
+    M300 S524 P200 ;C5: 524
+    M300 S588 P200 ;D5: 588
+    M300 S524 P200 ;C5: 524
+    M300 S588 P200 ;D5: 588
+    M300 S524 P200 ;C5: 524
+    M300 S440 P200 ;A4: 440
+    M300 S392 P200 ;G4: 392
+    ;------------------------
+    M300 S440 P800 ;A4: 440
+
+[gcode_macro sweet_child_tune]
+description: Sweet Child of Mine
+gcode:
+    M300 S294 P200 ;D4: 294
+    M300 S588 P200 ;D5: 588
+    M300 S440 P200 ;A4: 440
+    M300 S392 P200 ;G4: 392
+    M300 S784 P200 ;G5: 784
+    M300 S440 P200 ;A4: 440
+    M300 S740 P200 ;F#5: 740
+    M300 S440 P200 ;A4: 440
+    ;------------------------
+    M300 S294 P200 ;D4: 294
+    M300 S588 P200 ;D5: 588
+    M300 S440 P200 ;A4: 440
+    M300 S392 P200 ;G4: 392
+    M300 S784 P200 ;G5: 784
+    M300 S440 P200 ;A4: 440
+    M300 S740 P200 ;F#5: 740
+    M300 S440 P200 ;A4: 440
+    ;------------------------
+    M300 S330 P200 ;E4: 330
+    M300 S588 P200 ;D5: 588
+    M300 S440 P200 ;A4: 440
+    M300 S392 P200 ;G4: 392
+    M300 S784 P200 ;G5: 784
+    M300 S440 P200 ;A4: 440
+    M300 S740 P200 ;F#5: 740
+    M300 S440 P200 ;A4: 440
+    ;------------------------
+    M300 S330 P200 ;E4: 330
+    M300 S588 P200 ;D5: 588
+    M300 S440 P200 ;A4: 440
+    M300 S392 P200 ;G4: 392
+    M300 S784 P200 ;G5: 784
+    M300 S440 P200 ;A4: 440
+    M300 S740 P200 ;F#5: 740
+    M300 S440 P200 ;A4: 440
+    ;------------------------
+    M300 S392 P200 ;G4: 392
+    M300 S588 P200 ;D5: 588
+    M300 S440 P200 ;A4: 440
+    M300 S392 P200 ;G4: 392
+    M300 S784 P200 ;G5: 784
+    M300 S440 P200 ;A4: 440
+    M300 S740 P200 ;F#5: 740
+    M300 S440 P200 ;A4: 440
+    ;------------------------
+    M300 S392 P200 ;G4: 392
+    M300 S588 P200 ;D5: 588
+    M300 S440 P200 ;A4: 440
+    M300 S392 P200 ;G4: 392
+    M300 S784 P200 ;G5: 784
+    M300 S440 P200 ;A4: 440
+    M300 S740 P200 ;F#5: 740
+    M300 S440 P200 ;A4: 440
+    ;------------------------
+    M300 S294 P800 ;D4: 294
+
+[gcode_macro zelda_ending_tune]
+description: Ending tune from A Link to the Past
+gcode:
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S523
+    M300 P500 S587
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S587
+    M300 P750 S698
+    M300 P125 S659
+    M300 P125 S587
+    M300 P500 S523
+    M300 P500 S392
+    M300 P500 S440
+    M300 P500 S523
+    M300 P500 S587
+    M300 P500 S523
+    M300 P750 S523
+    M300 P125 S494
+    M300 P125 S440
+    M300 P500 S392
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S523
+    M300 P500 S587
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S587
+    M300 P750 S698
+    M300 P125 S659
+    M300 P125 S698
+    M300 P500 S784
+    M300 P375 S523
+    M300 P125 S494
+    M300 P500 S440
+    M300 P1000 S698
+    M300 P375 S440
+    M300 P125 S440
+    M300 P500 S494
+    M300 P1000 S784
+    M300 P375 S262
+    M300 P125 S262
+    M300 P1500 S262
+    M300 P125 S262
+    M300 P125 S262
+    M300 P125 S262
+    M300 P125 S262
+    M300 P1500 S262
+    M300 P125 S262
+    M300 P41 S262
+    M300 P84 S175
+    M300 P82 S262
+    M300 P43 S175
+    M300 P125 S262
+    M300 P1500 S262
+    M300 P125 S262
+    M300 P41 S262
+    M300 P84 S196
+    M300 P82 S262
+    M300 P43 S175
+    M300 P125 S262
+    M300 P1500 S262
+    M300 P125 S330
+    M300 P41 S330
+    M300 P84 S262
+    M300 P82 S330
+    M300 P43 S262
+    M300 P125 S330
+    M300 P1500 S330
+    M300 P125 S330
+    M300 P125 S330
+    M300 P125 S330
+    M300 P125 S330
+    M300 P1500 S349
+    M300 P125 S349
+    M300 P41 S262
+    M300 P84 S349
+    M300 P82 S262
+    M300 P43 S349
+    M300 P125 S262
+    M300 P1500 S415
+    M300 P125 S415
+    M300 P41 S262
+    M300 P84 S392
+    M300 P82 S262
+    M300 P43 S349
+    M300 P125 S262
+    M300 P1500 S392
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P125 S294
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P352 S440
+    M300 P148 S0
+    M300 P166 S523
+    M300 P166 S494
+    M300 P168 S440
+    M300 P500 S494
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P352 S494
+    M300 P148 S0
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S440
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P125 S494
+    M300 P352 S523
+    M300 P148 S0
+    M300 P166 S440
+    M300 P166 S392
+    M300 P168 S349
+    M300 P500 S392
+    M300 P125 S262
+    M300 P125 S294
+    M300 P125 S330
+    M300 P125 S349
+    M300 P352 S392
+    M300 P148 S0
+    M300 P500 S262
+    M300 P500 S349
+    M300 P125 S294
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P352 S440
+    M300 P148 S0
+    M300 P166 S349
+    M300 P166 S330
+    M300 P168 S294
+    M300 P500 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P125 S494
+    M300 P352 S523
+    M300 P148 S0
+    M300 P500 S262
+    M300 P500 S294
+    M300 P125 S294
+    M300 P125 S330
+    M300 P125 S370
+    M300 P125 S392
+    M300 P352 S440
+    M300 P148 S0
+    M300 P500 S262
+    M300 P500 S247
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P352 S494
+    M300 P148 S0
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P125 S294
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P352 S440
+    M300 P148 S0
+    M300 P166 S523
+    M300 P166 S494
+    M300 P168 S440
+    M300 P500 S494
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P352 S494
+    M300 P148 S0
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S440
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P125 S494
+    M300 P352 S523
+    M300 P148 S0
+    M300 P166 S440
+    M300 P166 S392
+    M300 P168 S349
+    M300 P500 S392
+    M300 P125 S262
+    M300 P125 S294
+    M300 P125 S330
+    M300 P125 S349
+    M300 P352 S392
+    M300 P148 S0
+    M300 P500 S262
+    M300 P500 S349
+    M300 P125 S294
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P352 S440
+    M300 P148 S0
+    M300 P166 S349
+    M300 P166 S330
+    M300 P168 S294
+    M300 P500 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P125 S494
+    M300 P352 S523
+    M300 P148 S0
+    M300 P186 S440
+    M300 P189 S0
+    M300 P125 S494
+    M300 P500 S523
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S440
+    M300 P125 S494
+    M300 P352 S523
+    M300 P148 S0
+    M300 P186 S415
+    M300 P189 S0
+    M300 P125 S466
+    M300 P500 S523
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P125 S494
+    M300 P352 S523
+    M300 P148 S0
+    M300 P186 S415
+    M300 P189 S0
+    M300 P125 S466
+    M300 P500 S523
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P125 S494
+    M300 P352 S523
+    M300 P148 S0
+    M300 P167 S523
+    M300 P170 S523
+    M300 P177 S523
+    M300 P553 S523
+    M300 P145 S262
+    M300 P148 S294
+    M300 P151 S330
+    M300 P154 S349
+    M300 P158 S392
+    M300 P161 S440
+    M300 P165 S494
+    M300 P134 S523
+    M300 P34 S0
+    M300 P172 S587
+    M300 P172 S330
+    M300 P172 S349
+    M300 P172 S392
+    M300 P172 S440
+    M300 P172 S494
+    M300 P172 S523
+    M300 P862 S587
+    M300 P690 S0
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S523
+    M300 P500 S587
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S587
+    M300 P750 S698
+    M300 P125 S659
+    M300 P125 S587
+    M300 P500 S523
+    M300 P500 S392
+    M300 P500 S440
+    M300 P500 S523
+    M300 P500 S587
+    M300 P500 S523
+    M300 P750 S523
+    M300 P125 S494
+    M300 P125 S440
+    M300 P500 S392
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S523
+    M300 P500 S587
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S587
+    M300 P750 S698
+    M300 P125 S659
+    M300 P125 S698
+    M300 P500 S784
+    M300 P375 S523
+    M300 P125 S494
+    M300 P500 S440
+    M300 P500 S880
+    M300 P500 S698
+    M300 P166 S698
+    M300 P166 S659
+    M300 P168 S587
+    M300 P1500 S659
+    M300 P375 S523
+    M300 P125 S494
+    M300 P250 S440
+    M300 P123 S131
+    M300 P127 S0
+    M300 P123 S131
+    M300 P127 S0
+    M300 P123 S131
+    M300 P127 S0
+    M300 P123 S131
+    M300 P127 S0
+    M300 P123 S131
+    M300 P127 S0
+    M300 P250 S494
+    M300 P125 S131
+    M300 P125 S523
+    M300 P250 S392
+    M300 P123 S123
+    M300 P127 S0
+    M300 P123 S123
+    M300 P127 S0
+    M300 P123 S123
+    M300 P127 S0
+    M300 P123 S123
+    M300 P127 S0
+    M300 P123 S123
+    M300 P127 S0
+    M300 P250 S392
+    M300 P125 S123
+    M300 P125 S392
+    M300 P250 S349
+    M300 P123 S110
+    M300 P127 S0
+    M300 P123 S110
+    M300 P127 S0
+    M300 P250 S110
+    M300 P250 S196
+    M300 P123 S123
+    M300 P127 S0
+    M300 P250 S392
+    M300 P125 S123
+    M300 P125 S440
+    M300 P250 S330
+    M300 P123 S98
+    M300 P127 S0
+    M300 P123 S98
+    M300 P127 S0
+    M300 P123 S98
+    M300 P127 S0
+    M300 P123 S98
+    M300 P127 S0
+    M300 P123 S98
+    M300 P127 S0
+    M300 P250 S523
+    M300 P125 S98
+    M300 P125 S494
+    M300 P250 S440
+    M300 P123 S131
+    M300 P127 S0
+    M300 P123 S131
+    M300 P127 S0
+    M300 P123 S131
+    M300 P127 S0
+    M300 P123 S131
+    M300 P127 S0
+    M300 P123 S131
+    M300 P127 S0
+    M300 P250 S494
+    M300 P125 S131
+    M300 P125 S523
+    M300 P250 S392
+    M300 P123 S123
+    M300 P127 S0
+    M300 P123 S123
+    M300 P127 S0
+    M300 P123 S123
+    M300 P127 S0
+    M300 P123 S123
+    M300 P127 S0
+    M300 P123 S123
+    M300 P127 S0
+    M300 P250 S523
+    M300 P123 S123
+    M300 P127 S0
+    M300 P250 S587
+    M300 P123 S110
+    M300 P127 S0
+    M300 P123 S110
+    M300 P129 S0
+    M300 P128 S110
+    M300 P134 S0
+    M300 P271 S523
+    M300 P137 S110
+    M300 P143 S0
+    M300 P192 S523
+    M300 P100 S494
+    M300 P99 S110
+    M300 P206 S523
+    M300 P319 S587
+    M300 P162 S123
+    M300 P171 S0
+    M300 P170 S123
+    M300 P175 S0
+    M300 P170 S123
+    M300 P175 S0
+    M300 P172 S123
+    M300 P517 S0
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S523
+    M300 P500 S587
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S587
+    M300 P750 S698
+    M300 P125 S659
+    M300 P125 S587
+    M300 P500 S523
+    M300 P500 S392
+    M300 P500 S440
+    M300 P500 S523
+    M300 P500 S587
+    M300 P500 S523
+    M300 P750 S523
+    M300 P125 S494
+    M300 P125 S440
+    M300 P500 S392
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S523
+    M300 P500 S587
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S587
+    M300 P750 S698
+    M300 P125 S659
+    M300 P125 S698
+    M300 P500 S784
+    M300 P375 S523
+    M300 P125 S494
+    M300 P500 S440
+    M300 P500 S880
+    M300 P500 S698
+    M300 P166 S698
+    M300 P166 S659
+    M300 P168 S587
+    M300 P1500 S659
+    M300 P500 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P500 S880
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P500 S698
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P500 S784
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P125 S880
+    M300 P125 S220
+    M300 P250 S349
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P250 S698
+    M300 P250 S294
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P125 S784
+    M300 P125 S196
+    M300 P250 S330
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P125 S880
+    M300 P125 S220
+    M300 P250 S349
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P250 S698
+    M300 P250 S294
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P125 S784
+    M300 P125 S196
+    M300 P250 S330
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P125 S659
+    M300 P125 S330
+    M300 P125 S659
+    M300 P125 S392
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P125 S659
+    M300 P125 S330
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P125 S659
+    M300 P125 S440
+    M300 P125 S659
+    M300 P125 S523
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P125 S659
+    M300 P125 S196
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P125 S659
+    M300 P125 S294
+    M300 P125 S659
+    M300 P125 S349
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P125 S659
+    M300 P125 S294
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P125 S659
+    M300 P125 S392
+    M300 P125 S659
+    M300 P125 S494
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S659
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P125 S698
+    M300 P125 S294
+    M300 P125 S698
+    M300 P125 S349
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P127 S0
+    M300 P123 S698
+    M300 P43 S0
+    M300 P84 S330
+    M300 P82 S698
+    M300 P168 S294
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P125 S880
+    M300 P125 S330
+    M300 P125 S880
+    M300 P125 S392
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S880
+    M300 P127 S0
+    M300 P123 S740
+    M300 P127 S0
+    M300 P123 S740
+    M300 P127 S0
+    M300 P125 S740
+    M300 P125 S440
+    M300 P125 S740
+    M300 P125 S523
+    M300 P123 S740
+    M300 P127 S0
+    M300 P123 S740
+    M300 P127 S0
+    M300 P123 S740
+    M300 P127 S0
+    M300 P123 S740
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P125 S784
+    M300 P125 S294
+    M300 P125 S784
+    M300 P125 S349
+    M300 P123 S784
+    M300 P127 S0
+    M300 P123 S784
+    M300 P127 S0
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P125 S294
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P367 S440
+    M300 P133 S0
+    M300 P166 S523
+    M300 P166 S494
+    M300 P168 S440
+    M300 P500 S494
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P367 S494
+    M300 P133 S0
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S440
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P125 S494
+    M300 P367 S523
+    M300 P133 S0
+    M300 P166 S440
+    M300 P166 S392
+    M300 P168 S349
+    M300 P500 S392
+    M300 P125 S262
+    M300 P125 S294
+    M300 P125 S330
+    M300 P125 S349
+    M300 P367 S392
+    M300 P133 S0
+    M300 P500 S262
+    M300 P500 S349
+    M300 P125 S294
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P367 S440
+    M300 P133 S0
+    M300 P166 S349
+    M300 P166 S330
+    M300 P168 S294
+    M300 P500 S330
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P125 S494
+    M300 P367 S523
+    M300 P133 S0
+    M300 P186 S440
+    M300 P189 S0
+    M300 P125 S494
+    M300 P500 S523
+    M300 P125 S330
+    M300 P125 S349
+    M300 P125 S440
+    M300 P125 S494
+    M300 P367 S523
+    M300 P133 S0
+    M300 P186 S415
+    M300 P189 S0
+    M300 P125 S466
+    M300 P500 S523
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P125 S494
+    M300 P367 S523
+    M300 P133 S0
+    M300 P186 S415
+    M300 P189 S0
+    M300 P125 S466
+    M300 P500 S523
+    M300 P125 S349
+    M300 P125 S392
+    M300 P125 S440
+    M300 P125 S494
+    M300 P367 S523
+    M300 P133 S0
+    M300 P230 S523
+    M300 P235 S523
+    M300 P244 S523
+    M300 P2488 S698
+    M300 P2857 S784
+    M300 P951 S0
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S523
+    M300 P500 S587
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S587
+    M300 P750 S698
+    M300 P125 S659
+    M300 P125 S587
+    M300 P500 S523
+    M300 P500 S392
+    M300 P500 S440
+    M300 P500 S523
+    M300 P500 S587
+    M300 P500 S523
+    M300 P750 S523
+    M300 P125 S494
+    M300 P125 S440
+    M300 P500 S392
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S523
+    M300 P500 S587
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S587
+    M300 P750 S698
+    M300 P125 S659
+    M300 P125 S698
+    M300 P500 S784
+    M300 P375 S523
+    M300 P125 S494
+    M300 P500 S440
+    M300 P500 S698
+    M300 P500 S587
+    M300 P166 S587
+    M300 P166 S523
+    M300 P168 S494
+    M300 P1500 S523
+    M300 P202 S523
+    M300 P207 S0
+    M300 P136 S523
+    M300 P545 S698
+    M300 P181 S523
+    M300 P181 S523
+    M300 P47 S523
+    M300 P136 S698
+    M300 P545 S784
+    M300 P202 S523
+    M300 P207 S0
+    M300 P136 S784
+    M300 P545 S932
+    M300 P181 S523
+    M300 P92 S523
+    M300 P89 S880
+    M300 P47 S523
+    M300 P136 S784
+    M300 P545 S698
+    M300 P545 S523
+    M300 P545 S587
+    M300 P181 S698
+    M300 P181 S587
+    M300 P183 S587
+    M300 P545 S784
+    M300 P545 S698
+    M300 P545 S698
+    M300 P202 S659
+    M300 P70 S0
+    M300 P136 S659
+    M300 P136 S659
+    M300 P134 S659
+    M300 P138 S0
+    M300 P134 S659
+    M300 P138 S0
+    M300 P181 S659
+    M300 P181 S659
+    M300 P47 S659
+    M300 P136 S523
+    M300 P545 S698
+    M300 P181 S587
+    M300 P181 S523
+    M300 P47 S523
+    M300 P136 S698
+    M300 P479 S784
+    M300 P66 S0
+    M300 P358 S523
+    M300 P51 S0
+    M300 P136 S784
+    M300 P545 S932
+    M300 P181 S523
+    M300 P92 S523
+    M300 P89 S880
+    M300 P47 S523
+    M300 P136 S932
+    M300 P545 S1047
+    M300 P409 S698
+    M300 P136 S659
+    M300 P545 S587
+    M300 P181 S932
+    M300 P181 S587
+    M300 P183 S587
+    M300 P545 S587
+    M300 P409 S587
+    M300 P136 S587
+    M300 P545 S659
+    M300 P545 S1047
+    M300 P134 S659
+    M300 P138 S0
+    M300 P134 S659
+    M300 P138 S0
+    M300 P181 S659
+    M300 P181 S659
+    M300 P183 S659
+    M300 P545 S698
+    M300 P409 S698
+    M300 P136 S698
+    M300 P181 S698
+    M300 P181 S698
+    M300 P183 S698
+    M300 P545 S698
+    M300 P545 S698
+    M300 P409 S698
+    M300 P136 S698
+    M300 P181 S698
+    M300 P181 S698
+    M300 P183 S698
+    M300 P545 S698
+    M300 P2727 S523
+    M300 P202 S349
+    M300 P207 S0
+    M300 P136 S349
+    M300 P1636 S349
+
+
+[gcode_macro zelda_end_tune]
+description: Short ending tune from A Link to the Past
+gcode:
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S523
+    M300 P500 S587
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S587
+    M300 P750 S698
+    M300 P125 S659
+    M300 P125 S587
+    M300 P500 S523
+    M300 P500 S392
+    M300 P500 S440
+    M300 P500 S523
+    M300 P500 S587
+    M300 P500 S523
+    M300 P750 S523
+    M300 P125 S494
+    M300 P125 S440
+    M300 P500 S392
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S392
+    M300 P500 S523
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S523
+    M300 P500 S587
+    M300 P186 S392
+    M300 P189 S0
+    M300 P125 S587
+    M300 P750 S698
+    M300 P125 S659
+    M300 P125 S698
+    M300 P500 S784
+    M300 P375 S523
+    M300 P125 S494
+    M300 P500 S440
+    M300 P1000 S698
+    M300 P375 S440
+    M300 P125 S440
+    M300 P500 S494
+    M300 P1000 S784
+    M300 P375 S262
+    M300 P125 S262
+    M300 P1500 S262
+    M300 P125 S262
+    M300 P125 S262
+    M300 P125 S262
+    M300 P125 S262
+    M300 P1500 S262
+    M300 P125 S262
+    M300 P41 S262
+    M300 P84 S175
+    M300 P82 S262
+```
+
+</details>
+
+4. [Statistiques](./MyCoinfiguration/macros/zippy/zippystats.cfg)
+
+<details>
+
+```
+[gcode_macro GET_POSITION_STATS]
+gcode:
+    {% set FIL_SWITCH = 'filament_switch_sensor filament_sensor' %}
+    {% set FIL_MOTION = 'filament_motion_sensor filament_motion' %}
+    {% set CHAMBER_HEAT = 'temperature_fan chamber' %}
+    {% set config = printer.configfile.config %}
+    {% if printer.toolhead.homed_axes %}
+        RESPOND MSG="Homed Axis: "{printer.toolhead.homed_axes}
+    {% else %}
+        RESPOND MSG="Homed Axis: none"
+    {% endif %}
+    {% if "xyz" in printer.toolhead.homed_axes %}
+        GET_POSITION
+        RESPOND MSG="Toolhead Position: X{printer.toolhead.position.x}, Y{printer.toolhead.position.y}, Z{printer.toolhead.position.z}"
+        RESPOND MSG="Gcode Position: X{printer.gcode_move.gcode_position.x}, Y{printer.gcode_move.gcode_position.y}, Z{printer.gcode_move.gcode_position.z}, E{printer.gcode_move.gcode_position.e}"
+        RESPOND MSG="Stalls: "{printer.toolhead.stalls}
+        RESPOND MSG="Minimum Position: X{printer.toolhead.axis_minimum.x}, Y{printer.toolhead.axis_minimum.y}, Z{printer.toolhead.axis_minimum.z}"
+        RESPOND MSG="Maximum Position: X{printer.toolhead.axis_maximum.x}, Y{printer.toolhead.axis_maximum.y}, Z{printer.toolhead.axis_maximum.z}"
+        RESPOND MSG="Maximum Velocity: {printer.toolhead.max_velocity}mm/s"
+        RESPOND MSG="Maximum Acceleration: {printer.toolhead.max_accel}mm/s/s"
+        RESPOND MSG="Maximum Accel-to-Decel: {printer.toolhead.max_accel_to_decel}mm/s/s"
+        RESPOND MSG="Square Corner Velocity: {printer.toolhead.square_corner_velocity}mm/s"
+        RESPOND MSG="Live Velocity: {printer.motion_report.live_velocity}mm/s"
+        RESPOND MSG="Gcode Speed: {printer.gcode_move.speed}mm/s"
+        RESPOND MSG="Gcode Speed Factor: {(printer.gcode_move.speed_factor * 100)}%"
+        RESPOND MSG="Gcode Extrude Factor: {(printer.gcode_move.extrude_factor * 100)}%"
+        RESPOND MSG="Absolute Positioning: "{printer.gcode_move.absolute_coordinates}
+        RESPOND MSG="Absolute Extrusion: "{printer.gcode_move.absolute_extrude}
+        GET_PROBE_LIMITS
+        {% if printer.quad_gantry_level %}
+            RESPOND MSG="Quad gantry Level Applied: "{printer.quad_gantry_level.applied}
+        {% endif %}
+        {% if printer.z_tilt %}
+            RESPOND MSG="Z-Tilt Applied: "{printer.z_tilt.applied}
+        {% endif %}
+        {% if printer.bed_mesh %}
+            {% set bed_mesh = printer.bed_mesh %}
+            RESPOND MSG="Bed Mesh Profile: "{bed_mesh.profile_name}
+            RESPOND MSG="Bed Mesh Min: {bed_mesh.mesh_min}"
+            RESPOND MSG="Bed Mesh Max: {bed_mesh.mesh_max}"
+        {% endif %}
+        {% if printer[FIL_SWITCH] %}
+            {% set fil_sensor = printer[FIL_SWITCH] %}
+            RESPOND MSG="Filament Sensor Enabled: "{fil_sensor.enabled}
+            RESPOND MSG="Filament Detected: "{fil_sensor.filament_detected}
+        {% endif %}
+        {% if printer[FIL_MOTION] %}
+            {% set fil_sensor = printer[FIL_MOTION] %}
+            RESPOND MSG="Filament Sensor Enabled: "{fil_sensor.enabled}
+            RESPOND MSG="Filament Detected: "{fil_sensor.filament_detected}
+        {% endif %}
+        {% set extruder = printer['extruder'] %}
+        {% set heater_bed = printer['heater_bed'] %}
+        {% set chamber = printer[CHAMBER_HEAT] %}
+        RESPOND MSG="Extruder Temperature: {extruder.temperature}C"
+        RESPOND MSG="Extruder Target Temp: {extruder.target}C"
+        RESPOND MSG="Extruder Power: {(extruder.power * 100)}%"
+        RESPOND MSG="Extruder Can Extrude: {extruder.can_extrude}"
+        RESPOND MSG="Bed Temperature: {heater_bed.temperature}C"
+        RESPOND MSG="Bed Target Temp: {heater_bed.target}C"
+        RESPOND MSG="Bed Power: {(heater_bed.power * 100)}%"
+        {% if chamber %}
+            RESPOND MSG="Chamber Temperature: {chamber.temperature}C"
+            RESPOND MSG="Chamber Target Temp: {chamber.target}C"
+            {% if chamber.speed %}
+                RESPOND MSG="Chamber Fan: {(chamber.speed * 100)}%"
+            {% elif chamber.power %}
+                RESPOND MSG="Bed Power: {(heater_bed.power * 100)}%"
+            {% endif %}
+        {% endif %}
+        #TODO Support different combinations. Currently assumes all drivers are the same.
+        {% if config["tmc2130 stepper_x"] %}
+            {% set driver_x = printer["tmc2130 stepper_x"] %}
+            {% set driver_y = printer["tmc2130 stepper_y"] %}
+            {% set driver_z = printer["tmc2130 stepper_z"] %}
+            {% if config["tmc2130 stepper_z1"] %}
+                {% set driver_z1 = printer["tmc2130 stepper_z1"] %}
+            {% else %}
+                {% set driver_z1 = 0 %}
+            {% endif %}
+            {% set driver_e = printer["tmc2130 extruder"] %}
+        {% elif config["tmc2208 stepper_x"] %}
+            {% set driver_x = printer["tmc2208 stepper_x"] %}
+            {% set driver_y = printer["tmc2208 stepper_y"] %}
+            {% set driver_z = printer["tmc2208 stepper_z"] %}
+            {% if config["tmc2208 stepper_z1"] %}
+                {% set driver_z1 = printer["tmc2208 stepper_z1"] %}
+            {% else %}
+                {% set driver_z1 = 0 %}
+            {% endif %}
+            {% set driver_e = printer["tmc2208 extruder"] %}
+        {% elif config["tmc2209 stepper_x"] %}
+            {% set driver_x = printer["tmc2209 stepper_x"] %}
+            {% set driver_y = printer["tmc2209 stepper_y"] %}
+            {% set driver_z = printer["tmc2209 stepper_z"] %}
+            {% if config["tmc2209 stepper_z1"] %}
+                {% set driver_z1 = printer["tmc2209 stepper_z1"] %}
+            {% else %}
+                {% set driver_z1 = 0 %}
+            {% endif %}
+            {% set driver_e = printer["tmc2209 extruder"] %}
+        {% elif config["tmc2660 stepper_x"] %}
+            {% set driver_x = printer["tmc2660 stepper_x"] %}
+            {% set driver_y = printer["tmc2660 stepper_y"] %}
+            {% set driver_z = printer["tmc2660 stepper_z"] %}
+            {% if config["tmc2660 stepper_z1"] %}
+                {% set driver_z1 = printer["tmc2660 stepper_z1"] %}
+            {% else %}
+                {% set driver_z1 = 0 %}
+            {% endif %}
+            {% set driver_e = printer["tmc2660 extruder"] %}
+        {% elif config["tmc5160 stepper_x"] %}
+            {% set driver_x = printer["tmc5160 stepper_x"] %}
+            {% set driver_y = printer["tmc5160 stepper_y"] %}
+            {% set driver_z = printer["tmc5160 stepper_z"] %}
+            {% if config["tmc5160 stepper_z1"] %}
+                {% set driver_z1 = printer["tmc5160 stepper_z1"] %}
+            {% else %}
+                {% set driver_z1 = 0 %}
+            {% endif %}
+            {% set driver_e = printer["tmc5160 extruder"] %}
+        {% else %}
+            {% set driver = 0 %}
+        {% endif %}
+        {% if driver != 0 %}
+            RESPOND MSG="X Stepper Run Current: "{driver_x.run_current}
+            {% if driver_x.hold_current %}
+                RESPOND MSG="X Stepper Hold Current: "{driver_x.hold_current}
+            {% endif %}
+            RESPOND MSG="Y Stepper Run Current: "{driver_y.run_current}
+            {% if driver_y.hold_current %}
+                RESPOND MSG="Y Stepper Hold Current: "{driver_y.hold_current}
+            {% endif %}
+            {% if driver_z1 == 0 %}
+                RESPOND MSG="Z Stepper Run Current: "{driver_z.run_current}
+                {% if driver_z.hold_current %}
+                    RESPOND MSG="Z Stepper Hold Current: "{driver_z.hold_current}
+                {% endif %}
+            {% else %}
+                RESPOND MSG="Z0 Stepper Run Current: "{driver_z.run_current}
+                {% if driver_z.hold_current %}
+                    RESPOND MSG="Z0 Stepper Hold Current: "{driver_z.hold_current}
+                {% endif %}
+                RESPOND MSG="Z1 Stepper Run Current: "{driver_z1.run_current}
+                {% if driver_z1.hold_current %}
+                    RESPOND MSG="Z1 Stepper Hold Current: "{driver_z1.hold_current}
+                {% endif %}
+            {% endif %}
+            RESPOND MSG="Extruder Run Current: "{driver_e.run_current}
+            {% if driver_e.hold_current %}
+                RESPOND MSG="Extruder Hold Current: "{driver_e.hold_current}
+            {% endif %}
+        {% endif %}
+
+    {% else %}
+        RESPOND TYPE=error MSG="All axis must be homed to retrieve position stats."
+    {% endif %}
+
+[gcode_macro GET_SYS_INFO]
+gcode:
+    RESPOND MSG="Load: "{printer.system_stats.sysload}
+    RESPOND MSG="CPU: "{printer.system_stats.cputime}"%"
+    RESPOND MSG="Free Mem: "{printer.system_stats.memavail}" B"
+
+[gcode_macro GET_PRINT_STATS]
+gcode:
+    RESPOND MSG="File: "{printer.print_stats.filename}
+    RESPOND MSG="File Path: "{printer.virtual_sdcard.file_path}
+    RESPOND MSG="File Position: "{printer.virtual_sdcard.file_position}
+    RESPOND MSG="File Size: "{printer.virtual_sdcard.file_size}
+    RESPOND MSG="Total Duration: "{printer.print_stats.total_duration}
+    RESPOND MSG="Print Duration: "{printer.print_stats.print_duration}
+    RESPOND MSG="Filament Used: "{printer.print_stats.filament_used}
+    RESPOND MSG="State: "{printer.print_stats.state}
+    RESPOND MSG="State: "{printer.print_stats.message}
+    RESPOND MSG="Total Layers: "{printer.print_stats.info.total_layer}
+    RESPOND MSG="Current Layer: "{printer.print_stats.info.current_layer}
+    RESPOND MSG="Paused: "{printer.pause_resume.is_paused}
+    RESPOND MSG="Idle State: "{printer.idle_timeout.state}
+    RESPOND MSG="Printing Time: "{printer.idle_timeout.printing_time}
+    RESPOND MSG="Print Active: "{printer.virtual_sdcard.is_active}
+    RESPOND MSG="Print Progress: "{printer.virtual_sdcard.progress}
+```
+
+</details>
+
+### Pas encore  testées
+
+ macros/zippy/bed_leveling.cfg
+ macros/zippy/shaping.cfg
+ macros/zippy/smart-m600.cfg
+ macros/zippy/sensorless_homing_override.cfg
+
+
+
