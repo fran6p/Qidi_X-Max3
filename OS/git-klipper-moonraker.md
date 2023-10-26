@@ -2,7 +2,7 @@
 
 **Les versions de Moonraker et Klipper sont anciennes et certains fichiers Python ont été modifiés**.
 
-    `git` est un outil puissant qui pemret de suivre l'évolution des modifications apportées à un dépôt de fichiers.
+    **git** est un outil puissant qui permet de suivre l'évolution des modifications apportées aux fichiers d'un dépôt.
 
 ## Moonraker
 
