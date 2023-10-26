@@ -4,6 +4,8 @@ Quelques unes des macros ajoutées.
 
 L'utilisateur [@frix-x](https://github.com/Frix-x/klippain) fournit un jeu de macros apportant tout un tas de possibilités. Je détaille celles que j'utilise dans ce [document](./klippain.md).
 
+1. KLIPPAIN
+
 ```
 #       KLIPPAIN (Frix-x)       #
 #[include macros/misc/console.cfg]
@@ -20,6 +22,8 @@ L'utilisateur [@frix-x](https://github.com/Frix-x/klippain) fournit un jeu de ma
 
 L'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) fournit un jeu de macros apportant tout un tas de possibilités. Je détaille celles que j'utilise dans ce [document](./zippy.md).
 
+2. ZIPPY
+
 ```
 #       ZIPPY (rootiest)       #
 #[include macros/zippy/bed_leveling.cfg]
@@ -32,7 +36,9 @@ L'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) four
 [include macros/zippy/zippystats.cfg]
 ```
 
-Les macros Qidi Tech et les paramètres système de la platine de tête (déjà inclus dans le printer.cfg sauf la section [mcu MKS_THR] que j'ai ajouté dans mon printer.cfg. La ligne [include …] est donc commentée (doublon)).
+Les macros Qidi Tech et les paramètres système de la platine de tête (repris dans le printer.cfg sauf la section [mcu MKS_THR]. J'ai donc ajouté  cette section dans mon printer.cfg et commenté la ligne [include MKS_THR.cfg] (doublon)).
+
+3. QIDI
 
 ```
 #        QIDI TECH macros      #
@@ -43,13 +49,15 @@ Les macros Qidi Tech et les paramètres système de la platine de tête (déjà 
 
 Klipper n'utilise pas d'origine la totalité des [Gcodes](https://www.klipper3d.org/fr/G-Codes.html#g-codes) Marlin mais fait un usage intensif de Gcodes étendus => création de macros pour en reproduire quelques uns [marlin](./marlin.md).
 
+4. MARLIN
+
 ```
 #        MARLIN G-CODE         #
 #[include macros/heater_override.cfg]
 #[include macros/marlin_macros.cfg]
 ```
 
-[Mises à l'origine](./homing-alt.md) uniquement si les axes n'y sont pas déjà
+5. [Mises à l'origine conditionnelle](./homing-alt.md)
 
 ```
 #            HOMING            #
@@ -58,58 +66,60 @@ Klipper n'utilise pas d'origine la totalité des [Gcodes](https://www.klipper3d.
 
 Utilisant pour la domotique HomeAssistant, mes prises électriques avec firmware Tasmota peuvent être gérées via Moonraker et quelques macros [voir ce document](../Upgrades/ha.md).
 
+6. Moonraker, gestion de l'alimentation électrique
+
 ```
 #       SHUTDOWN / REBOOT      #
 [include macros/HA_power_macros.cfg]
 ```
 
-Gestion du chargement / déchargement / purge du filament [filament](filament.md) 
+7. Gestion du chargement / déchargement / purge du filament [filament](filament.md) 
 
 ```
 #           FILAMENT            #
 #[include macros/filament.cfg]
 ```
 
-Utilisation de scripts shell [GSC](../Upgrades/gcode_shell_command.md)
+8. Utilisation de scripts shell [GSC](../Upgrades/gcode_shell_command.md)
 
 ```
 #         SHELL_COMMAND         #
 [include macros/shell_command.cfg]
 ```
 
-Gestion des [PIDs](./pids.md)
+9. Gestion des [PIDs](./pids.md)
 
 ```
 #        PID HOTEND / BED       #
 [include macros/pid.cfg]
 ```
 
-[Sauvegarde](variables.md) de paramètres dans des variables afin de pouvoir les réutiliser ultérieurement
+10. [Sauvegarde](variables.md) de paramètres dans des variables afin de pouvoir les réutiliser ultérieurement
 
 ```
 #           Variables           #
 [include macros/save_variables.cfg]
 ```
 
-Le client «universel» Fluidd / Mainsail [ici](./fluidd-mainsail-client.md)
+11. Le client «universel» Fluidd / Mainsail [ici](./fluidd-mainsail-client.md)
 
 ```
 #    Client Fluidd / Mainsail   #
 [include client.cfg]
 ```
 
-Complément après installation d'une caméra pour faire des vidéos «[timelapse](../Upgrades/timelapse.md)»
+12. Complément après installation d'une caméra pour faire des vidéos «[timelapse](../Upgrades/timelapse.md)»
 
 ```
 #      TIMELAPSE PLUGIN         #
 [include timelapse.cfg]
 ```
 
-Ne palper le plateau qu'en fonction de la pièce imprimée [KAMP](./kamp.md)
+13. Ne palper le plateau qu'en fonction de la pièce imprimée [KAMP](./kamp.md)
 
 ```
 # Klipper Adaptative Mesh Purge #
 [include Adaptive_Mesh.cfg]
 ```
 
-Pour en apprendre plus sur les macros, je recommande chaudement la lecture de [ce guide](https://github.com/rootiest/zippy_guides/blob/main/guides/macros.md)
+> Pour en apprendre plus sur les macros, je recommande chaudement la lecture de [ce guide](https://github.com/rootiest/zippy_guides/blob/main/guides/macros.md)
