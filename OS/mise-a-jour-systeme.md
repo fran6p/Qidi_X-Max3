@@ -297,6 +297,6 @@ Fichiers Python modifiés par Qidi (diffèrent du Klipper «officiel») :
 - `extras/rpi_temperature.py`
 - `extras/x_twist_compensation.py`
 
-
+Plus d'informations sur les modifications [ici](./git-klipper-moonraker.md)
 
 :smile:
