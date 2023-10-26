@@ -184,6 +184,8 @@ gcode:
 
 La musique adoucit les moeurs, dit-on :smile:
 
+> ***NOTE***: nécessite la création d'une macro M300
+
 <details>
   
 ```
