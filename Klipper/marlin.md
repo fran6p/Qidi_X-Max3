@@ -15,7 +15,7 @@ gcode:
   {% endif %}
 ```
 
-- hhh
+- [M109, M190, M104, M140](./MyConfiguration/macros/heater_override.cfg)
 
 ```
 # Replace M109/M190 with TEMPERATURE_WAIT commands
