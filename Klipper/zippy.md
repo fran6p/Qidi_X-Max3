@@ -2296,52 +2296,66 @@ gcode:
 <details>
 
 ```
-################################
-######### MESH_CHECK ###########
-################################
-[gcode_macro MESH_CHECK]
-description: Checks if a mesh exists to determine whether to create a new one
-gcode:
-    {% if printer.bed_mesh.profiles['default'] is defined %}
-        BED_MESH_PROFILE LOAD='default' ; load mesh
-    {% else %}
-        BED_MESH_CALIBRATE ; generate new mesh
-    {% endif %}
+################################### INPUT SHAPER #####################################
+# Manually via ssh to obtain the images (PNG) of the resonances for each axe (X/Y).
+# ~/klipper/scripts/calibrate_shaper.py /tmp/calibration_data_x_*.csv -o ~/klipper_config/adxl_results/shaper_calibrate_x.png
+#
+# ~/klipper/scripts/calibrate_shaper.py /tmp/calibration_data_y_*.csv -o ~/klipper_config/adxl_results/shaper_calibrate_y.png
+#
+# Read more about measuring resonances, smoothing, offline processing of shaper data etc.
+# https://www.klipper3d.org/Measuring_Resonances.html
+#
+# Input shaper auto-calibration (run tests then generate csv output)
+# Don't forget SAVE_CONFIG to save and restart Klipper
+# The value 'max_accel' won't be automatically modified, you have to do it in the
+# [printer] section, according to the results of the auto-calibration.
+# With 'bed-slinger' use the lowest max_accel of X/Y axis.
+#
 
-[gcode_macro _TEST_MESH]
-gcode:
-    {% set bed_mesh = printer.bed_mesh %}
-    RESPOND MSG="Bed Mesh Profile: "{bed_mesh.profile_name}
-    RESPOND MSG="Bed Mesh Min: {bed_mesh.mesh_min}"
-    RESPOND MSG="Bed Mesh Max: {bed_mesh.mesh_max}"
-    RESPOND MSG="Probe Matrix: {bed_mesh.probed_matrix}"
-    RESPOND MSG="Mesh Matrix: {bed_mesh.mesh_matrix}"
+# Conditional homing
+# To work correctly, needs [include macros/homing_alternate.cfg] in printer.cfg
 
-[gcode_macro BED_LEVELING]
-description: Start Bed Leveling
+# Shaping
+[gcode_macro ADXL_TEST]
+description: ADXL Test
 gcode:
-  {% if 'PROBE_COUNT' in params|upper %}
-    {% set get_count = ('PROBE_COUNT=' + params.PROBE_COUNT) %}
-  {%else %}
-    {% set get_count = "" %}
-  {% endif %}
-  {% set bed_temp = params.BED_TEMP|default(50)|float %}
-  {% set hotend_temp = params.HOTEND_TEMP|default(140)|float %}
-  {% set nozzle_clear_temp = params.NOZZLE_CLEAR_TEMP|default(240)|float %}
-  SET_FILAMENT_SENSOR SENSOR=fila_sensor ENABLE=0
-  {% if printer.toolhead.homed_axes != "xyz" %}
-    G28
-  {% endif %}
-  BED_MESH_CLEAR
-  SET_VELOCITY_LIMIT ACCEL_TO_DECEL=5000
-  BED_MESH_CALIBRATE {get_count}
-  BED_MESH_OUTPUT
-  {% set y_park = printer.toolhead.axis_maximum.y/2 %}
-  {% set x_park = printer.toolhead.axis_maximum.x|float - 10.0 %}
-  G1 X{x_park} Y{y_park} F10000
-  TURN_OFF_HEATERS
-  SET_FILAMENT_SENSOR SENSOR=filam ENABLE=1
-  M84
+    ACCELEROMETER_QUERY
+
+[gcode_macro ADXL_NOISE]
+description: Measure Accelerometer Noise
+gcode:
+    MEASURE_AXES_NOISE
+
+[gcode_macro ADXL_SHAPE_X]
+description: test resonances in x direction for the hotend
+gcode:
+    M118 DO NOT TOUCH THE PRINTER UNTIL DONE!!!
+    _HOME_CHECK
+    SHAPER_CALIBRATE AXIS=X
+    RUN_SHELL_COMMAND CMD=adxl_x
+    M118 Test done
+    SAVE_CONFIG
+  
+[gcode_macro ADXL_SHAPE_Y]
+description: test resonances in y direction for the heated bed
+gcode:
+    M118 DO NOT TOUCH THE PRINTER UNTIL DONE!!!
+    _HOME_CHECK
+    SHAPER_CALIBRATE AXIS=Y
+    RUN_SHELL_COMMAND CMD=adxl_y
+    M118 Test done
+    SAVE_CONFIG
+
+[gcode_macro ADXL_SHAPE_ALL]
+description: Test resonances for both axis
+gcode:
+    M118 DO NOT TOUCH THE PRINTER UNTIL DONE!!!
+    LAZY_HOME
+    SHAPER_CALIBRATE
+    RUN_SHELL_COMMAND CMD=adxl_x
+    RUN_SHELL_COMMAND CMD=adxl_y
+    M118 Test done
+    SAVE_CONFIG
 ```
 
 </details>
