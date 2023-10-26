@@ -2241,338 +2241,52 @@ gcode:
 <details>
 
 ```
-# Fully featured homing override for sensorless (and sensored!) homing.
-
-# NOTE: As safe_z_home is incompatible with homing_overide:
-#   All of the SzH config settings have been replicated below.
-#   You can set the values you previously used in SzH to mimic the behavior.
-#   Many additional values can also be configured.
-#   This makes for a very flexible/customizable homing suite.
-#   The latest release supports
-
-# Release Notes: 2022-10-21
-# Stable Release 1.3.1
-# 
-# This set of macros and homing_override will make giving up safe_z_home easy!
-# The CONFIGURATION section at the start contains parameters for all your favorite 
-# safe_z_home options as well as many addition ones!
-# 
-# This is specifically targeted towards sensorsless homing builds
-# and it allows you to fully customize the behavior
-# and extra goodies like:
-# 
-# - stepper_homing_current
-# - "unsafe" pre-homing z-hop height/speed
-# - XY homing "bounce" speed/distance
-# - post-z-homing z-hop speed/height
-# - custom homing acceleration
-# 
-# Set BOUNCE to 0 to disable the bounce feature.
-# 
-# With the latest update you can now set CURRENTLESS to 1 to use this override
-# without changing the stepper current. This allows this override to be used with
-# drivers that cannot set a different current.
-
-[homing_override]
-axes: xyz
-set_position_z: 0
+################################
+######### MESH_CHECK ###########
+################################
+[gcode_macro MESH_CHECK]
+description: Checks if a mesh exists to determine whether to create a new one
 gcode:
-    ######## CONFIGURATION VALUES #######
-    {% set CURRENTLESS = 0 %}           # Set to 1 for regular homing
-    {% set PROBE_X = 100 %}             # The X coordinate for safe z-homing
-    {% set PROBE_Y = 100 %}             # The Y coordinate for safe z-homing
-    {% set PROBE_XY_SPEED = 50 %}       # The travel speed when moving to those coordinates
-    {% set MOVE_TO_PREVIOUS = False %}  # Save and return to the previous position after homing
-    ############# NOTE ################## Set move to prev speed to 0 to use previous gcode speed
-    {% set MOVE_TO_PREV_SPEED = 50 %}   # Speed at which to return to previous position
-    {% set HOMING_BOUNCE = 5.0 %}       # The amount to "bounce" after hitting endstops
-    {% set BOUNCE_SPEED = 25 %}         # The speed to "bounce" after hitting endstops
-    {% set Z_HOP = 5 %}                 # The Z-hop distance after homing Z
-    {% set Z_HOP_SPEED = 10 %}          # The speed of Z-hop after homing Z
-    ############# NOTE ################## Only use current values within the specs of your steppers
-    {% set X_HOMING_CUR = 0.500 %}      # The X-axis homing current (in Amps)
-    {% set Y_HOMING_CUR = 0.500 %}      # The Y-axis homing current (in Amps)
-    {% set HOMING_ACCEL = 500 %}        # The homing acceleration (in mm/s/s)
-    ############ WARNING ################ The pause must be long enough for the drivers to apply the current
-    {% set PAUSE = 1000 %}              # Miliseconds to pause after changing current
-    ############ DANGER ################# Be careful with these as they are performed before homing
-    {% set SAFETY_HOP = 10 %}           # The "unsafe" z-hop before homing XY
-    {% set SAFETY_HOP_SPEED = 5 %}      # The "unsafe" z-hop speed
-    #####################################
-
-    # Read the current acceleration max
-    {% set cur_accel = printer.toolhead.max_accel %}
-    {% set cur_accel_to_decel = printer.toolhead.max_accel_to_decel %}
-    # Read requested homing axis
-    {% set requested = {'x': False,
-                        'y': False,
-                        'z': False} %}
-    {% if   not 'X' in params
-        and not 'Y' in params 
-        and not 'Z' in params %}
-        {% set X, Y, Z = True, True, True %}
+    {% if printer.bed_mesh.profiles['default'] is defined %}
+        BED_MESH_PROFILE LOAD='default' ; load mesh
     {% else %}
-        {% if 'X' in params %}
-            {% set X = True %}
-            {% set null = requested.update({'x': True}) %}
-        {% endif %}       
-        {% if 'Y' in params %}
-            {% set Y = True %}
-            {% set null = requested.update({'y': True}) %}
-        {% endif %}     
-        {% if 'Z' in params %}
-            {% set Z = True %}
-            {% set null = requested.update({'z': True}) %}
-        {% endif %}        
-    {% endif %}
-    
-    #STATUS_HOMING
-
-    # Pre-homing "unsafe" z-hop to protect bed
-    {% if not "xyz" in printer.toolhead.homed_axes %}
-        G1 Z{SAFETY_HOP} F{(SAFETY_HOP_SPEED * 60)}
+        BED_MESH_CALIBRATE ; generate new mesh
     {% endif %}
 
-    # Save state for MOVE_TO_PREVIOUS
-    {% if MOVE_TO_PREVIOUS %}
-        SAVE_GCODE_STATE NAME=homing
-    {% endif %}
-
-    # X and Y homing
-    {% if CURRENTLESS != 1 %}
-        {% if X and Y %}
-            SENSORLESS_HOME_ALL X_CUR={X_HOMING_CUR} Y_CUR={Y_HOMING_CUR} ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% elif X %}
-            SENSORLESS_HOME_X CURRENT={X_HOMING_CUR} ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% elif Y %}
-            SENSORLESS_HOME_Y CURRENT={Y_HOMING_CUR} ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% endif %}
-    {% else %}
-        {% if X and Y %}
-            SENSOR_HOME_ALL ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% elif X %}
-            SENSOR_HOME_X ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% elif Y %}
-            SENSOR_HOME_Y ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% endif %}
-    {% endif %}
-
-    # Z Homing
-    {% if Z %}
-        G1 X{PROBE_X} Y{PROBE_Y} F{(PROBE_XY_SPEED * 60)} # Move to safe coordinates
-        G28 Z # Home Z
-        G1 Z{Z_HOP} F{(Z_HOP_SPEED * 60)} # Post z-home z-hop
-    {% endif %}
-
-    # Restore state for MOVE_TO_PREVIOUS
-    {% if MOVE_TO_PREVIOUS %}
-        {% if MOVE_TO_PREV_SPEED == 0 %}
-            RESTORE_GCODE_STATE NAME=homing MOVE=1
-        {% else %}
-            RESTORE_GCODE_STATE NAME=homing MOVE=1 MOVE_SPEED={MOVE_TO_PREV_SPEED}
-        {% endif %}
-    {% endif %}
-
-    # Reset any acceleration changes
-    {% if printer.toolhead.max_accel != cur_accel %}
-        SET_VELOCITY_LIMIT ACCEL={cur_accel} ACCEL_TO_DECEL={cur_accel_to_decel}
-    {% endif %}
-
-    #STATUS_READY
-
-
-
-# SENSORLESS HOMING
-
-[gcode_macro SENSORLESS_HOME_ALL]
-description: Home XY with modified current
+[gcode_macro _TEST_MESH]
 gcode:
-    {% set HOME_CUR_X = params.X_CUR|default(0.250)|float %}
-    {% set HOME_CUR_Y = params.Y_CUR|default(0.250)|float %}
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set driver_config_x = printer.configfile.settings['tmc2209 stepper_x'] %}
-    {% set driver_config_y = printer.configfile.settings['tmc2209 stepper_y'] %}
-    {% set RUN_CUR_X = driver_config_x.run_current %}
-    {% set RUN_CUR_Y = driver_config_y.run_current %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
+    {% set bed_mesh = printer.bed_mesh %}
+    RESPOND MSG="Bed Mesh Profile: "{bed_mesh.profile_name}
+    RESPOND MSG="Bed Mesh Min: {bed_mesh.mesh_min}"
+    RESPOND MSG="Bed Mesh Max: {bed_mesh.mesh_max}"
+    RESPOND MSG="Probe Matrix: {bed_mesh.probed_matrix}"
+    RESPOND MSG="Mesh Matrix: {bed_mesh.mesh_matrix}"
 
-    # Set current for sensorless homing
-    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR_X}
-    SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR_Y}
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home X
-    G28 X0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 X{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Home Y
-    G28 Y0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 Y{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Set current during print
-    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CUR_X}
-    SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CUR_Y}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
-
-[gcode_macro SENSORLESS_HOME_X]
-description: Home X with modified current
+[gcode_macro BED_LEVELING]
+description: Start Bed Leveling
 gcode:
-    {% set HOME_CUR = params.CURRENT|default(0.250)|float %}
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set driver_config = printer.configfile.settings['tmc2209 stepper_x'] %}
-    {% set RUN_CUR = driver_config.run_current %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
-
-    # Set current for sensorless homing
-    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR}
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home
-    G28 X0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 X{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Set current during print
-    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CUR}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
-
-[gcode_macro SENSORLESS_HOME_Y]
-description: Home Y with modified current
-gcode:
-    {% set HOME_CUR = params.CURRENT|default(0.250)|float %}
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set driver_config = printer.configfile.settings['tmc2209 stepper_y'] %}
-    {% set RUN_CUR = driver_config.run_current %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
-    
-    # Set current for sensorless homing
-    SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR}
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home
-    G28 Y0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 Y{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Set current during print
-    SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CUR}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
-
-
-# HOME WITH ENDSTOPS
-
-[gcode_macro SENSOR_HOME_ALL]
-description: Home XY
-gcode:
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
-
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home X
-    G28 X0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 X{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Home Y
-    G28 Y0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 Y{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
-
-[gcode_macro SENSOR_HOME_X]
-description: Home X
-gcode:
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
-
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home
-    G28 X0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 X{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
-
-
-[gcode_macro SENSOR_HOME_Y]
-description: Home Y
-gcode:
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
-
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home
-    G28 Y0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 Y{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
+  {% if 'PROBE_COUNT' in params|upper %}
+    {% set get_count = ('PROBE_COUNT=' + params.PROBE_COUNT) %}
+  {%else %}
+    {% set get_count = "" %}
+  {% endif %}
+  {% set bed_temp = params.BED_TEMP|default(50)|float %}
+  {% set hotend_temp = params.HOTEND_TEMP|default(140)|float %}
+  {% set nozzle_clear_temp = params.NOZZLE_CLEAR_TEMP|default(240)|float %}
+  SET_FILAMENT_SENSOR SENSOR=fila_sensor ENABLE=0
+  {% if printer.toolhead.homed_axes != "xyz" %}
+    G28
+  {% endif %}
+  BED_MESH_CLEAR
+  SET_VELOCITY_LIMIT ACCEL_TO_DECEL=5000
+  BED_MESH_CALIBRATE {get_count}
+  BED_MESH_OUTPUT
+  {% set y_park = printer.toolhead.axis_maximum.y/2 %}
+  {% set x_park = printer.toolhead.axis_maximum.x|float - 10.0 %}
+  G1 X{x_park} Y{y_park} F10000
+  TURN_OFF_HEATERS
+  SET_FILAMENT_SENSOR SENSOR=filam ENABLE=1
+  M84
 ```
 
 </details>
@@ -2582,338 +2296,52 @@ gcode:
 <details>
 
 ```
-# Fully featured homing override for sensorless (and sensored!) homing.
-
-# NOTE: As safe_z_home is incompatible with homing_overide:
-#   All of the SzH config settings have been replicated below.
-#   You can set the values you previously used in SzH to mimic the behavior.
-#   Many additional values can also be configured.
-#   This makes for a very flexible/customizable homing suite.
-#   The latest release supports
-
-# Release Notes: 2022-10-21
-# Stable Release 1.3.1
-# 
-# This set of macros and homing_override will make giving up safe_z_home easy!
-# The CONFIGURATION section at the start contains parameters for all your favorite 
-# safe_z_home options as well as many addition ones!
-# 
-# This is specifically targeted towards sensorsless homing builds
-# and it allows you to fully customize the behavior
-# and extra goodies like:
-# 
-# - stepper_homing_current
-# - "unsafe" pre-homing z-hop height/speed
-# - XY homing "bounce" speed/distance
-# - post-z-homing z-hop speed/height
-# - custom homing acceleration
-# 
-# Set BOUNCE to 0 to disable the bounce feature.
-# 
-# With the latest update you can now set CURRENTLESS to 1 to use this override
-# without changing the stepper current. This allows this override to be used with
-# drivers that cannot set a different current.
-
-[homing_override]
-axes: xyz
-set_position_z: 0
+################################
+######### MESH_CHECK ###########
+################################
+[gcode_macro MESH_CHECK]
+description: Checks if a mesh exists to determine whether to create a new one
 gcode:
-    ######## CONFIGURATION VALUES #######
-    {% set CURRENTLESS = 0 %}           # Set to 1 for regular homing
-    {% set PROBE_X = 100 %}             # The X coordinate for safe z-homing
-    {% set PROBE_Y = 100 %}             # The Y coordinate for safe z-homing
-    {% set PROBE_XY_SPEED = 50 %}       # The travel speed when moving to those coordinates
-    {% set MOVE_TO_PREVIOUS = False %}  # Save and return to the previous position after homing
-    ############# NOTE ################## Set move to prev speed to 0 to use previous gcode speed
-    {% set MOVE_TO_PREV_SPEED = 50 %}   # Speed at which to return to previous position
-    {% set HOMING_BOUNCE = 5.0 %}       # The amount to "bounce" after hitting endstops
-    {% set BOUNCE_SPEED = 25 %}         # The speed to "bounce" after hitting endstops
-    {% set Z_HOP = 5 %}                 # The Z-hop distance after homing Z
-    {% set Z_HOP_SPEED = 10 %}          # The speed of Z-hop after homing Z
-    ############# NOTE ################## Only use current values within the specs of your steppers
-    {% set X_HOMING_CUR = 0.500 %}      # The X-axis homing current (in Amps)
-    {% set Y_HOMING_CUR = 0.500 %}      # The Y-axis homing current (in Amps)
-    {% set HOMING_ACCEL = 500 %}        # The homing acceleration (in mm/s/s)
-    ############ WARNING ################ The pause must be long enough for the drivers to apply the current
-    {% set PAUSE = 1000 %}              # Miliseconds to pause after changing current
-    ############ DANGER ################# Be careful with these as they are performed before homing
-    {% set SAFETY_HOP = 10 %}           # The "unsafe" z-hop before homing XY
-    {% set SAFETY_HOP_SPEED = 5 %}      # The "unsafe" z-hop speed
-    #####################################
-
-    # Read the current acceleration max
-    {% set cur_accel = printer.toolhead.max_accel %}
-    {% set cur_accel_to_decel = printer.toolhead.max_accel_to_decel %}
-    # Read requested homing axis
-    {% set requested = {'x': False,
-                        'y': False,
-                        'z': False} %}
-    {% if   not 'X' in params
-        and not 'Y' in params 
-        and not 'Z' in params %}
-        {% set X, Y, Z = True, True, True %}
+    {% if printer.bed_mesh.profiles['default'] is defined %}
+        BED_MESH_PROFILE LOAD='default' ; load mesh
     {% else %}
-        {% if 'X' in params %}
-            {% set X = True %}
-            {% set null = requested.update({'x': True}) %}
-        {% endif %}       
-        {% if 'Y' in params %}
-            {% set Y = True %}
-            {% set null = requested.update({'y': True}) %}
-        {% endif %}     
-        {% if 'Z' in params %}
-            {% set Z = True %}
-            {% set null = requested.update({'z': True}) %}
-        {% endif %}        
-    {% endif %}
-    
-    #STATUS_HOMING
-
-    # Pre-homing "unsafe" z-hop to protect bed
-    {% if not "xyz" in printer.toolhead.homed_axes %}
-        G1 Z{SAFETY_HOP} F{(SAFETY_HOP_SPEED * 60)}
+        BED_MESH_CALIBRATE ; generate new mesh
     {% endif %}
 
-    # Save state for MOVE_TO_PREVIOUS
-    {% if MOVE_TO_PREVIOUS %}
-        SAVE_GCODE_STATE NAME=homing
-    {% endif %}
-
-    # X and Y homing
-    {% if CURRENTLESS != 1 %}
-        {% if X and Y %}
-            SENSORLESS_HOME_ALL X_CUR={X_HOMING_CUR} Y_CUR={Y_HOMING_CUR} ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% elif X %}
-            SENSORLESS_HOME_X CURRENT={X_HOMING_CUR} ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% elif Y %}
-            SENSORLESS_HOME_Y CURRENT={Y_HOMING_CUR} ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% endif %}
-    {% else %}
-        {% if X and Y %}
-            SENSOR_HOME_ALL ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% elif X %}
-            SENSOR_HOME_X ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% elif Y %}
-            SENSOR_HOME_Y ACCEL={HOMING_ACCEL} BOUNCE={HOMING_BOUNCE} BOUNCE_SPEED={BOUNCE_SPEED} PAUSE={PAUSE}
-        {% endif %}
-    {% endif %}
-
-    # Z Homing
-    {% if Z %}
-        G1 X{PROBE_X} Y{PROBE_Y} F{(PROBE_XY_SPEED * 60)} # Move to safe coordinates
-        G28 Z # Home Z
-        G1 Z{Z_HOP} F{(Z_HOP_SPEED * 60)} # Post z-home z-hop
-    {% endif %}
-
-    # Restore state for MOVE_TO_PREVIOUS
-    {% if MOVE_TO_PREVIOUS %}
-        {% if MOVE_TO_PREV_SPEED == 0 %}
-            RESTORE_GCODE_STATE NAME=homing MOVE=1
-        {% else %}
-            RESTORE_GCODE_STATE NAME=homing MOVE=1 MOVE_SPEED={MOVE_TO_PREV_SPEED}
-        {% endif %}
-    {% endif %}
-
-    # Reset any acceleration changes
-    {% if printer.toolhead.max_accel != cur_accel %}
-        SET_VELOCITY_LIMIT ACCEL={cur_accel} ACCEL_TO_DECEL={cur_accel_to_decel}
-    {% endif %}
-
-    #STATUS_READY
-
-
-
-# SENSORLESS HOMING
-
-[gcode_macro SENSORLESS_HOME_ALL]
-description: Home XY with modified current
+[gcode_macro _TEST_MESH]
 gcode:
-    {% set HOME_CUR_X = params.X_CUR|default(0.250)|float %}
-    {% set HOME_CUR_Y = params.Y_CUR|default(0.250)|float %}
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set driver_config_x = printer.configfile.settings['tmc2209 stepper_x'] %}
-    {% set driver_config_y = printer.configfile.settings['tmc2209 stepper_y'] %}
-    {% set RUN_CUR_X = driver_config_x.run_current %}
-    {% set RUN_CUR_Y = driver_config_y.run_current %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
+    {% set bed_mesh = printer.bed_mesh %}
+    RESPOND MSG="Bed Mesh Profile: "{bed_mesh.profile_name}
+    RESPOND MSG="Bed Mesh Min: {bed_mesh.mesh_min}"
+    RESPOND MSG="Bed Mesh Max: {bed_mesh.mesh_max}"
+    RESPOND MSG="Probe Matrix: {bed_mesh.probed_matrix}"
+    RESPOND MSG="Mesh Matrix: {bed_mesh.mesh_matrix}"
 
-    # Set current for sensorless homing
-    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR_X}
-    SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR_Y}
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home X
-    G28 X0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 X{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Home Y
-    G28 Y0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 Y{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Set current during print
-    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CUR_X}
-    SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CUR_Y}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
-
-[gcode_macro SENSORLESS_HOME_X]
-description: Home X with modified current
+[gcode_macro BED_LEVELING]
+description: Start Bed Leveling
 gcode:
-    {% set HOME_CUR = params.CURRENT|default(0.250)|float %}
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set driver_config = printer.configfile.settings['tmc2209 stepper_x'] %}
-    {% set RUN_CUR = driver_config.run_current %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
-
-    # Set current for sensorless homing
-    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={HOME_CUR}
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home
-    G28 X0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 X{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Set current during print
-    SET_TMC_CURRENT STEPPER=stepper_x CURRENT={RUN_CUR}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
-
-[gcode_macro SENSORLESS_HOME_Y]
-description: Home Y with modified current
-gcode:
-    {% set HOME_CUR = params.CURRENT|default(0.250)|float %}
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set driver_config = printer.configfile.settings['tmc2209 stepper_y'] %}
-    {% set RUN_CUR = driver_config.run_current %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
-    
-    # Set current for sensorless homing
-    SET_TMC_CURRENT STEPPER=stepper_y CURRENT={HOME_CUR}
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home
-    G28 Y0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 Y{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Set current during print
-    SET_TMC_CURRENT STEPPER=stepper_y CURRENT={RUN_CUR}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
-
-
-# HOME WITH ENDSTOPS
-
-[gcode_macro SENSOR_HOME_ALL]
-description: Home XY
-gcode:
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
-
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home X
-    G28 X0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 X{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Home Y
-    G28 Y0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 Y{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
-
-[gcode_macro SENSOR_HOME_X]
-description: Home X
-gcode:
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
-
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home
-    G28 X0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 X{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
-
-
-[gcode_macro SENSOR_HOME_Y]
-description: Home Y
-gcode:
-    {% set HOME_ACCEL = params.ACCEL|default(500)|float %}
-    {% set BOUNCE = params.BOUNCE|default(10)|float %}
-    {% set BOUNCE_SPEED = params.BOUNCE_SPEED|default(20)|float %}
-    {% set PAUSE = params.PAUSE|default(2000)|int %}
-
-    # Set homing acceleration
-    SET_VELOCITY_LIMIT ACCEL={HOME_ACCEL} ACCEL_TO_DECEL={(HOME_ACCEL * 0.5)}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-    # Home
-    G28 Y0
-    {% if BOUNCE %}
-        # Move away
-        G91
-        G1 Y{BOUNCE} F{(BOUNCE_SPEED * 60)}
-        G90
-    {% endif %}
-    # Pause to ensure driver stall flag is clear
-    G4 P{PAUSE}
-
+  {% if 'PROBE_COUNT' in params|upper %}
+    {% set get_count = ('PROBE_COUNT=' + params.PROBE_COUNT) %}
+  {%else %}
+    {% set get_count = "" %}
+  {% endif %}
+  {% set bed_temp = params.BED_TEMP|default(50)|float %}
+  {% set hotend_temp = params.HOTEND_TEMP|default(140)|float %}
+  {% set nozzle_clear_temp = params.NOZZLE_CLEAR_TEMP|default(240)|float %}
+  SET_FILAMENT_SENSOR SENSOR=fila_sensor ENABLE=0
+  {% if printer.toolhead.homed_axes != "xyz" %}
+    G28
+  {% endif %}
+  BED_MESH_CLEAR
+  SET_VELOCITY_LIMIT ACCEL_TO_DECEL=5000
+  BED_MESH_CALIBRATE {get_count}
+  BED_MESH_OUTPUT
+  {% set y_park = printer.toolhead.axis_maximum.y/2 %}
+  {% set x_park = printer.toolhead.axis_maximum.x|float - 10.0 %}
+  G1 X{x_park} Y{y_park} F10000
+  TURN_OFF_HEATERS
+  SET_FILAMENT_SENSOR SENSOR=filam ENABLE=1
+  M84
 ```
 
 </details>
