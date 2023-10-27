@@ -158,8 +158,8 @@ Si, par exemple, ils ont été recopiés d'un machine Windows, quand on les test
 
 Un utilitaire Unix très pratique `dos2unix` permet de remédier à ce soucis. Il suffit juste de l'installer sur le système :
 ```
-mks@mkspi:~/klipper_config/scripts$ sudo apt install dos2unix
-mks@mkspi:~/klipper_config/scripts$ cd ~/klipper_config/scripts
+mks@mkspi:~$ sudo apt install dos2unix
+mks@mkspi:~$ cd ~/klipper_config/scripts
 mks@mkspi:~/klipper_config/scripts$ file adxl_x.sh
 adxl_x.sh: Bourne-Again shell script, ASCII text executable, with CRLF line terminators
 mks@mkspi:~/klipper_config/scripts$ dos2unix *
