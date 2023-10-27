@@ -150,6 +150,7 @@ verbose: True
 Pour pouvoir être utilisés, les scripts shell doivent obligatoirement être au format Unix (terminaison de ligne (LF) ≠ format Windows (CRLF))
 
 Si, par exemple, ils ont été recopiés d'un machine Windows, quand on les testera, une erreur sera remontée. Exemple:
+
 ```
 // /home/mks/klipper_config/scripts/clean_backups.sh: line 2: $'\r': command not found
 // /home/mks/klipper_config/scripts/clean_backups.sh: line 20: $'\r': command not found
@@ -157,6 +158,7 @@ Si, par exemple, ils ont été recopiés d'un machine Windows, quand on les test
 ```
 
 Un utilitaire Unix très pratique `dos2unix` permet de remédier à ce soucis. Il suffit juste de l'installer sur le système :
+
 ```
 mks@mkspi:~$ sudo apt install dos2unix
 mks@mkspi:~$ cd ~/klipper_config/scripts
@@ -177,6 +179,6 @@ dos2unix: converting file move_files.sh to Unix format...
 dos2unix: converting file plot_graphs.sh to Unix format...
 mks@mkspi:~/klipper_config/scripts$ file adxl_x.sh
 adxl_x.sh: Bourne-Again shell script, ASCII text executable
-``̀
+```
 
 :smiley:
