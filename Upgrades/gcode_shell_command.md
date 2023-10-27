@@ -145,6 +145,8 @@ timeout: 300.
 verbose: True
 ```
 
+-----
+
 **IMPORTANT** :
 
 Pour pouvoir être utilisés, les scripts shell doivent obligatoirement être au format Unix (terminaison de ligne (LF) ≠ format Windows (CRLF))
