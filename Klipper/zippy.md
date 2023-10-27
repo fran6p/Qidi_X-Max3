@@ -2234,9 +2234,11 @@ gcode:
 
 </details>
 
-### Pas encore  testées
 
 - [Nivellement plateau](./MyConfiguration/macros/zippy/bed_leveling.cfg)
+
+Par rapport au fichier originel, il faut modifier le nom du `SENSOR` dans les lignes débutant par `SET_FILAMENT_SENSOR`, Qidi utilise le nom `fila`
+Ci-dessous les lignes originelles sont commentées `# SET_FILAMENT_SENSOR …` 
 
 <details>
 
@@ -2273,7 +2275,8 @@ gcode:
   {% set bed_temp = params.BED_TEMP|default(50)|float %}
   {% set hotend_temp = params.HOTEND_TEMP|default(140)|float %}
   {% set nozzle_clear_temp = params.NOZZLE_CLEAR_TEMP|default(240)|float %}
-  SET_FILAMENT_SENSOR SENSOR=fila_sensor ENABLE=0
+#  SET_FILAMENT_SENSOR SENSOR=fila_sensor ENABLE=0
+  SET_FILAMENT_SENSOR SENSOR=fila ENABLE=0 # QIDI
   {% if printer.toolhead.homed_axes != "xyz" %}
     G28
   {% endif %}
@@ -2285,7 +2288,8 @@ gcode:
   {% set x_park = printer.toolhead.axis_maximum.x|float - 10.0 %}
   G1 X{x_park} Y{y_park} F10000
   TURN_OFF_HEATERS
-  SET_FILAMENT_SENSOR SENSOR=filam ENABLE=1
+#  SET_FILAMENT_SENSOR SENSOR=filam ENABLE=1
+  SET_FILAMENT_SENSOR SENSOR=fila ENABLE=1 # QIDI
   M84
 ```
 
@@ -2294,6 +2298,8 @@ gcode:
 - [Compensation de résonances](./MyConfiguration/macros/zippy/shaping.cfg)
 
 <details>
+
+### Pas encore  testées
 
 ```
 ################################### INPUT SHAPER #####################################
