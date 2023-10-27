@@ -2235,9 +2235,9 @@ gcode:
 </details>
 
 
-- [Nivellement plateau](./MyConfiguration/macros/zippy/bed_leveling.cfg)
+5. [Nivellement plateau](./MyConfiguration/macros/zippy/bed_leveling.cfg)
 
-Par rapport au fichier originel, il faut modifier le nom du `SENSOR` dans les lignes débutant par `SET_FILAMENT_SENSOR`, Qidi utilise le nom `fila`
+Par rapport au fichier originel, il faut modifier dans la macro `BED_LEVELING` le nom du `SENSOR` dans les lignes débutant par `SET_FILAMENT_SENSOR`, Qidi utilise le nom `fila`
 Ci-dessous les lignes originelles sont commentées `# SET_FILAMENT_SENSOR …` 
 
 <details>
@@ -2295,11 +2295,12 @@ gcode:
 
 </details>
 
+### Pas encore  testées
+
 - [Compensation de résonances](./MyConfiguration/macros/zippy/shaping.cfg)
 
 <details>
 
-### Pas encore  testées
 
 ```
 ################################### INPUT SHAPER #####################################
