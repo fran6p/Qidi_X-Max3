@@ -18,7 +18,7 @@ gcode:
 - [M300](./MyConfiguration/macros/marlin_macros.cfg)
 
 ```
- Used for beep tones
+# Used for beep tones
 [gcode_macro M300]
 gcode:
     {% set S = params.S|default(1000)|int %} ; S sets the tone frequency
