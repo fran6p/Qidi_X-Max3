@@ -149,7 +149,7 @@ verbose: True
 
 Pour pouvoir être utilisés, les scripts shell doivent obligatoirement être au format Unix (terminaison de ligne (LF) ≠ format Windows (CRLF))
 
-Si, par exemple, ols ont été recopiés d'un machine Windows, quand on les testera, une erreur sera remontée. Exemple:
+Si, par exemple, ils ont été recopiés d'un machine Windows, quand on les testera, une erreur sera remontée. Exemple:
 ```
 // /home/mks/klipper_config/scripts/clean_backups.sh: line 2: $'\r': command not found
 // /home/mks/klipper_config/scripts/clean_backups.sh: line 20: $'\r': command not found
