@@ -15,6 +15,28 @@ gcode:
   {% endif %}
 ```
 
+- [M300](./MyConfiguration/macros/marlin_macros.cfg)
+
+```
+ Used for beep tones
+[gcode_macro M300]
+gcode:
+    {% set S = params.S|default(1000)|int %} ; S sets the tone frequency
+    {% set P = params.P|default(100)|int %} ; P sets the tone duration
+    {% set L = 0.5 %} ; L varies the PWM on time, close to 0 or 1 the tone gets a bit quieter. 0.5 is a symmetric waveform
+    {% if S <= 0 %} ; dont divide through zero
+        {% set F = 1 %}
+        {% set L = 0 %}
+    {% elif S >= 10000 %} ;max frequency set to 10kHz
+        {% set F = 0 %}
+    {% else %}
+        {% set F = 1/S %} ;convert frequency to seconds
+    {% endif %}
+    SET_PIN PIN=beeper VALUE={L} CYCLE_TIME={F} ;Play tone
+    G4 P{P} ;tone duration
+    SET_PIN PIN=beeper VALUE=0
+```
+
 - [M109, M190, M104, M140](./MyConfiguration/macros/heater_override.cfg)
 
 ```
