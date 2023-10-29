@@ -450,7 +450,11 @@ gcode:
 
 5. [Compensation de résonances](./MyConfiguration/macros/zippy/shaping.cfg)
 
-Ces macros utilisent le Gcode étendu `RUN_SHELL_COMMAND`, il est donc nécessaire que [ce script Python](../Upgrades/gcode_shell_command.md) ait été installé
+Ces macros utilisant le Gcode étendu `RUN_SHELL_COMMAND`, il est donc nécessaire pour que tout fonctionne :
+
+- [ce script Python](../Upgrades/gcode_shell_command.md) doit être installé
+- les scripts shell doivent avoir été créés [voir ici](./MyConfiguration/scripts/)
+- inclure le fichier [shell_command.cfg](./MyConfiguration/macros/shell_command.cfg) dans le `printer.cfg`
 
 <details>
 
