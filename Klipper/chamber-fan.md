@@ -1,8 +1,9 @@
-## Ventilation automatique de l'extraction d'air
+## Ventilation de l'extraction d'air
 
 L'ajout d'une section `[temperature_fan xxx]` permet l'activation du ventilateur d'extraction d'air quand le capteur associé est au-dessus d'une température définie [voir ici](https://www.klipper3d.org/fr/Config_Reference.html#temperature_fan)
 
 Le ventilateur d'extraction d'air correspond au «fan3» :
+
 ```
 [output_pin fan3]
 pin: PC9
@@ -15,6 +16,7 @@ shutdown_value: 0.0
 ```
 
 La surveillance de la température (**à ajouter dans le printer.cfg**) s'effectue à l'aide de cette section :
+
 ```
 [temperature_fan chamber] #fan3
 pin: PC9
@@ -40,6 +42,7 @@ gcode_id: chamber #hot
 ```
 
 Le chauffage de l'enceinte est réglé via la section `[heater_generic …]` ([documentation Klipper](https://www.klipper3d.org/fr/Config_Reference.html#heater_generic)).
+
 ```
 [heater_generic chamber]
 #[heater_generic hot] ; Qidi
@@ -59,11 +62,13 @@ max_temp: 70
 ```
 
 La section `[temperature_fan chamber]` utilise des broches déjà définies (PA1, PC9) dans les sections `[output_pin fan3] et [heater_generic chamber]`. La [section suivante](https://www.klipper3d.org/fr/Config_Reference.html#duplicate_pin_override) (**à ajouter dans le printer.cfg**) permet d'éviter l'affichage d'une erreur :
+
 ```
 [duplicate_pin_override]
 pins: PA1,PC9
 ```
 
 Après redémarrage de Klipper, une nouvelle ligne s'affiche dans la section «**Température**» de Fluidd :
+
 ![Ventilateur de l'enceinte](../Images/fluidd-températures-chamber.jpg)
 
