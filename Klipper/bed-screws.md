@@ -42,7 +42,7 @@ speed: 150
 screw_thread: CW-M4
 ```
 
-Exemple d'utilisation de `SCREWS_TILT_CALCULATE` **Ne pas oublier un G28 avant de lancer cette commande :smirk:
+Exemple d'utilisation de `SCREWS_TILT_CALCULATE` **Ne pas oublier un G28 avant de lancer cette commande** :smirk:
 
 ```
 $ SCREWS_TILT_CALCULATE
