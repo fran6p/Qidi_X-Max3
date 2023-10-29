@@ -374,10 +374,21 @@ gcode:
 
 4. [Nivellement plateau](./MyConfiguration/macros/zippy/bed_leveling.cfg)
 
-Par rapport au fichier originel, il faut modifier dans la macro `BED_LEVELING` le nom du `SENSOR` dans les lignes débutant par `SET_FILAMENT_SENSOR`, Qidi utilise `fila` comme nom de senseur :
+Par rapport au fichier originel, il faut modifier dans la macro `BED_LEVELING` le nom du `SENSOR` dans les lignes débutant par `SET_FILAMENT_SENSOR`, Qidi utilise `fila` comme nom de senseur. Extrait du `printer.cfg`:
 
 ```
+#################################################
+#           Filament sensor settings            #
+#################################################
 
+[filament_switch_sensor fila]
+pause_on_runout: True
+runout_gcode:
+            PAUSE
+            SET_FILAMENT_SENSOR SENSOR=fila ENABLE=1
+event_delay: 3.0
+pause_delay: 0.5
+switch_pin: !PC1
 ```
 
 Ci-dessous les lignes originelles sont commentées `# SET_FILAMENT_SENSOR …` 
