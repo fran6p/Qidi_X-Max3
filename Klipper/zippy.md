@@ -448,9 +448,9 @@ gcode:
 
 </details>
 
-### Pas encore  testées
+5. [Compensation de résonances](./MyConfiguration/macros/zippy/shaping.cfg)
 
-- [Compensation de résonances](./MyConfiguration/macros/zippy/shaping.cfg)
+Ces macros utilisent le Gcode étendu `RUN_SHELL_COMMAND`, il est donc nécessaire que [ce script Python](../Upgrades/gcode_shell_command.md) ait été installé
 
 <details>
 
@@ -472,9 +472,6 @@ gcode:
 # With 'bed-slinger' use the lowest max_accel of X/Y axis.
 #
 
-# Conditional homing
-# To work correctly, needs [include macros/homing_alternate.cfg] in printer.cfg
-
 # Shaping
 [gcode_macro ADXL_TEST]
 description: ADXL Test
@@ -490,7 +487,7 @@ gcode:
 description: test resonances in x direction for the hotend
 gcode:
     M118 DO NOT TOUCH THE PRINTER UNTIL DONE!!!
-    _HOME_CHECK
+    G28
     SHAPER_CALIBRATE AXIS=X
     RUN_SHELL_COMMAND CMD=adxl_x
     M118 Test done
@@ -500,7 +497,7 @@ gcode:
 description: test resonances in y direction for the heated bed
 gcode:
     M118 DO NOT TOUCH THE PRINTER UNTIL DONE!!!
-    _HOME_CHECK
+    G28
     SHAPER_CALIBRATE AXIS=Y
     RUN_SHELL_COMMAND CMD=adxl_y
     M118 Test done
@@ -510,7 +507,7 @@ gcode:
 description: Test resonances for both axis
 gcode:
     M118 DO NOT TOUCH THE PRINTER UNTIL DONE!!!
-    LAZY_HOME
+    G28
     SHAPER_CALIBRATE
     RUN_SHELL_COMMAND CMD=adxl_x
     RUN_SHELL_COMMAND CMD=adxl_y
@@ -519,6 +516,8 @@ gcode:
 ```
 
 </details>
+
+### Pas encore  testées
 
 - [M600 alternatif](./MyConfiguration/macros/zippy/smart-m600.cfg)
 
