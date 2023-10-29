@@ -521,9 +521,12 @@ gcode:
 
 </details>
 
-### Pas encore  testées
 
-- [M600 alternatif](./MyConfiguration/macros/zippy/smart-m600.cfg)
+6. [M600 alternatif](./MyConfiguration/macros/zippy/smart-m600.cfg)
+
+***IMPORTANT:***
+
+**Ajuster les variables de la macro `_m600cfg` en fonction de l'imprimante**
 
 <details>
 
@@ -548,19 +551,19 @@ gcode:
 ################################
 [gcode_macro _m600cfg]
 # The following variables define the behavior of macros in this file:
-variable_sensor_name: 'filament_sensor' # The name of the filament sensor used
+variable_sensor_name: 'fila'            # The name of the filament sensor used # X-Max3 = fila
                                         # The following manage behavior during filament changes:
 variable_default_temp: 220              # The default temperature used
-variable_x: -15                         # Filament change park coordinate for X
-variable_y: 220                         # Filament change park coordinate for Y
-variable_zmin: 150                      # Minimum filament change park height
+variable_x: 150                         # Filament change park coordinate for X
+variable_y: 15                          # Filament change park coordinate for Y
+variable_zmin: 100                      # Minimum filament change park height
 variable_z: 10                          # Filament change z-hop height
 variable_load_delay: 0                  # Delay before loading on filament insert
-variable_load_fast: 50                  # Length to load the filament before reaching the hotend
-variable_load_slow: 75                  # Length to extrude/purge filament out of hotend
-variable_unload_length: 75              # Length of filament to retract during unload
+variable_load_fast: 70                  # Length to load the filament before reaching the hotend
+variable_load_slow: 20                  # Length to extrude/purge filament out of hotend
+variable_unload_length: 80              # Length of filament to retract during unload
 variable_purge_length: 50               # Length of filament to extrude during purge
-variable_post_load_retraction: 0        # Amount to retract after loading to limit oozing (in mm)
+variable_post_load_retraction: 1        # Amount to retract after loading to limit oozing (in mm)
                                         # NOTE: Speeds are given in mm/min 
 variable_fast_speed: 1000               # Speed for fast extruder moves (between extruder and hotend)
 variable_med_speed: 500                 # Speed for medium extruder moves (extruder catching the new filament)
@@ -575,8 +578,8 @@ variable_audio_macro: 'CHANGE_TUNE'     # The frequency to repeat the audio tone
 variable_use_telegram: False            # Use Telegram feedback macros
 variable_use_fluidd: True               # Output subsequent macro commands to console
                                         # The following manages the optional automated sensor toggling:
-variable_auto_sensor: False              # Automate filament sensor toggling
-variable_auto_load: True
+variable_auto_sensor: True              # Automate filament sensor toggling
+variable_auto_load: False
 variable_auto_unload: False
 
 # Do Not Change Below
@@ -667,7 +670,7 @@ gcode:
     {% if printer.idle_timeout.state == "Printing" %}
         PAUSE ; Pause printing
     {% else %}
-        CG28 ; Home all axes if not already homed
+        CG28 ; Home all axes
     {% endif %}
     {% if m600cfg.led_status == True %}
         STATUS_M600
@@ -709,7 +712,7 @@ gcode:
     {% elif params.TARGET is defined and params.TARGET|int > min_temp %} ; If current temp is below target
         {% set TARGET = params.TARGET|int|default(m600cfg.default_temp) %}
     {% endif %}
-    CG28 ; Home all axes if not already homed
+    G28 ; Home all axes if not already homed
     {% if cur_temp < (TARGET-5) %}
         {% if m600cfg.led_status == True %}
             STATUS_HEATING
@@ -1131,7 +1134,7 @@ gcode:
 </details>
 
 
-- [Mise à l'origine sans interrupteur de fin de course](./MyConfiguration/macros/zippy/sensorless_homing_override.cfg)
+7. [Mise à l'origine sans interrupteur de fin de course](./MyConfiguration/macros/zippy/sensorless_homing_override.cfg)
 
 <details>
 
