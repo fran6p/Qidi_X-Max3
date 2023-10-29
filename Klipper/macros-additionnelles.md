@@ -8,16 +8,9 @@ L'utilisateur [@frix-x](https://github.com/Frix-x/klippain) fournit un jeu de ma
 
 ```
 #       KLIPPAIN (Frix-x)       #
-#[include macros/misc/console.cfg]
-#[include macros/light_sound/*.cfg]
-## HELPERS
-# Frix-x/klipper-voron-v2
-# EtteGit/EnragedRabbitProject
-# MapleLeafMakers/KlipperMacros
-#[include macros/helpers/*.cfg]
 ## CALIBRATION
 # Frix-x/klipper-voron-v2
-#[include macros/calibration/*.cfg]
+#[include macros/klippain/*.cfg]
 ```
 
 L'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) fournit un jeu de macros apportant tout un tas de possibilités. Je détaille celles que j'utilise dans ce [document](./zippy.md).
