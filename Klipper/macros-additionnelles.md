@@ -10,7 +10,7 @@ L'utilisateur [@frix-x](https://github.com/Frix-x/klippain) fournit un jeu de ma
 #       KLIPPAIN (Frix-x)       #
 ## CALIBRATION
 # Frix-x/klipper-voron-v2
-#[include macros/klippain/*.cfg]
+[include macros/klippain/*.cfg]
 ```
 
 L'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) fournit un jeu de macros apportant tout un tas de possibilités. Je détaille celles que j'utilise dans ce [document](./zippy.md).
@@ -19,10 +19,10 @@ L'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) four
 
 ```
 #       ZIPPY (rootiest)       #
-#[include macros/zippy/bed_leveling.cfg]
-#[include macros/zippy/shaping.cfg]
-#[include macros/zippy/smart-m600.cfg]
-#[include macros/zippy/sensorless_homing_override.cfg]
+[include macros/zippy/bed_leveling.cfg]
+[include macros/zippy/shaping.cfg]
+[include macros/zippy/smart-m600.cfg]
+[include macros/zippy/sensorless_homing_override.cfg]
 [include macros/zippy/get_probe_limits.cfg]
 [include macros/zippy/test_speed.cfg]
 [include macros/zippy/tunes.cfg]
@@ -47,9 +47,12 @@ Klipper n'utilise pas d'origine la totalité des [Gcodes](https://www.klipper3d.
 ```
 #        MARLIN G-CODE         #
 #[include macros/heater_override.cfg]
-#[include macros/marlin_macros.cfg]
+[include macros/marlin_macros.cfg]
 ```
 
+Le point 5, pour le moment ne fonctionne pas comme il se doit avec la X-Max 3. Je continue de chercher pourquoi alors qu'avec mes autres imprimantes «klipperisées» ça fonctionne.
+<details>
+  
 5. [Mises à l'origine conditionnelle](./homing-alt.md)
 
 ```
@@ -57,7 +60,9 @@ Klipper n'utilise pas d'origine la totalité des [Gcodes](https://www.klipper3d.
 [include macros/homing_alternate.cfg]
 ```
 
-Utilisant pour la domotique HomeAssistant, mes prises électriques avec firmware Tasmota peuvent être gérées via Moonraker et quelques macros [voir ce document](../Upgrades/ha.md).
+</details>
+
+Utilisant pour ma domotique, HomeAssistant, mes prises électriques avec firmware Tasmota peuvent être gérées via Moonraker et quelques macros [voir ce document](../Upgrades/ha.md).
 
 6. Moonraker, gestion de l'alimentation électrique
 
@@ -70,7 +75,7 @@ Utilisant pour la domotique HomeAssistant, mes prises électriques avec firmware
 
 ```
 #           FILAMENT            #
-#[include macros/filament.cfg]
+[include macros/filament.cfg]
 ```
 
 8. Utilisation de scripts shell [GSC](../Upgrades/gcode_shell_command.md)
@@ -94,14 +99,14 @@ Utilisant pour la domotique HomeAssistant, mes prises électriques avec firmware
 [include macros/save_variables.cfg]
 ```
 
-11. Le client «universel» Fluidd / Mainsail [ici](./fluidd-mainsail-client.md)
+11. Le client «universel» Fluidd / Mainsail [voir ici](./fluidd-mainsail-client.md)
 
 ```
 #    Client Fluidd / Mainsail   #
 [include client.cfg]
 ```
 
-12. Complément après installation d'une caméra pour faire des vidéos «[timelapse](../Upgrades/timelapse.md)»
+12. Complément après installation d'une caméra pour réaliser des vidéos «[timelapse](../Upgrades/timelapse.md)»
 
 ```
 #      TIMELAPSE PLUGIN         #
