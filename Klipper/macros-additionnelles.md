@@ -2,7 +2,7 @@
 
 Quelques unes des macros ajoutées. 
 
-L'utilisateur [@frix-x](https://github.com/Frix-x/klippain) fournit un jeu de macros apportant tout un tas de possibilités. Je détaille celles que j'utilise dans ce [document](./klippain.md).
+J'ai récupéré les macros d'aide à la calibration de l'utilisateur [@frix-x](https://github.com/Frix-x/klippain). Je détaille celles que j'utilise dans ce [document](./klippain.md).
 
 1. KLIPPAIN
 
@@ -13,7 +13,7 @@ L'utilisateur [@frix-x](https://github.com/Frix-x/klippain) fournit un jeu de ma
 [include macros/klippain/*.cfg]
 ```
 
-L'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) fournit un jeu de macros apportant tout un tas de possibilités. Je détaille celles que j'utilise dans ce [document](./zippy.md).
+Idem pour l'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) qui fournit quelques macros intéressantes. Je détaille celles que j'utilise dans ce [document](./zippy.md).
 
 2. ZIPPY
 
@@ -29,7 +29,7 @@ L'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) four
 [include macros/zippy/zippystats.cfg]
 ```
 
-Les macros Qidi Tech et les paramètres système de la platine de tête (repris dans le printer.cfg sauf la section [mcu MKS_THR]. J'ai donc ajouté  cette section dans mon printer.cfg et commenté la ligne [include MKS_THR.cfg] (doublon)).
+Les macros Qidi Tech et les paramètres système de la platine de tête (tool board) qui sont repris dans le printer.cfg sauf la section [mcu MKS_THR]. Plutôt que d'inclure ce fichier, j'ai ajouté cette section **[mcu MKS_THR]** dans mon printer.cfg et commenté la ligne [include MKS_THR.cfg] (doublon)).
 
 3. QIDI
 
