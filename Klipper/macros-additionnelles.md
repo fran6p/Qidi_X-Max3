@@ -62,9 +62,10 @@ Le point 5, pour le moment ne fonctionne pas comme il se doit avec la X-Max 3. J
 
 </details>
 
-Utilisant pour ma domotique, HomeAssistant, mes prises électriques avec firmware Tasmota peuvent être gérées via Moonraker et quelques macros [voir ce document](../Upgrades/ha.md).
 
 6. Moonraker, gestion de l'alimentation électrique
+
+>  Utilisant pour ma domotique, HomeAssistant, mes prises électriques avec firmware Tasmota peuvent être gérées via Moonraker et quelques macros [voir ce document](../Upgrades/ha.md).   
 
 ```
 #       SHUTDOWN / REBOOT      #
