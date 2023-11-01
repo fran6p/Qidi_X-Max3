@@ -1356,4 +1356,4 @@ zsh/oldoldstable,oldstable,now 5.7.1-1+deb10u1 arm64 [installed,automatic]
     
 </details>    
 
-Consulter également [ce document](./recupere-place.md) pour connaitre la taille occupée par chacun et si un paquet nécessite une (des) dépendance(s).
+Consulter également [ce document](./recuperer-place.md) pour connaitre la taille occupée par chacun et si un paquet nécessite une (des) dépendance(s).
