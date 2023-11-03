@@ -43,7 +43,7 @@ journalctl
 sudo journalctl --vacuum-time=1seconds
 ```
 
-- Gestions des paquets (packages(
+- Gestions des paquets (packages)
 ```
 sudo apt update 
 sudo apt upgrade
