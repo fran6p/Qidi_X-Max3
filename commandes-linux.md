@@ -127,13 +127,9 @@ PID_CALIBRATE HEATER=heater_bed TARGET=50
 - Calibration de l'avance à la pression (pressure advance)
   - lancer cette commande
   ```
-  pressure_advance = <start> + <measured_height> * <factor>. (For example, 0 + 12.90 * .020 would be .258.)
-  ```
-  - puis celle-ci
-  ```
   SET_VELOCITY_LIMIT SQUARE_CORNER_VELOCITY=1 ACCEL=500
   ```
-  - et enfin (en fonction du type d'extrudeur)
+  - puis celle-ci (en fonction du type d'extrudeur)
     - Direct Drive
     ```
     TUNING_TOWER COMMAND=SET_PRESSURE_ADVANCE PARAMETER=ADVANCE START=0 FACTOR=.005
@@ -142,6 +138,7 @@ PID_CALIBRATE HEATER=heater_bed TARGET=50
     ```
     TUNING_TOWER COMMAND=SET_PRESSURE_ADVANCE PARAMETER=ADVANCE START=0 FACTOR=.020
     ```
+  - la valeur du paramètre `pressure_advance` se calcule de la manière suivante `pressure_advance = <début> + <hauteur_mesurée> * <facteur>` (Exemple: 0 + 12,90 * 0,020 = 0,258 ) 
 
 ### Pour aller plus loin
 
