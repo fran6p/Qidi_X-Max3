@@ -84,8 +84,8 @@ Ma section [timelapse] comprend en plus les paramètres :
 <details>
 
 ```
-#enabled: True
-#mode: layermacro
+enabled: True
+mode: layermacro
 #snapshoturl: http://localhost:8080/?action=snapshot
 #gcode_verbose: True
 parkhead: True
