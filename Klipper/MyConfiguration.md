@@ -13,7 +13,19 @@ Le [printer.cfg](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfi
     - affichage des [températures des «mcu»](../Upgrades/afficher-temperatures-mcu-rk3328.md) (Rockchip RL3328 et STM32F402),
     - affichage / réglage du [ventilateur de chauffage de la chambre](../Klipper/chamber-fan.md),
     - modification «cosmétique» pour le nom du chauffage de l'enceinte ( hot => chamber ),
-    - … 
+    - …
+- purement cosmétique: ajout d'un en-tête (créé via l'outil `figlet`) :
+    ```
+    ####################################################################
+    #   ____             __ _                       _   _              #
+    #  / ___|___  _ __  / _(_) __ _ _   _ _ __ __ _| |_(_) ___  _ __   #
+    # | |   / _ \| '_ \| |_| |/ _` | | | | '__/ _` | __| |/ _ \| '_ \  #
+    # | |__| (_) | | | |  _| | (_| | |_| | | | (_| | |_| | (_) | | | | #
+    #  \____\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_| #
+    #                         |___/                                    #
+    #                                                                  #
+    ####################################################################
+    ```
   
 Les [macros Qidi Tech](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/macros/qidi_macros.cfg) regroupées dans un fichier séparé à inclure (voir au début du fichier printer.cfg, la directive [include macros/qidi_macros.cfg]). Purement esthétique donc absolument indispendable, j'ai réorganisé ces macros en les classant par ordre numérique croissant (Gxx, Mxxx) :
 
