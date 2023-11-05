@@ -2,7 +2,7 @@
 
 Quelques unes des macros ajoutées. 
 
-J'ai récupéré les macros d'aide à la calibration de l'utilisateur [@frix-x](https://github.com/Frix-x/klippain). Je détaille celles que j'utilise dans ce [document](./klippain.md).
+J'ai récupéré les macros d'aide à la calibration de l'utilisateur [@frix-x](https://github.com/Frix-x/klippain). Je détaille celle que j'utilise dans ce [document](./klippain.md).
 
 1. KLIPPAIN
 
