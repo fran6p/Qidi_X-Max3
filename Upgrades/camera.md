@@ -17,7 +17,7 @@ Dans Fluidd, la configuration se fait de la manière suivante :
 - Configuration → Caméra → Ajouter
    ![Fluidd](../Images/fluidd-camera-configuration.jpg)
   
-- Activer → Configurer le nom → Type de flux, sélectionner "flux vidéo MJPEG", Enregistrer
+- Activer → Configurer le nom → Type de flux, sélectionner "flux vidéo MJPEG" ou "flux vidéo MJPEG adaptatifs" (moins gourmand en ressources de bande passante), Enregistrer
    ![Fluidd](../Images/fluidd-camera-configuration-ajout.jpg) 
 
 - Revenir à l'interface principale pour visualiser l'image.
