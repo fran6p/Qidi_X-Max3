@@ -85,7 +85,7 @@ gcode:
 
 - [M191](./MyConfiguration/macros/heater_override.cfg)
 
-Si le nom de la chambre est toujours celui de Qidi `hot`, remplacer le nom `chamber` dans la ligne `TEMPERATUR_WAIT_SENSOR` :smirk:
+Si le nom de la chambre est toujours celui de Qidi `hot`, remplacer le nom `chamber` dans la ligne `TEMPERATURE_WAIT_SENSOR` :smirk:
 
 ```
 # Add M191 with TEMPERATURE_WAIT commands
