@@ -83,4 +83,20 @@ gcode:
     SET_HEATER_TEMPERATURE HEATER=heater_bed TARGET={s}
 ```
 
+- [M191](./MyConfiguration/macros/heater_override.cfg)
+
+Si le nom de la chambre est toujours celui de Qidi `hot`, remplacer le nom `chamber` dans la ligne `TEMPERATUR_WAIT_SENSOR` :smirk:
+
+```
+# Add M191 with TEMPERATURE_WAIT commands
+[gcode_macro M191]
+gcode:
+    #Parameters
+    {% set s = params.S|float %}
+    M141 {% for p in params %}{'%s%s' % (p, params[p])}{% endfor %}  ; Set chamber temp
+    {% if s != 0 %}
+        TEMPERATURE_WAIT SENSOR="heater_generic chamber" MINIMUM={s} MAXIMUM={s+1}   ; Wait for chamber temp (within 1 degree)
+    {% endif %}
+```
+
 …
