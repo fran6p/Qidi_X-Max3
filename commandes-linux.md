@@ -33,7 +33,7 @@ passwd
 ls /dev/serial/by-id/*
 ```
 
-- Voir le contenu du fichier journal (journal de toutes les activités)
+- Afficher le contenu du fichier journal (journal de toutes les activités)
 ```
 journalctl 
 ```
@@ -44,15 +44,24 @@ sudo journalctl --vacuum-time=1seconds
 ```
 
 - Gestions des paquets (packages)
-```
-sudo apt update 
-sudo apt upgrade
-```
-ou en une seule ligne
-```
-sudo apt update && sudo apt upgrade
-```
-
+  - mettre à jour le système
+  ```
+  sudo apt update 
+  sudo apt upgrade
+  ```
+  ou en une seule ligne
+  ```
+  sudo apt update && sudo apt upgrade
+  ```
+  - faire un peu de ménage
+  ```
+  sudo apt clean
+  sudo apt autoremove
+  ```
+  - installer un paquet
+  ```
+  sudo apt install NOM-DU-PAQUET
+  ```
 - Divers
   - réseau
     - afficher les réseaux Wifi à proximité
@@ -92,7 +101,7 @@ sudo reboot
 shutdown -h now
 ```
 
-- Tâches en cours
+- Afficher les tâches / processus en cours
 ```
 htop
 ```
@@ -103,7 +112,7 @@ hostname
 hostname -I
 ```
 
-- Téléchrager un fichier (remplacer URL avec l'adresse Web)
+- Télécharger un fichier (remplacer URL avec l'adresse Web)
 ```
 wget URL
 ```
@@ -144,4 +153,4 @@ PID_CALIBRATE HEATER=heater_bed TARGET=50
 
 - [Klipper Gcodes](https://www.klipper3d.org/fr/G-Codes.html#g-codes)
 - [Klipper Avance à la pression](https://www.klipper3d.org/fr/Pressure_Advance.html#avance-a-la-pression)
-- [Guide calibration d'Ellis](https://ellis3dp.com/Print-Tuning-Guide/)
+- [Guide de calibration d'Ellis](https://ellis3dp.com/Print-Tuning-Guide/)
