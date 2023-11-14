@@ -22,7 +22,9 @@ Je ne reprends donc que les lignes de commandes utilisées pour cette installati
   git fetch
   git checkout legacy/v3
   ```
+
 <details>
+
   ```
 mks@mkspi:~$ git clone https://github.com/mainsail-crew/crowsnest.git
 Cloning into 'crowsnest'...
@@ -38,13 +40,16 @@ mks@mkspi:~/crowsnest$ git checkout legacy/v3
 Branch 'legacy/v3' set up to track remote branch 'legacy/v3' from 'origin'.
 Switched to a new branch 'legacy/v3'
   ```
+
 </details>
 
 - lancer l'installation
   ```
   sudo make install
   ```
+
 <details>
+  
   ```
 mks@mkspi:~/crowsnest$ sudo make install
 crowsnest - A webcam daemon for multiple Cams and stream services.
@@ -216,8 +221,10 @@ Installation successful.
         To take changes effect, you need to reboot your machine!
 
 Reboot NOW? [y/N]: N
+
   ```
 </details>
+
 - démarrer le service `crowsnest`
   ```
   sudo systemctl restart crowsnest
