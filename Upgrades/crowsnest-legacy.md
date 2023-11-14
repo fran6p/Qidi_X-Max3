@@ -231,7 +231,7 @@ Reboot NOW? [y/N]: N
   systemctl status crowsnest
   ```
 
-## Quelques modifications «comsétiques»
+## Quelques modifications «cosmétiques»
 
 L'installation a placé le fichier `crowsnest.conf` dans le répertoire `~/printer_data/config`, les journaux dans `~/printer_data/logs`.
 
