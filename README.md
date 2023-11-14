@@ -27,6 +27,8 @@ Ce dépôt regroupe une partie des recherches effectuées lors de ce test.
     - ajouter la possiblité d'utiliser des scripts shell [Gcode Shell Command](./Upgrades/gcode_shell_command.md)
     - afficher les [températures](./Upgrades/afficher-temperatures-mcu-rk3328.md) du processeur (RK3328) et du contrôleur (STM32) dans l'interface Fluidd
     - [remplacer l'eMMC](./Upgrades/remplacer_eMMC.md) originelle par une de plus grande capacité
+    - [OctoEverywhere](./Upgrade/octoeverywhere.md) surveiller l'imprimante et détecter de possibles problèmes
+    - [Crowsnest](./Upgrades/crowsnest-legacy.md) meilleure gestion des caméras
     - …
 - le répertoire ***Trancheur*** concerne le trancheur QidiSlicer, dérivé de PrusaSlicer :
     - prendre en compte la chauffe de l' [enceinte](./Trancheur/M141.md)
