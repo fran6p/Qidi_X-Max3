@@ -225,9 +225,10 @@ Reboot NOW? [y/N]: N
   ```
 </details>
 
-- démarrer le service `crowsnest`
+- redémarrer le système comme suggéré (répondre y :smirk: )
+- après redémarrage, vérifier que le service `crowsnest` est bien démarré
   ```
-  sudo systemctl restart crowsnest
+  systemctl status crowsnest
   ```
 
 On peut ajouter au fichier `moonraker.conf` la section suivante pour gérer les mises à jour :
@@ -241,3 +242,6 @@ On peut ajouter au fichier `moonraker.conf` la section suivante pour gérer les 
   install_script: tools/install.sh
   ```
 
+Enjoy !
+
+:smiley:
