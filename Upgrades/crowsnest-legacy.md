@@ -231,12 +231,14 @@ Reboot NOW? [y/N]: N
   systemctl status crowsnest
   ```
 - l'installation a placé le fichier `crowsnest.conf`dans le répertoire `~/printer_data/config`, les journaux dans `~/printer_data/logs`.
-  - Qidi utilise le répertoire `~/klipper_config` pour les fichiers de configuration et `~/klipper_logs`pour les journaux
-    On peut soit créer un lien symbolique pour ces fichiers :
-    - ```
+  > Qidi utilise le répertoire `~/klipper_config` pour les fichiers de configuration et `~/klipper_logs`pour les journaux.
+
+    - On peut soit créer un lien symbolique pour ces fichiers :
+    ```
     ln -sf /home/mks/printer_data/config/crowsnest.conf /home/mks/klipper_config/crowsnest.conf
     ln -sf /home/mks/printer_data/logs/crowsnest.log /home/mks/klipper_logs/crowsnest.log
     ```
+    
     - ou copier le fichier `crowsnest.conf` dans le répertoire `~/klipper_config` puis éditer le fichier `~/printer_data/systemd/crowsnest.env` et remplacer dans la variable `CROWSNEST_ARGS`
     ```
     -c /home/mks/printer_data/config/crowsnest.conf
