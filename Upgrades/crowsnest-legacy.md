@@ -247,7 +247,9 @@ Reboot NOW? [y/N]: N
 
     -c /home/mks/klipper_config/crowsnest.conf
     ```
-
+       - reste à éditer `crowsnest.conf`et modifier l'emplacement de stockage des journaux (`log_path: ~/klipper_logs/crowsnest.log`)
+       > Il faut en procédant ainsi modifier le fichier de rotation des journaux (`logrotate`) => `/etc/logrotate.d/crowsnest`
+       - redémarrer le service : `sudo systemctl restart crowsnest`
 
 On peut ajouter au fichier `moonraker.conf` la section suivante pour gérer les mises à jour :
 
