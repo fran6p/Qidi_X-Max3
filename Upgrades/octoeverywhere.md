@@ -8,7 +8,8 @@ L'installation d'**[OctoEeverywhere](https://github.com/QuinnDamerell/OctoPrint-
 4. Saisir le mot de passe de l'utilisateur **mks** ( ***makerbase*** )
 5. Choix (10) [OctoEverywhere]
 
-
+<details>
+   
 ```
 /=======================================================\
 |     ~~~~~~~~~~~~~~~~~ [ KIAUH ] ~~~~~~~~~~~~~~~~~     |
@@ -158,6 +159,8 @@ Success! This printer is securely connected to your account as 'X-Max3'
                             <3
 ```
 
-Je peux désormais accéder à mon imprimante en me connectant à [](https://octoeverywhere.com/dashboard)
+</details>
+
+Je peux désormais accéder à mon imprimante en me connectant au [tableau de bord](https://octoeverywhere.com/dashboard)
 
 ![OctoEveryWhere](../Images/xmax3-octoeverywhere.jpg)
