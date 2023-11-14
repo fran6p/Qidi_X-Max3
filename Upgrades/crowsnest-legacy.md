@@ -251,6 +251,39 @@ Reboot NOW? [y/N]: N
        > Il faut en procédant ainsi modifier le fichier de rotation des journaux (`logrotate`) => `/etc/logrotate.d/crowsnest`
        - redémarrer le service : `sudo systemctl restart crowsnest`
 
+<details>
+
+  ```bash
+mks@mkspi:~$ sudo systemctl status crowsnest
+● crowsnest.service - crowsnest - Multi Webcam/Streamer Control Deamon
+   Loaded: loaded (/etc/systemd/system/crowsnest.service; enabled; vendor preset: enabled)
+   Active: active (running) since Tue 2023-11-14 17:43:11 CET; 5s ago
+     Docs: https://github.com/mainsail-crew/crowsnest
+ Main PID: 8162 (crowsnest)
+    Tasks: 6 (limit: 998)
+   Memory: 4.6M
+   CGroup: /system.slice/crowsnest.service
+           ├─8162 /bin/bash /usr/local/bin/crowsnest -c /home/mks/klipper_config/crowsnest.conf
+           ├─8907 /bin/bash /usr/local/bin/crowsnest -c /home/mks/klipper_config/crowsnest.conf
+           ├─8908 sleep 2
+           ├─8928 /bin/bash /usr/local/bin/crowsnest -c /home/mks/klipper_config/crowsnest.conf
+           ├─8929 /usr/bin/python /usr/bin/crudini --get /home/mks/klipper_config/crowsnest.conf crowsnest no_proxy
+           └─8930 sed s/\#.*//;s/[[:space:]]*$//
+
+Nov 14 17:43:14 mkspi crowsnest[8162]: [11/14/23 17:43:14] crowsnest:                 3: Aperture Priority Mode
+Nov 14 17:43:14 mkspi crowsnest[8162]: [11/14/23 17:43:14] crowsnest:                 exposure_time_absolute 0x009a0902 (int) : min=10 ma
+Nov 14 17:43:14 mkspi crowsnest[8826]:                 exposure_time_absolute 0x009a0902 (int)    : min=10 max=626 step=1 default=156 val
+Nov 14 17:43:14 mkspi crowsnest[8162]: [11/14/23 17:43:14] crowsnest: INFO: No usable CSI Devices found.
+Nov 14 17:43:14 mkspi crowsnest[8838]: INFO: No usable CSI Devices found.
+Nov 14 17:43:15 mkspi crowsnest[8162]: [11/14/23 17:43:15] crowsnest: V4L2 Control: No parameters set for [cam 1]. Skipped.
+Nov 14 17:43:15 mkspi crowsnest[8858]: V4L2 Control: No parameters set for [cam 1]. Skipped.
+Nov 14 17:43:15 mkspi crowsnest[8162]: [11/14/23 17:43:15] crowsnest: Try to start configured Cams / Services...
+Nov 14 17:43:15 mkspi crowsnest[8881]: Try to start configured Cams / Services...
+Nov 14 17:43:16 mkspi crowsnest[8162]: [11/14/23 17:43:16] crowsnest: INFO: Configuration of Section [cam 1] looks good. Continue...
+```
+
+</details>
+
 On peut ajouter au fichier `moonraker.conf` la section suivante pour gérer les mises à jour :
 
   ```
