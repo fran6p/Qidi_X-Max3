@@ -3,7 +3,7 @@
 L'installation d'**[OctoEeverywhere](https://github.com/QuinnDamerell/OctoPrint-OctoEverywhere)** est très simple. KIAUH étant installé sur le système, il suffit de passer par son intermédiaire :smirk:
 
 1. Se connecter en ssh, utilisateur **mks**
-2. Lance KIAUH `./kiauh/kiauh.sh`
+2. Lancer KIAUH `./kiauh/kiauh.sh`
 3. Choix (1) [Install]
 4. Saisir le mot de passe de l'utilisateur **mks** ( ***makerbase*** )
 5. Choix (10) [OctoEverywhere]
@@ -143,7 +143,7 @@ You're 10 seconds away from free and unlimited printer access from anywhere!
 To securely link this printer to your OctoEverywhere account, go to the following website and use the code.
 
 Website: https://octoeverywhere.com/code
-Code:    689938
+Code:    ******
 
 
 Waiting for the printer to be linked to your account...
@@ -158,6 +158,6 @@ Success! This printer is securely connected to your account as 'X-Max3'
                             <3
 ```
 
-
+Je peux désormais accéder à mon imprimante en me connectant à [](https://octoeverywhere.com/dashboard)
 
 ![OctoEveryWhere](../Images/xmax3-octoeverywhere.jpg)
