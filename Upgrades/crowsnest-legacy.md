@@ -230,29 +230,34 @@ Reboot NOW? [y/N]: N
   ```
   systemctl status crowsnest
   ```
-- l'installation a placé le fichier `crowsnest.conf`dans le répertoire `~/printer_data/config`, les journaux dans `~/printer_data/logs`.
-  > Qidi utilise le répertoire `~/klipper_config` pour les fichiers de configuration et `~/klipper_logs`pour les journaux.
 
-    - On peut soit créer un lien symbolique pour ces fichiers :
-    ```
-    ln -sf /home/mks/printer_data/config/crowsnest.conf /home/mks/klipper_config/crowsnest.conf
-    ln -sf /home/mks/printer_data/logs/crowsnest.log /home/mks/klipper_logs/crowsnest.log
-    ```
+## Quelques modifications «comsétiques»
+
+L'installation a placé le fichier `crowsnest.conf` dans le répertoire `~/printer_data/config`, les journaux dans `~/printer_data/logs`.
+
+>  Qidi utilise le répertoire **~/klipper_config** pour les fichiers de configuration et **~/klipper_logs** pour les journaux.
+
+- Solution la plus facile (et rapide)
+  - Créer un lien symbolique pour ces fichiers :
+  ```
+  ln -sf /home/mks/printer_data/config/crowsnest.conf /home/mks/klipper_config/crowsnest.conf
+  ln -sf /home/mks/printer_data/logs/crowsnest.log /home/mks/klipper_logs/crowsnest.log
+  ```
     
-    - ou copier le fichier `crowsnest.conf` dans le répertoire `~/klipper_config` puis éditer le fichier `~/printer_data/systemd/crowsnest.env` et remplacer dans la variable `CROWSNEST_ARGS`
-    ```
-    -c /home/mks/printer_data/config/crowsnest.conf
+- Autre solution (demande de mettre un peu plus les mains dans le cambouis) 
+  - Copier le fichier **crowsnest.conf** dans le répertoire **~/klipper_config**
+  - Éditer le fichier **~/printer_data/systemd/crowsnest.env**
+  - Remplacer le chemin d'accès dans la variable **CROWSNEST_ARGS**
+  ```
+  -c /home/mks/printer_data/config/crowsnest.conf
 
     par
 
-    -c /home/mks/klipper_config/crowsnest.conf
-    ```
-    
-       - reste à éditer `crowsnest.conf`et modifier l'emplacement de stockage des journaux (`log_path: ~/klipper_logs/crowsnest.log`)
-  
-       > Il faut en procédant ainsi modifier le fichier de rotation des journaux (`logrotate`) => `/etc/logrotate.d/crowsnest`
-  
-       - redémarrer le service : `sudo systemctl restart crowsnest`
+  -c /home/mks/klipper_config/crowsnest.conf
+  ```
+  - Éditer **crowsnest.conf**, modifier l'emplacement de stockage des journaux (***log_path: ~/klipper_logs/crowsnest.log***)
+  > En procédant ainsi il faut également modifier le fichier de rotation des journaux (**logrotate**) => ***/etc/logrotate.d/crowsnest***
+  - redémarrer le service : `sudo systemctl restart crowsnest`
 
 <details>
 
