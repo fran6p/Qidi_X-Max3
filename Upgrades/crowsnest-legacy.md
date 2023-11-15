@@ -233,11 +233,11 @@ Reboot NOW? [y/N]: N
 
 ## IMPORTANT
 
-Qidi Tech utilise un service webcamd exécuté au démarrage du système pour afficher le flux de la caméra.
+Qidi Tech utilise le service **webcamd** exécuté au démarrage du système pour afficher le flux de la caméra.
 
-Ce service utilise mjpeg-streamer pour diffuser le flux vidéo, la configuration de la caméra utilise le fichier **webcam.txt**.
+Ce service utilise mjpeg-streamer pour la diffusion du flux vidéo, la configuration de la caméra utilise le fichier **webcam.txt**.
 
-**crowsnest** lui utilise **ustreamer** comme diffuseur de flux vidéo, celui-ci ne pezut démarrer car **webcamd** interfère. Il faut :
+**Crowsnest** utilise **ustreamer** comme diffuseur de flux vidéo, celui-ci ne peut démarrer car **webcamd** interfère. Il faut :
 1. Arrêter le service **webcamd** et le désactiver
    ```
    sudo systemctl stop webcamd
@@ -250,7 +250,7 @@ Ce service utilise mjpeg-streamer pour diffuser le flux vidéo, la configuration
 
 Si au lieu de voir l'affichage de la caméra, **NO SIGNAL** apparait sur un fond noir
 
-Vérifier que dans le fichier **crowsnest.conf**, dans la section [cam xxxx], la ligne **device:** pointe correctememt sur le bon périphérique.
+Vérifier que dans le fichier **crowsnest.conf**, dans la section [cam xxxx], la ligne **device:** pointe sur le bon périphérique.
 
 Le meilleur moyen de connaitre le nom du périphérique Webcam est d'utiliser un outil fourni par Crowsnest:
 
@@ -384,8 +384,7 @@ Supported formats:
 
 Les informations affichées permettent d'obtenir :
 - le périphérique
-  - **/dev/video4**
-  Ce périphérique est un lien symbolique, on peut également utiliser le périphérique «direct» (/dev/v4l/by-id ou /dev/v4l/by-path) :
+  - **/dev/video4** (lien symbolique, on peut préférer utiliser le périphérique «direct» (/dev/v4l/by-id ou /dev/v4l/by-path) :
     - /dev/v4l/by-id/usb-SYX-230524-J_HD_Camera-video-index0
     - /dev/v4l/by-path/platform-ff5c0000.usb-usb-0:1.3:1.0-video-index0
 - les résolutions possibles
