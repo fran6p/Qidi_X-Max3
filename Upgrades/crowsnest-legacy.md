@@ -7,7 +7,7 @@ Souhaitant remplacer le MJPEG Streamer installé par défaut, et utiliser une so
 KIAUH est installé (et à jour) mais l'option d'installation installe la dernière version de Crowsnest (v4) incompatible avec les versions antérieures à Bullseye.
 Il faut donc passer par une installation manuelle qui permet alors de sélectionner une version v3 dite «legacy» sur une distribution Buster.
 
-La [documentation de Mainsail](https://crowsnest.mainsail.xyz/faq/use-legacy-branch-on-buster) décrit les étapes à réaliser.
+La [documentation de Mainsail](https://github.com/mainsail-crew/crowsnest/tree/legacy/v3) décrit les étapes à réaliser.
 
 Je ne reprends donc que les lignes de commandes utilisées pour cette installation :
 - se connecter en ssh sur la carte en tant qu'utilisateur `mks`
