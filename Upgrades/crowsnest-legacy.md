@@ -237,7 +237,7 @@ Qidi Tech utilise un service webcamd exécuté au démarrage du système pour af
 
 Ce service utilise mjpeg-streamer pour diffuser le flux vidéo, la configuration de la caméra utilise le fichier **webcam.txt**.
 
-Si on veut utiliser pleinement **crowsnest** qui lui utilise **ustreamer** comme diffueur de flux vidéo, il faut :
+**crowsnest** lui utilise **ustreamer** comme diffuseur de flux vidéo, celui-ci ne pezut démarrer car **webcamd** interfère. Il faut :
 1. Arrêter le service **webcamd** et le désactiver
    ```
    sudo systemctl stop webcamd
@@ -252,13 +252,15 @@ Si au lieu de voir l'affichage de la caméra, **NO SIGNAL** apparait sur un fond
 
 Vérifier que dans le fichier **crowsnest.conf**, dans la section [cam xxxx], la ligne **device:** pointe correctememt sur le bon périphérique.
 
-Le meilleur moyen de connaitre le nom du périphérique Webcam est d'utiliser un outils fourni par Crowsnest:
+Le meilleur moyen de connaitre le nom du périphérique Webcam est d'utiliser un outil fourni par Crowsnest:
 
 ```
 cd ~/crowsnest
 tools/dev-helper.sh -c
 ```
+
 Le résultat peut être redirigé vers un fichier en ajoutant à la suite de l'option "-c" un **>/tmp/crowsnest-ma-webcam.txt**
+
 <details>
 
 ```
