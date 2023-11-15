@@ -231,6 +231,164 @@ Reboot NOW? [y/N]: N
   systemctl status crowsnest
   ```
 
+## IMPORTANT
+
+Qidi Tech utilise un service webcamd exécuté au démarrage du système pour afficher le flux de la caméra.
+
+Ce service utilise mjpeg-streamer pour diffuser le flux vidéo, la configuration de la caméra utilise le fichier **webcam.txt**.
+
+Si on veut utiliser pleinement **crowsnest** qui lui utilise **ustreamer** comme diffueur de flux vidéo, il faut :
+1. Arrêter le service **webcamd** et le désactiver
+   ```
+   sudo systemctl stop webcamd
+   sudo systemctl diable webcamd
+   ```
+2. Redémarrer **crowsnest**
+   ```
+   sudo systemctl restart crowsnest
+   ```
+
+Si au lieu de voir l'affichage de la caméra, **NO SIGNAL** apparait sur un fond noir
+
+Vérifier que dans le fichier **crowsnest.conf**, dans la section [cam xxxx], la ligne **device:** pointe correctememt sur le bon périphérique.
+
+Le meilleur moyen de connaitre le nom du périphérique Webcam est d'utiliser un outils fourni par Crowsnest:
+
+```
+cd ~/crowsnest
+tools/dev-helper.sh -c
+```
+Le résultat peut être redirigé vers un fichier en ajoutant à la suite de l'option "-c" un **>/tmp/crowsnest-ma-webcam.txt**
+<details>
+
+```
+mks@mkspi:~/crowsnest$ ./tools/dev-helper.sh -c
+crowsnest - dev-helper.sh
+
+v4l2-ctl supported camera(s):
+
+Device /dev/video4:
+
+Symbolic links to /dev/video4:
+
+/dev/v4l/by-id/usb-SYX-230524-J_HD_Camera-video-index0
+/dev/v4l/by-path/platform-ff5c0000.usb-usb-0:1.3:1.0-video-index0
+
+
+Supported formats:
+
+        [0]: 'MJPG' (Motion-JPEG, compressed)
+                Size: Discrete 1280x720
+                        Interval: Discrete 0.033s (30.000 fps)
+                Size: Discrete 1920x1080
+                        Interval: Discrete 0.033s (30.000 fps)
+                Size: Discrete 640x480
+                        Interval: Discrete 0.033s (30.000 fps)
+        [1]: 'YUYV' (YUYV 4:2:2)
+                Size: Discrete 1280x720
+                        Interval: Discrete 0.100s (10.000 fps)
+                Size: Discrete 1920x1080
+                        Interval: Discrete 0.200s (5.000 fps)
+                Size: Discrete 640x480
+                        Interval: Discrete 0.033s (30.000 fps)
+
+Supported Controls:
+
+
+User Controls
+
+                     brightness 0x00980900 (int)    : min=-64 max=64 step=1 default=0 value=0
+                       contrast 0x00980901 (int)    : min=0 max=95 step=1 default=0 value=0
+                     saturation 0x00980902 (int)    : min=0 max=100 step=1 default=80 value=80
+                            hue 0x00980903 (int)    : min=-2000 max=2000 step=1 default=0 value=0
+        white_balance_automatic 0x0098090c (bool)   : default=1 value=1
+                          gamma 0x00980910 (int)    : min=64 max=300 step=1 default=84 value=84
+                           gain 0x00980913 (int)    : min=1 max=8 step=1 default=1 value=1
+           power_line_frequency 0x00980918 (menu)   : min=0 max=2 default=1 value=1
+                                0: Disabled
+                                1: 50 Hz
+                                2: 60 Hz
+      white_balance_temperature 0x0098091a (int)    : min=2800 max=6500 step=1 default=3980 value=3980 flags=inactive
+                      sharpness 0x0098091b (int)    : min=1 max=7 step=1 default=2 value=2
+         backlight_compensation 0x0098091c (int)    : min=0 max=128 step=0 default=0 value=0
+
+Camera Controls
+
+                  auto_exposure 0x009a0901 (menu)   : min=0 max=3 default=3 value=3
+                                1: Manual Mode
+                                3: Aperture Priority Mode
+         exposure_time_absolute 0x009a0902 (int)    : min=10 max=626 step=1 default=156 value=156 flags=inactive
+
+Device /dev/video1:
+
+Symbolic links to /dev/video1:
+
+/dev/v4l/by-path/platform-ff390000.rga-video-index0
+
+
+Supported formats:
+
+        [0]: 'BA24' (32-bit ARGB 8-8-8-8)
+        [1]: 'BX24' (32-bit XRGB 8-8-8-8)
+        [2]: 'AR24' (32-bit BGRA 8-8-8-8)
+        [3]: 'XR24' (32-bit BGRX 8-8-8-8)
+        [4]: 'RGB3' (24-bit RGB 8-8-8)
+        [5]: 'BGR3' (24-bit BGR 8-8-8)
+        [6]: 'AR12' (16-bit ARGB 4-4-4-4)
+        [7]: 'AR15' (16-bit ARGB 1-5-5-5)
+        [8]: 'RGBP' (16-bit RGB 5-6-5)
+        [9]: 'NV21' (Y/CrCb 4:2:0)
+        [10]: 'NV61' (Y/CrCb 4:2:2)
+        [11]: 'NV12' (Y/CbCr 4:2:0)
+        [12]: 'NV16' (Y/CbCr 4:2:2)
+        [13]: 'YU12' (Planar YUV 4:2:0)
+        [14]: '422P' (Planar YUV 4:2:2)
+        [15]: 'YV12' (Planar YVU 4:2:0)
+
+Supported Controls:
+
+
+User Controls
+
+                horizontal_flip 0x00980914 (bool)   : default=0 value=0
+                  vertical_flip 0x00980915 (bool)   : default=0 value=0
+                         rotate 0x00980922 (int)    : min=0 max=270 step=90 default=0 value=0 flags=modify-layout
+               background_color 0x00980923 (int)    : min=0 max=16777215 step=1 default=0 value=0
+
+Device /dev/video0:
+
+Symbolic links to /dev/video0:
+
+/dev/v4l/by-path/platform-ff3a0000.iep-video-index0
+
+
+Supported formats:
+
+        [0]: 'NV12' (Y/CbCr 4:2:0)
+                Size: Stepwise 320x240 - 1920x1088 with step 16/16
+        [1]: 'NV21' (Y/CrCb 4:2:0)
+                Size: Stepwise 320x240 - 1920x1088 with step 16/16
+        [2]: 'NV16' (Y/CbCr 4:2:2)
+                Size: Stepwise 320x240 - 1920x1088 with step 16/16
+        [3]: 'NV61' (Y/CrCb 4:2:2)
+                Size: Stepwise 320x240 - 1920x1088 with step 16/16
+        [4]: 'YU12' (Planar YUV 4:2:0)
+                Size: Stepwise 320x240 - 1920x1088 with step 16/16
+        [5]: '422P' (Planar YUV 4:2:2)
+                Size: Stepwise 320x240 - 1920x1088 with step 16/16
+```
+
+</details>
+
+Les informations affichées permettent d'obtenir :
+- le périphérique
+  - **/dev/video4**
+  Ce périphérique est un lien symbolique, on peut également utiliser le périphérique «direct» (/dev/v4l/by-id ou /dev/v4l/by-path) :
+    - /dev/v4l/by-id/usb-SYX-230524-J_HD_Camera-video-index0
+    - /dev/v4l/by-path/platform-ff5c0000.usb-usb-0:1.3:1.0-video-index0
+- les résolutions possibles
+- les contrôles possibles (via v4l-utils)
+
 ## Quelques modifications «cosmétiques»
 
 L'installation a placé le fichier `crowsnest.conf` dans le répertoire `~/printer_data/config`, les journaux dans `~/printer_data/logs`.
