@@ -34,6 +34,6 @@ Ce dépôt regroupe une partie des recherches effectuées lors de ce test.
     - prendre en compte la chauffe de l' [enceinte](./Trancheur/M141.md)
     - …
 
-Sans oublier [quelques commandes Linux utiles](./commandes-linux.md)
+Sans oublier [quelques commandes Linux utiles](./commandes-linux.md) et celles pour [Klipper](./commandes-klipper.md)
 
 :smiley:
