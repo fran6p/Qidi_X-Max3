@@ -1,12 +1,12 @@
 ## Klipper
 
-- Calibration Pid
+- Calibration Pid [lien Klipper](https://www.klipper3d.org/fr/G-Codes.html#pid_calibrate)
 ```
 PID_CALIBRATE HEATER=extruder TARGET=215
 PID_CALIBRATE HEATER=heater_bed TARGET=50
 ```
 
-- Calibration de l'avance à la pression (pressure advance)
+- Calibration de l'avance à la pression (pressure advance) [lien Klipper](https://www.klipper3d.org/fr/Pressure_Advance.html#avance-a-la-pression) 
   - lancer cette commande
   ```
   SET_VELOCITY_LIMIT SQUARE_CORNER_VELOCITY=1 ACCEL=500
@@ -50,16 +50,16 @@ rotation_distance: 53.5  #22.6789511	#Bondtech 5mm Drive Gears
 gear_ratio: 1628:170				# Qidi X-Max 3
 ```
 - Déplacement forcé des moteurs [lien Klipper](https://www.klipper3d.org/fr/G-Codes.html#force_move)
-  - Nécessite la section suivante dans `printer.cfg`
-  ```
+  - Nécessite la section suivante dans **printer.cfg**
+```
 [force_move]
 enable_force_move: true
-  ```
+```
   - [Cette commande](https://www.klipper3d.org/fr/G-Codes.html#force_move_1) permet de contrôler l'un des moteurs pour qu'il fonctionne sans mise à l'origine préalable (homing).
  **Peut être dangereux pour le matériel !**
-  ```
+```
 FORCE_MOVE STEPPER=<nom_de_la_configuration> DISTANCE=<valeur> VELOCITE=<valeur> [ACCEL=<valeur>]
-  ```
+```
 
 ### Pour aller plus loin
 
