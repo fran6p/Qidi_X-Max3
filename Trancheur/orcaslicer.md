@@ -3,6 +3,7 @@
 OrcaSlicer utilise la commande M141/M191 pour contrôler le chauffage actif de la chambre.
 
 Quand l'option «Activer le contrôle de la température» est cochée, OrcaSlicer insère la commande M191 au début du code G (avant le Gcode de la machine).
+
 ![OrcaSlicer](../Images/orca_activate_chamber_heater.jpg)
 
 Remarque : la QIDI X-Max 3 est équipée d'un ventilateur auxiliaire, OrcaSlicer activera automatiquement le ventilateur pendant la période
