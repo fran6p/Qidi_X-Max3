@@ -12,7 +12,7 @@ En haut une buse Qidi, au-dessous une buse Volcano :
 
 ![comparaison buses](../Images/comparaison-buses-xmax3-volcano.jpg)
 
-Le site de Qidi Tech les vend sur sa boutique, le site Aliexpress et Amazon :
+Le site de Qidi Tech les vend sur sa boutique, Aliexpress et Amazon :
 - [Buse plaquée cuivre](https://qidi3d.com/collections/x-max-3-accessories/products/x-max-3-x-plus-3-x-smart-3-copper-plated-nozzle)
 - [Buse en laiton](https://qidi3d.com/products/x-max-3-x-plus-3-x-smart-3-brass-hot-end-1?variant=41573859786892)
 - [Buse en acier trempé](https://qidi3d.com/products/x-max-3-x-plus-3-x-smart-3-hardened-steel-nozzle?variant=41521850384524)
