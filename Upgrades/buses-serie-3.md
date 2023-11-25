@@ -31,7 +31,7 @@ Triangle-Lab vend un adaptateur pour Qidi. Cet adaptateur permet de monter des b
 ## Buses Volcano
 
 Il est possible d'utiliser des buses Volcano :
-- il faut alors imprimer une entretoise pour descendre la sonde de 2 mm [entretoise-2mm](../Images/"BL Touch Spacer v1".stl).
+- il faut alors imprimer une entretoise pour descendre la sonde de 2 mm ![entretoise-2mm](../Images/Bltouch-entretoise.stl)
 - l'idéal étant d'imprimer une nouvelle pièce de refroidissement [modèle printables](https://www.printables.com/fr/model/634938-qidi-x-smartplusmax-3-fan-duct-for-volcano-nozzle-/files), de sorte que le ventilateur
 de refroidissement de la pièce ne souffle pas directement sur la buse.
 
