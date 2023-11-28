@@ -6,12 +6,13 @@ Quelques unes des macros ajoutées.
 
 <details>
   
-~~1. KLIPPAIN
+```
+1. KLIPPAIN
 #       KLIPPAIN (Frix-x)       #
 ## CALIBRATION
 # Frix-x/klipper-voron-v2
 [include macros/klippain/*.cfg]
-~~
+```
 
 </details>
 
