@@ -67,11 +67,19 @@ install_script: install.sh
 
 ## Utilisation
 
-S'assurer que l'imprimante a été mise à l'origine, puis invoquer l'une des macros suivantes en fonction des besoins :
+Mettre l'imprimante à l'origine (`G28` ), puis invoquer l'une des macros suivantes en fonction des besoins :
 
-- BELTS_SHAPER_CALIBRATION pour les graphiques de résonance des courroies, utiles pour vérifier la tension des courroies et le comportement des trajectoires différentielles des courroies.
-- AXES_SHAPER_CALIBRATION pour les graphes de mise en forme d'entrée afin d'atténuer le ringing/ghosting en réglant le système de mise en forme d'entrée de Klipper.
-- VIBRATIONS_CALIBRATION pour les graphiques de vibration de la machine afin d'optimiser les profils de vitesse des trancheurs.
-- EXCITATE_AXIS_AT_FREQ pour maintenir une fréquence d'excitation spécifique, utile pour vous permettre d'inspecter et de trouver ce qui résonne.
+- **BELTS_SHAPER_CALIBRATION**
+  pour les graphiques de résonance des courroies
+  => pour vérifier la tension des courroies et le comportement des trajectoires différentielles des courroies.
+- **AXES_SHAPER_CALIBRATION**
+  pour les graphes de mise en forme d'entrée (input shaping)
+  => afin d'atténuer le ringing/ghosting en réglant le système de mise en forme d'entrée de Klipper.
+- **VIBRATIONS_CALIBRATION**
+  pour les graphiques de vibration de la machine
+  => afin d'optimiser les profils de vitesse des trancheurs.
+- **EXCITATE_AXIS_AT_FREQ**
+  pour maintenir une fréquence d'excitation spécifique
+  => pour inspecter et trouver ce qui résonne.
 
-Pour plus d'informations sur l'utilisation des macros et des graphiques générés, se reporter à la [documentation du module K-Shake&Tune](https://github.com/Frix-x/klippain-shaketune/tree/main/docs).
+Pour plus d'informations sur l'utilisation des macros et les graphiques générés, se reporter à la [documentation du module K-Shake&Tune](https://github.com/Frix-x/klippain-shaketune/tree/main/docs).
