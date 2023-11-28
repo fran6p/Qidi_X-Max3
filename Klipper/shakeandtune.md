@@ -52,7 +52,7 @@ Resolving deltas: 100% (103/103), done.
 
 [POST-INSTALL] Restarting Klipper...
 mks@mkspi:~$
-mks@mkspi:~$ ln -sf /home/mks/klippain_shaketune/K-ShakeTune/ /home/mks/klipper_config/K-ShakeTune^
+mks@mkspi:~$ ln -sf /home/mks/klippain_shaketune/K-ShakeTune/ /home/mks/klipper_config/K-ShakeTune
 mks@mkspi:~$ ls -l klipper_config
 total 96
 -rw-r--r-- 1 mks  mks  14140 Aug 23 07:20 Adaptive_Mesh.cfg
