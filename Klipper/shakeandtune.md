@@ -3,6 +3,7 @@
 Il suffit de suivre les indications du dépôt:
 
 1. Installation
+
 `wget -O - https://raw.githubusercontent.com/Frix-x/klippain-shaketune/main/install.sh | bash`
 
 <details>
@@ -48,9 +49,11 @@ mks@mkspi:~$
 </details>
 
 2. Compléter le fichier printer.cfg en ajoutant l'inclusion «qui va bien» :
+
 `[include K-ShakeTune/*.cfg]`
 
 3. (Facultatif) Compléter le fichier `moonraker.conf` pour permettre les mises à jour :
+
 ```
 [update_manager Klippain-ShakeTune]
 type: git_repo
