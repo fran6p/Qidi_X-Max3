@@ -52,6 +52,30 @@ Resolving deltas: 100% (103/103), done.
 
 [POST-INSTALL] Restarting Klipper...
 mks@mkspi:~$
+mks@mkspi:~$ ln -sf /home/mks/klippain_shaketune/K-ShakeTune/ /home/mks/klipper_config/K-ShakeTune^
+mks@mkspi:~$ ls -l klipper_config
+total 96
+-rw-r--r-- 1 mks  mks  14140 Aug 23 07:20 Adaptive_Mesh.cfg
+drwxr-xr-x 2 mks  mks   4096 Sep  2 18:51 adxl_results
+drwxr-xr-x 2 mks  mks   4096 Nov 27 10:16 backups
+lrwxrwxrwx 1 mks  mks     34 Aug 21 12:39 client.cfg -> /home/mks/fluidd-config/client.cfg
+-rw-r--r-- 1 mks  mks    495 Nov 27 14:59 config.mksini
+-rw-r--r-- 1 root root   441 Aug 23 07:20 config.mksini.bak
+-rw-r--r-- 1 mks  mks   1926 Nov 26 15:02 crowsnest.conf
+-rw-r--r-- 1 mks  mks    123 Jul 25  2022 KlipperScreen.conf
+lrwxrwxrwx 1 mks  mks     41 Nov 28 18:03 K-ShakeTune -> /home/mks/klippain_shaketune/K-ShakeTune/
+drwxr-xr-x 3 mks  mks   4096 Nov 28 16:51 macros
+-rw-r--r-- 1 mks  mks   3978 Nov 27 18:17 MKS_THR.cfg
+-rw-r--r-- 1 mks  mks   2212 Nov 28 17:57 moonraker.conf
+-rw-r--r-- 1 mks  mks   1807 Nov 28 15:23 octoeverywhere.conf
+-rw-r--r-- 1 mks  mks    554 Nov 13 16:27 octoeverywhere-system.cfg
+-rw-r--r-- 1 mks  mks  23066 Nov 28 18:04 printer.cfg
+drwxr-xr-x 2 mks  mks   4096 Nov 28 16:52 scripts
+lrwxrwxrwx 1 mks  mks     57 Aug 21 11:49 timelapse.cfg -> /home/mks/moonraker-timelapse/klipper_macro/timelapse.cfg
+-rw-r--r-- 1 mks  mks     70 Nov 28 18:04 variables.cfg
+-rw-r--r-- 1 mks  mks   2608 Nov 26 15:02 webcam.txt
+mks@mkspi:~$
+
 
 ```
   
