@@ -4,7 +4,9 @@ Se connecter en ssh sur l'imprimante (utilisateur: **mks**, mot de passe: ***mak
 
 1. Installation
 
-```wget -O - https://raw.githubusercontent.com/Frix-x/klippain-shaketune/main/install.sh | bash```
+```
+wget -O - https://raw.githubusercontent.com/Frix-x/klippain-shaketune/main/install.sh | bash
+```
 
 1.1 Qidi utilisant le répertoire ~/klipper_config pour les fichiers de configurations, ajouter un lien symbolique pour que le répertoire
 de configurations de Shake And Tune soit éditable via Fluidd (Mainsail) :
@@ -57,7 +59,9 @@ mks@mkspi:~$
 
 2. Compléter le fichier printer.cfg en ajoutant l'inclusion «qui va bien» :
 
-```[include K-ShakeTune/*.cfg]```
+```
+[include K-ShakeTune/*.cfg]
+```
 
 3. (Facultatif) Compléter le fichier `moonraker.conf` pour permettre les mises à jour :
 
