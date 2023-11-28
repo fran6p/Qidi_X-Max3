@@ -1,6 +1,6 @@
 ## Installation
 
-Il suffit de suivre les indications du dépôt:
+Se connecter en ssh sur l'imprimante (utilisateur: **mks**, mot de passe: ***makerbase***). Ensuite, il suffit de suivre les indications du dépôt:
 
 1. Installation
 
