@@ -2,15 +2,28 @@
 
 Quelques unes des macros ajoutées. 
 
-J'ai récupéré les macros d'aide à la calibration de l'utilisateur [@frix-x](https://github.com/Frix-x/klippain). Je détaille celle que j'utilise dans ce [document](./klippain.md).
+~~J'ai récupéré les macros d'aide à la calibration de l'utilisateur [@frix-x](https://github.com/Frix-x/klippain). Je détaille celle que j'utilise dans ce [document](./klippain.md).~~
 
-1. KLIPPAIN
-
-```
+<details>
+  
+~~1. KLIPPAIN
 #       KLIPPAIN (Frix-x)       #
 ## CALIBRATION
 # Frix-x/klipper-voron-v2
 [include macros/klippain/*.cfg]
+~~
+
+</details>
+
+1. KLIPPAIN Shake & Tune
+
+L'utilisateur @frix-x propose maintenant un dépôt autonome [Klippain "Shake&Tune"](https://github.com/Frix-x/klippain-shaketune/tree/main) conçu pour automatiser et calibrer le système de mise en forme d'entrée d'une imprimante 3D Klipper avec un flux de travail rationalisé et des visualisations pertinentes. Je détaille son installation dans ce [document](./shakeandtune.md) 
+
+```
+# KLIPPAIN Shake&Tune (Frix-x)  #
+## CALIBRATION
+# Frix-x/klipper-voron-v2
+[include K-ShakeTune/*.cfg]
 ```
 
 Idem pour l'utilisateur [@rootiest](https://github.com/rootiest/zippy-klipper_config) qui fournit quelques macros intéressantes. Je détaille celles que j'utilise dans ce [document](./zippy.md).
