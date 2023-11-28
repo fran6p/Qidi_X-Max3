@@ -6,6 +6,13 @@ Se connecter en ssh sur l'imprimante (utilisateur: **mks**, mot de passe: ***mak
 
 `wget -O - https://raw.githubusercontent.com/Frix-x/klippain-shaketune/main/install.sh | bash`
 
+1.1 Qidi utilisant le répertoire ~/klipper_config pour les fichiers de configurations, ajouter un lien symbolique pour que le répertoire
+de configurations de Shake And Tune soit éditable via Fluidd (Mainsail) :
+
+```
+ln -sf /home/mks/klippain_shaketune/K-ShakeTune/ /home/mks/klipper_config/K-ShakeTune
+```
+
 <details>
 
 ```
