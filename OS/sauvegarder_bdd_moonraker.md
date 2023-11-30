@@ -21,15 +21,15 @@ mdb_dump -f bkup-moonraker-db.txt -a .moonraker_database
 
 3. Faire la mise à jour Qidi (clé USB contenant à la racine le dossier QD_Update)
 
-Toujours connecté en ssh
+4. Toujours connecté en ssh
 
-4.1 Arrêter le daemon «moonraker»
+  4.1 Arrêter le daemon «moonraker»
 
 ```
 sudo systemctl stop moonraker
 ```
 
-4.2 Supprimer les deux fichiers du répertoire .moonraker_database (répertoire caché)
+  4.2 Supprimer les deux fichiers du répertoire .moonraker_database (répertoire caché)
 
 ```
 cd .moonraker_database
@@ -37,7 +37,7 @@ rm -rf data.mdb
 rm -rf lock.mdb
 ```
 
-4.3 Remonter à la racine du répertoire personnel (/home/mks), injecter la sauvegarde de la base, démarrer moonraker
+  4.3 Remonter à la racine du répertoire personnel (/home/mks), injecter la sauvegarde de la base, démarrer moonraker
 
 ```
 cd ~
