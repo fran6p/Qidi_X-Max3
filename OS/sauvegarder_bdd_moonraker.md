@@ -12,27 +12,27 @@ Il est possible de faire une sauvegarde de la base de données pour pouvoir ensu
 sudo apt install lmdb-utils
 ```
 
-2. Faire une sauvegarde de la base dans un fichier texte 
+2. Faire une sauvegarde de la base actuelle dans un fichier texte 
 
 ```
 cd ~
 mdb_dump -f bkup-moonraker-db.txt -a .moonraker_database
 ```
 
-3. Faire la mise à jour Qidi (clé USB contenant à la racine le dossier QD_Update)
+3. Faire la mise à jour Qidi (clé USB contenant à la racine le dossier QD_Update et son contenu)
 
 4. Toujours connecté en ssh
-  - Arrêter le daemon «moonraker»
+  - Arrêter le daemon **moonraker**
   ```
   sudo systemctl stop moonraker
   ```
-  - Supprimer les deux fichiers du répertoire .moonraker_database (répertoire caché)
+  - Supprimer les deux fichiers du répertoire **.moonraker_database** (répertoire caché)
   ```
   cd .moonraker_database
   rm -rf data.mdb
   rm -rf lock.mdb
   ```
-  - Remonter à la racine du répertoire personnel (/home/mks), injecter la sauvegarde de la base, démarrer moonraker
+  - Remonter à la racine du répertoire personnel (**/home/mks**), injecter la sauvegarde de la base, démarrer **moonraker**
   ```
   cd ~
   mdb_load -f bkup-moonraker-db.txt -s -T ~/.moonraker_database
