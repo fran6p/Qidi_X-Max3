@@ -1,4 +1,4 @@
-## Présqerver l'historique des impressions
+## Préserver l'historique des impressions
 
 A chaque mise à jour si aucune précaution n'a été prise, l'historique des impressions est remis à zéro ☹️
 
@@ -6,7 +6,7 @@ Il est possible de faire une sauvegarde de la base de données pour pouvoir ensu
 
 ### Comment faire ?
 
-1. Connecté en ssh sur la carte, installer le paquet `lmdb-utils`
+1. Connecté en ssh, utilisateur «**mks**» sur la carte, installer le paquet `lmdb-utils`
    
 ```
 sudo apt install lmdb-utils
@@ -19,9 +19,9 @@ cd ~
 mdb_dump -f bkup-moonraker-db.txt -a .moonraker_database
 ```
 
-3. Faire la mise à jour Qidi
+3. Faire la mise à jour Qidi (clé USB contenant à la racine le dossier QD_Update)
 
-4. Toujours connecté en ssh, utilisateur «**mks**»
+Toujours connecté en ssh
 
 4.1 Arrêter le daemon «moonraker»
 
@@ -37,7 +37,7 @@ rm -rf data.mdb
 rm -rf lock.mdb
 ```
 
-4.3 Remonter à la racine du répertoire personnel (/home/mks)
+4.3 Remonter à la racine du répertoire personnel (/home/mks), injecter la sauvegarde de la base, démarrer moonraker
 
 ```
 cd ~
@@ -46,3 +46,5 @@ sudo systemctl start moonraker
 ```   
 
 Source: [Voron Community Documentation](https://docs.vorondesign.com/community/howto/kyleisah/transferring_machine_history.html#something-went-wrong-moonraker-isnt-coming-back-up)
+
+Il doit être possible de créer une macro «shell_command» pour automatiser la sauvegarde la base (point 2 ci-dessus). A suivre donc…
