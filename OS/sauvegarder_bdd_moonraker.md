@@ -22,28 +22,22 @@ mdb_dump -f bkup-moonraker-db.txt -a .moonraker_database
 3. Faire la mise à jour Qidi (clé USB contenant à la racine le dossier QD_Update)
 
 4. Toujours connecté en ssh
-
-  4. Arrêter le daemon «moonraker»
-
-```
-sudo systemctl stop moonraker
-```
-
-  4. Supprimer les deux fichiers du répertoire .moonraker_database (répertoire caché)
-
-```
-cd .moonraker_database
-rm -rf data.mdb
-rm -rf lock.mdb
-```
-
-  4. Remonter à la racine du répertoire personnel (/home/mks), injecter la sauvegarde de la base, démarrer moonraker
-
-```
-cd ~
-mdb_load -f bkup-moonraker-db.txt -s -T ~/.moonraker_database
-sudo systemctl start moonraker       
-```   
+  - Arrêter le daemon «moonraker»
+  ```
+  sudo systemctl stop moonraker
+  ```
+  - Supprimer les deux fichiers du répertoire .moonraker_database (répertoire caché)
+  ```
+  cd .moonraker_database
+  rm -rf data.mdb
+  rm -rf lock.mdb
+  ```
+  - Remonter à la racine du répertoire personnel (/home/mks), injecter la sauvegarde de la base, démarrer moonraker
+  ```
+  cd ~
+  mdb_load -f bkup-moonraker-db.txt -s -T ~/.moonraker_database
+  sudo systemctl start moonraker       
+  ```   
 
 Source: [Voron Community Documentation](https://docs.vorondesign.com/community/howto/kyleisah/transferring_machine_history.html#something-went-wrong-moonraker-isnt-coming-back-up)
 
