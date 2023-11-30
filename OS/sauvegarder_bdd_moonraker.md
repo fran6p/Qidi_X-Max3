@@ -6,7 +6,7 @@ Il est possible de faire une sauvegarde de la base de données pour pouvoir ensu
 
 ### Comment faire ?
 
-1. Connecté en ssh, utilisateur «**mks**» sur la carte, installer le paquet `lmdb-utils`
+1. Connecté en ssh sur la carte en utilisateur **mks**, installer le paquet `lmdb-utils`
    
 ```
 sudo apt install lmdb-utils
@@ -21,7 +21,7 @@ mdb_dump -f bkup-moonraker-db.txt -a .moonraker_database
 
 3. Faire la mise à jour Qidi (clé USB contenant à la racine le dossier QD_Update et son contenu)
 
-4. Toujours connecté en ssh
+4. Toujours connecté en ssh, utilisateur **mks**
   - Arrêter le daemon **moonraker**
   ```
   sudo systemctl stop moonraker
