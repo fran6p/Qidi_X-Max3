@@ -52,6 +52,10 @@ sudo systemctl start klipper
 
 Je cherche les modifications apportées au fichier printer.cfg (diff, Winmerge) et les reporte manuellement dans mon printer.cfg sauvegardé si nécessaire.
 
+### Alternative pour l'historique des impressions
+
+[voir ici](./sauvegarder_bdd_moonraker.md)
+
 ## Examen rapide des fichiers constituants une mise à jour
 
 L'archive QD_Update.zip (version 4.3.8) contient trois fichiers :
