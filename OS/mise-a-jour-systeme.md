@@ -19,11 +19,11 @@ Quelques constats :
 
 ## Comment je procède avant de mettre à jour le système
 
-Avant toute mise à jour, je sauvegarde via WinSCP:
+**Avant toute mise à jour**, je sauvegarde via WinSCP:
 - le dossier `~/klipper_config`
 - le dossier caché `~/.moonraker_database`
 
-Je procède ensuite à la mise à jour du système (mi-octobre 2023, V4.3.10) via la clé USB dans laquelle le dossier QD_Update et son contenu ont été copié à la racine de la clé «sans nom» :smirk: .
+Je procède ensuite à la mise à jour du système (fin novembre 2023, V4.3.12) via la clé USB dans laquelle le dossier QD_Update et son contenu ont été copié à la racine de la clé «sans nom» :smirk: .
 
 Via ssh, en tant qu'utilisateur `mks`, j'arrête les services `moonraker` et `klipper` et fais une copie du nouveau `printer.cfg`
 
