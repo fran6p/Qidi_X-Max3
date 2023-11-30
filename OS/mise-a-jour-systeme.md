@@ -35,7 +35,15 @@ cp ~/klipper_config/printer.cfg ~/klipper_config/printer-qidi-v4310.cfg
 
 Via WinSCP, je recopie le dossier  `~/.moonraker_database` dans le home de mks, idem pour le dossier `klipper_config`
 
-Via ssh, je relance les services 
+Via ssh :
+
+- par précaution, on réattribue les fichiers de ce dossier à l'utilisateur mks (groupe mks)
+
+```
+sudo chown mks:mks ~/.moonraker_database
+```
+
+- on relance les services 
 
 ```
 sudo systemctl start moonraker
