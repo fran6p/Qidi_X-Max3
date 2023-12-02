@@ -109,7 +109,8 @@ $SCRIPTS $CSV_FILE -o $PNG_FILE
 
 Le script shell pour l'axe Y peut être déduit du précédent :smirk:
 
-En utiliosant ces scripts, on obtient par exemple les graphiques suivants :
+En utilisant ces scripts, on obtient par exemple les graphiques suivants :
+
 ![shapingX](../Images/is-x.png)
 ![shapingX](../Images/is-x.png)
 
