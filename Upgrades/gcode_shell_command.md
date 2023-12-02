@@ -111,8 +111,9 @@ Le script shell pour l'axe Y peut être déduit du précédent :smirk:
 
 En utilisant ces scripts, on obtient par exemple les graphiques suivants :
 
-![shapingX](../Images/is-x.png)
-![shapingX](../Images/is-x.png)
+![shapingX](../Images/is-x..png)
+
+![shapingY](../Images/is-y.png)
 
 A l'extinction de l'imprimante, le répertoire /tmp est vidé, les fichiers CSV issus des tests de résonances seront perdus. Si on veut pouvoir les réutiliser , il faut les transférer dans un endroit persistant (/home/mks/klipper_config/adxl_results par exemple).
 
