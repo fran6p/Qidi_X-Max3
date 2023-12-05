@@ -1,10 +1,8 @@
-# Référence de quelques commandes
+# Libux - Référence de quelques commandes
 
 Compilation de quelques commandes Unix/Linux utiles. Klipper nécessite une connaissance de la ligne de commande pour son utilisation avec un terminal SSH.
 
 -----------------------------
-
-## Linux
 
 - Se placer dans son répertoire personnel (connecté en utilisateur `mks`)
 ```
