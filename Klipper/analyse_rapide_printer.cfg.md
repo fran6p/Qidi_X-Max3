@@ -13,6 +13,13 @@ réorganiser ce gros fichiers en deux parties:
 
 ## Analyse de la configuration matérielle
 
+## Sommaire
+
+- [MCU](#mcu)
+- [printer](#[printer])
+- [Pilotes moteurs](#pilotesmoteurs)
+- [Lit chauffant](#litchauffant)
+
 ### MCU
 
 La X-Max 3 gère trois (3) «mcu» (micro controler unit) :
