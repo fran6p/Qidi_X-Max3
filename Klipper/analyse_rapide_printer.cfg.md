@@ -16,9 +16,9 @@ réorganiser ce gros fichiers en deux parties:
 ## Sommaire
 
 - [MCU](#mcu)
-- [printer](#[printer])
-- [Pilotes moteurs](#pilotesmoteurs)
-- [Lit chauffant](#litchauffant)
+- [printer](#printer)
+- [Pilotes moteurs](#pilotes-moteurs)
+- [Lit chauffant](#lit-chauffant)
 
 ### MCU
 
