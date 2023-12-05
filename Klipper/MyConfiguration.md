@@ -32,7 +32,7 @@ Les [macros Qidi Tech](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/M
 <details><summary>(Clic) Pour récupérer un fichier individuellement</summary><p>
 
 ---
-Cliquer le bouton [RAW] pour ouvrir le fichier «plein texte», puis clic droit pour enregistrer le fichier ou sélectionner une partie (la totalité) du contenu, CTRL+C pour le copier / coller à un autre endroit.
+Cliquer le bouton [RAW] pour ouvrir le fichier «plein texte», puis clic droit pour enregistrer le fichier ou sélectionner une partie (la totalité) du contenu, <kbd>CTRL</kbd>+<kbd>C</kbd> pour le copier puis <kbd>CTRL</kbd>+<kbd>V</kbd> pour le coller à un autre endroit.
 
 ![RAW](../Images/gh-raw.jpg)
 
@@ -44,14 +44,14 @@ Cliquer le bouton [RAW] pour ouvrir le fichier «plein texte», puis clic droit 
 
 #### IMPORTANT
 
-Les fichiers, dossiers doivent tous appartenir à l'utilisateur `mks`
+Les fichiers, dossiers doivent tous **appartenir à l'utilisateur `mks`**
 
 ```
 cd ~/klipper_config
 sudo chown -R mks:mks *
 ```
 
-Si des scripts shell sont utilisés, idem que ci-dessus et les rendre exécutables
+Si des scripts shell sont utilisés, **idem que ci-dessus et les rendre exécutables**
 
 ```
 cd ~/klipper_config/scripts
