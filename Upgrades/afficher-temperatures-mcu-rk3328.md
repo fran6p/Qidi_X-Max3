@@ -21,6 +21,6 @@ min_temp: 0
 max_temp: 80
 ```
 
-Ce qui donne (la copie écran date d'avant l'ajout de la carte fille 😏:
+Ce qui donne (la copie écran date d'avant l'ajout de la carte fille 😏) :
 
 ![températures](../Images/mcu+controler-temperatures.jpg)
