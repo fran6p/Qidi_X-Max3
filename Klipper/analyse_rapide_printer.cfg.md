@@ -19,6 +19,15 @@ réorganiser ce gros fichiers en deux parties:
 - [printer](#printer)
 - [Pilotes moteurs](#pilotes-moteurs)
 - [Lit chauffant](#lit-chauffant)
+- [Extrudeur](#extrudeur)
+- [Chambre](#chambre-enceinte--caisson)
+- [Ventilateur tête](#ventilateur-de-refroidissement-du-radiateur-de-la-tête)
+- [Températures hôte et mcu](#surveillance-des-températures-hôte-et-mcu)
+- [Ventilateurs](#ventilateurs)
+- [Détecteur filament](#détecteur-de-fin-de-filament)
+- [Nivelage lit](#nivelage-du-lit-dimpression)
+- [Compensation de résonances](#compensation-de-résonance)
+- [Autre](#reste-de-la-configuration)
 
 ### MCU
 
