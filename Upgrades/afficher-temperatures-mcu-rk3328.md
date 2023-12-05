@@ -23,4 +23,4 @@ max_temp: 80
 
 Ce qui donne :
 
-![températures](../Images/fluidd-temperatures.jpg)
+![températures](../Images/fluidd-termperatures.jpg)
