@@ -10,7 +10,7 @@ Le [printer.cfg](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfi
 - corrigé pour n'utiliser que le caractère **« : »** après le nom du paramètre, au lieu du caractère **« = »**, suivi d'un espace afin de séparer le nom du paramètre de sa valeur,
 - suppression de lignes vides
 - ajouts :
-    - affichage des [températures des «mcu»](../Upgrades/afficher-temperatures-mcu-rk3328.md) (Rockchip RL3328 et STM32F402),
+    - affichage des [températures des «mcu»](../Upgrades/afficher-temperatures-mcu-rk3328.md) (Rockchip RL3328, STM32F402 et RP2040 (tête)),
     - affichage / réglage du [ventilateur de chauffage de la chambre](../Klipper/chamber-fan.md),
     - modification «cosmétique» pour le nom du chauffage de l'enceinte ( hot => chamber ),
     - …
