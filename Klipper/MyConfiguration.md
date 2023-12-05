@@ -27,7 +27,9 @@ Le [printer.cfg](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfi
     ####################################################################
     ```
   
-Les [macros Qidi Tech](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/macros/qidi_macros.cfg) regroupées dans un fichier séparé à inclure (voir au début du fichier printer.cfg, la directive [include macros/qidi_macros.cfg]). Purement esthétique donc absolument indispendable, j'ai réorganisé ces macros en les classant par ordre numérique croissant (Gxx, Mxxx) :
+Les [macros Qidi Tech](https://github.com/fran6p/Qidi_X-Max3/blob/main/Klipper/MyConfiguration/macros/qidi_macros.cfg) regroupées dans un fichier séparé à inclure (voir au début du fichier printer.cfg, la directive [include macros/qidi_macros.cfg]). Purement esthétique donc absolument indispendable, j'ai réorganisé ces macros en les classant par ordre numérique croissant (Gxx, Mxxx)
+
+Les [macros additionnelles](./macros-additionnelles.md) dont on peut se passer ***mais ce serait dommage*** :smirk:
 
 <details><summary>(Clic) Pour récupérer un fichier individuellement</summary><p>
 
@@ -62,5 +64,5 @@ chmod +x *
 
 </details>
 
-Les [macros additionnelles](./macros-additionnelles.md) dont on peut se passer ***mais ce serait dommage*** :smirk:
+
 
