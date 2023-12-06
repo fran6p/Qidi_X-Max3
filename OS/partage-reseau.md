@@ -65,7 +65,9 @@ force group = mks
 </p>
   
 </details>
+
 5. Enregistrer les modifications apportées à smb.conf ( <kbd>CTRL</kbd>+<kbd>X</kbd>, <kbd>y</kbd>, <kbd>ENTRÉE</kbd> )
+
 
 6. Redémarrer le daemon samba (ou redémarrer le système) :
   ```
@@ -73,6 +75,7 @@ force group = mks
   …
   sudo reboot
   ```
+
 7. Via l'explorateur de fichier d'un PC Windows ou Mac, accéder au partages via l'adresse `\\adr.ess.eip.qidi` ou `\\nom.imprimante`
 
 Exemples avec mon imprimante portant le nom DNS xmax3 :
