@@ -66,6 +66,7 @@ force group = mks
   
 </details>
 5. Enregistrer les modifications apportées à smb.conf ( <kbd>CTRL</kbd>+<kbd>X</kbd>, <kbd>y</kbd>, <kbd>ENTRÉE</kbd> )
+
 6. Redémarrer le daemon samba (ou redémarrer le système) :
   ```
   sudo systemctl restart smbd
