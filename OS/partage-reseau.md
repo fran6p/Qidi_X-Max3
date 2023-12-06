@@ -2,8 +2,8 @@
 
 ## Pourquoi ?
 
-Mettre en place un partage de fichiers réseau, permettant de rendre disponibles les fichiers gcode, les fichiers de configurations de Klipper,
-les Timelpases aux explorateurs de fichiers Windows ou Mac.
+Rendre disponibles les fichiers gcode, les fichiers de configurations de Klipper,
+les Timelpases aux explorateurs de fichiers Windows ou Mac via la mise en place d'un partage de fichiers réseau.
 
 ## Comment ?
 
