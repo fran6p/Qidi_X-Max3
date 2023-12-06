@@ -89,11 +89,10 @@ Exemples avec mon imprimante portant le nom DNS xmax3 :
 ![Configuration](../Images/samba-klipper.jpg)
 
 **ATTENTION**
-Ces partages sont accessibles sans aucune restriction aux matériels connectés sur le réseau. A vous de vous documenter si vous voulez
-ajouter des restrcitions d'accès.
 
-**NB:**
-Ces partages sont accessibles en lecture / écriture, les fichiers ajoutés appartiennent à l'utilisateur **mks**, groupe **mks** et
+> Ces partages sont accessibles sans aucune restriction à tous les matériels connectés sur le réseau. A vous de vous documenter si vous voulez
+ajouter des restrcitions d'accès.
+> Ces partages sont accessibles en _**lecture / écriture**_, les fichiers ajoutés appartiennent à l'utilisateur **mks**, groupe **mks** et
 ont le maximum de droits (y compris les dossiers) : **777**
 
 :smiley:
