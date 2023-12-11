@@ -63,6 +63,9 @@ FORCE_MOVE STEPPER=<nom_de_la_configuration> DISTANCE=<valeur> VELOCITE=<valeur>
 
 ### Pour aller plus loin
 
+- [Documentation Klipper (en français)](https://www.klipper3d.org/fr/)
 - [Klipper Gcodes](https://www.klipper3d.org/fr/G-Codes.html#g-codes)
 - [Klipper Avance à la pression](https://www.klipper3d.org/fr/Pressure_Advance.html#avance-a-la-pression)
 - [Guide de calibration d'Ellis](https://ellis3dp.com/Print-Tuning-Guide/)
+- [Quelques guides intéressants](https://github.com/rootiest/zippy_guides)
+- …
