@@ -95,7 +95,8 @@ Au rechargement de Fluidd, il signale que le fichier moonraker.conf n'est pas co
 Soit on procède manuellement en éditant le fichier **moonraker.conf** pour y supprimer les directives désuètes des sections [database] et [file_manager]
 
 <details><summary>(clic)</summary><p>
-Passer de 
+
+   Passer de 
 ```
 [database]
 database_path: /home/mks/.moonraker_database
@@ -111,7 +112,8 @@ enable_object_processing: True
 
 [file_manager]
 enable_object_processing: True
-```   
+```
+  
 </details>
 
 soit on arrête à nouveau le service moonraker pour remplacer l'ancien *moonraker.conf* par celui précédemment sauvegardé *moonraker.conf.new*
