@@ -20,7 +20,7 @@ Ce dépôt regroupe une partie des recherches effectuées lors de ce test.
   - liste des [paquets installés](./OS/paquets-installes.md)
   - incohérences d'attribution des [droits utilisateurs](./OS/droits-utilisateur.md)
     - Mises à jour :
-      - [moonraker](.OS/mise-a-jour-moonraker.md)
+      - [moonraker](./OS/mise-a-jour-moonraker.md)
       - …
 - le répertoire ***Klipper*** concerne les fichiers de configuration du firmware Klipper :
     - le sous-répertoire *QidiConfigurations* regroupe les [fichiers originaux de Qidi Tech](./Klipper/QidiConfigurations.md) **version OS v4.3.8**
