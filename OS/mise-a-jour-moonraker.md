@@ -37,20 +37,25 @@ Ayant l'habitude d'utiliser [KIAUH](https://github.com/dw-0/kiauh) pour procéde
 Étant déjà ancien, le principe «ceinture et bretelles» m'est coutumier. J'ai donc déjà procédé à une sauvegarde complète du dossier de l'utilisateur **mks**. Je peux donc, toujours via KIAUH, supprimer l'installation actuelle de Moonraker.
 
 1. `./kiauh/kiauh.sh`
+   
 ![](../Images/kiauh-remove.jpg)
 
-2. Choix de l'option 3 (Remove), valider
+3. Choix de l'option 3 (Remove), valider
+   
 ![](../Images/kiauh-suppr-mrkr.jpg)
 
-3. Une fois cette suppression réalisée, je reviens au menu principal en tapant **b** (back)
+5. Une fois cette suppression réalisée, je reviens au menu principal en tapant **b** (back)
+
 ![](../Images/kiauh-accueil.jpg)
 
-4. Choix de l'option 1 (Install) pour procéder à l'installation de Moonraker (option 2):
+6. Choix de l'option 1 (Install) pour procéder à l'installation de Moonraker (option 2):
+
 ![](../Images/kiauh-inst-mrkr.jpg)
 
 > L'installation prend un peu de temps, le temps de récupérer, compiler les composants nécessaires au fonctionnement de Moonraker (pip, wheel, …)
 
 5. Une fois finie l'installation, le service Moonraker est redémarré. Retour au menu principal de KIAUH, choix de l'option 2 (Update) pour afficher les versions des différents composants.
+
 ![](../Images/kiauh-moonraker-maj-0.8.0-240.jpg)
 
 Reste à vérifier que ça fonctionne encore. Pour cela, le mieux est de passer par Fluidd (http://ip-xmax3:10088).
@@ -59,7 +64,7 @@ Fluidd me signale des erreurs : Klipper ne peut démarrer.
 
 C'est parfaitement normal car le dossier **~/printer_data/config** ne contient pour le moment que le fichier **moonraker.conf** (*les fichiers de configuration se trouvent toujours dans l'ancien emplacememt* **~/klipper_config**).
 
-[Moonraker pull request d'Octobre 2022 ](https://github.com/Arksine/moonraker/pull/491)
+La pull request d'Arksine à ce propos : [Moonraker pull request d'Octobre 2022 ](https://github.com/Arksine/moonraker/pull/491)
 
 Avant de poursuivre, nous allons sauvegarder le fichier **moonraker.conf** du dossier **~/printer_data/config** dans
 le dossier **~/klipper_config** sous un autre nom :
@@ -70,7 +75,7 @@ Deux choix s'offrent à nous :
 - déplacer le contenu des dossiers existants vers le chemin de données ~/printer_data/{config|database|logs|gcodes}
 - ou créer des liens symboliques dans ~/printer_data après avoir supprimé les dossiers actuels {config|database|logs|gcodes}
 
-J'opte pour le second choix :
+J'opte pour le second choix (création de liens symboliques) :
 
 ```
 sudo systemctl stop moonraker
@@ -87,7 +92,8 @@ sudo systemctl restart moonraker
 ```
 
 Au rechargement de Fluidd, il signale que le fichier moonraker.conf n'est pas correct mais donne les indications pour le corriger. Des directives sont dépréciées et ne doivent plus être utilisées.
-Soit on procède manuellement en éditant le fichier (1), 
+Soit on procède manuellement en éditant le fichier (1)
+
 <details><summary>(1)</summary><p>
 
 </details>
