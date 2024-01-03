@@ -92,6 +92,7 @@ sudo systemctl restart moonraker
 ```
 
 Au rechargement de Fluidd, il signale que le fichier moonraker.conf n'est pas correct mais donne les indications pour le corriger. Des directives sont dépréciées et ne doivent plus être utilisées.
+
 Soit on procède manuellement en éditant le fichier **moonraker.conf** pour y supprimer les directives désuètes des sections [database] et [file_manager]
 
 <details><summary>(clic)</summary><p>
@@ -116,7 +117,7 @@ enable_object_processing: True
   
 </details>
 
-soit on arrête à nouveau le service moonraker pour remplacer l'ancien *moonraker.conf* par celui précédemment sauvegardé *moonraker.conf.new*
+Soit on arrête à nouveau le service moonraker pour remplacer l'ancien *moonraker.conf* par celui précédemment sauvegardé *moonraker.conf.new*
 
 ```
 sudo systemctl stop moonraker
