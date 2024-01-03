@@ -7,6 +7,11 @@ Notes et recherches collectées lors du test de l'imprimante Qidi Tech X-max 3 p
 
 Ce dépôt regroupe une partie des recherches effectuées lors de ce test.
 
+> AVERTISSEMENT
+> **Bon nombre des manipulations s'adressent aux personnes ayant une expérience préalable de Linux. Ne suivez celles-ci que si vous êtes à l'aise avec l'édition de fichiers, la navigation dans les systèmes de fichiers Linux, et si vous pouvez faire votre propre dépannage.**
+> ***Bien que cela ait fonctionné pour moi, je ne peux pas garantir que cela fonctionnera pour vous. Mon imprimante principale est une Qidi X-Max 3, donc je ne peux pas garantir que cela fonctionnera pour d'autres modèles.***
+
+
 - le répertoire ***OS*** concerne plutôt le système d'exploitation (Armbian) installé sur la carte clône SKRPI de Makerbase
   - permettre l'[affichage correct des dates et heures système ](./OS/date-heures-synchronisees.md)
   - notes sur la [mise à jour du système](./OS/mise-a-jour-systeme.md)
@@ -14,7 +19,9 @@ Ce dépôt regroupe une partie des recherches effectuées lors de ce test.
   - [versions des éléments de base](./OS/git-klipper-moonraker.md)
   - liste des [paquets installés](./OS/paquets-installes.md)
   - incohérences d'attribution des [droits utilisateurs](./OS/droits-utilisateur.md)
-  - …
+    - Mises à jour :
+      - [moonraker](.OS/mise-a-jour-moonraker.md)
+      - …
 - le répertoire ***Klipper*** concerne les fichiers de configuration du firmware Klipper :
     - le sous-répertoire *QidiConfigurations* regroupe les [fichiers originaux de Qidi Tech](./Klipper/QidiConfigurations.md) **version OS v4.3.8**
     - le sous-répertoire *MyConfiguration* est [mon interprétation](./Klipper/MyConfiguration.md) de la configuration de mon imprimante
