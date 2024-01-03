@@ -42,15 +42,15 @@ N'étant plus tout jeune, le principe «***ceinture et bretelles***» m'est cout
    
 ![](../Images/kiauh-remove.jpg)
 
-3. Choix de l'option 3 (Remove), valider
+2. Choix de l'option 3 (Remove), valider, puis choix 2 pour supprimer Moonraker
    
 ![](../Images/kiauh-suppr-mrkr.jpg)
 
-5. Une fois cette suppression réalisée, je reviens au menu principal en tapant **b** (back)
+3. Une fois cette suppression réalisée, revenir au menu principal en tapant **b** (back)
 
 ![](../Images/kiauh-accueil.jpg)
 
-6. Choix de l'option 1 (Install) pour procéder à l'installation de Moonraker (option 2):
+4. Choix de l'option 1 (Install) pour procéder à l'installation de Moonraker (option 2):
 
 ![](../Images/kiauh-inst-mrkr.jpg)
 
@@ -60,22 +60,22 @@ N'étant plus tout jeune, le principe «***ceinture et bretelles***» m'est cout
 
 ![](../Images/kiauh-moonraker-maj-0.8.0-240.jpg)
 
-Reste à vérifier que ça fonctionne encore. Pour cela, le mieux est de passer par Fluidd (http://ip-xmax3:10088).
+Reste à vérifier que le système fonctionne encore. Pour cela, le mieux est de passer par l'interface Web Fluidd (http://ip-xmax3:10088).
 
-Fluidd me signale des erreurs : Klipper ne peut démarrer.
+Fluidd me signale des erreurs : **Klipper ne peut démarrer**.
 
 C'est parfaitement normal car le dossier **~/printer_data/config** ne contient pour le moment que le fichier **moonraker.conf** (*les fichiers de configuration se trouvent toujours dans l'ancien emplacememt* **~/klipper_config**).
 
-Avant de poursuivre, nous allons sauvegarder le fichier **moonraker.conf** du dossier **~/printer_data/config** dans
-le dossier **~/klipper_config** sous un autre nom :
+Avant de poursuivre, sauvegarder le fichier **moonraker.conf** du dossier **~/printer_data/config** dans le dossier **~/klipper_config** sous un autre nom :
 ```
 cp ~/printer_data/config/moonraker.conf ~/klipper_config/moonraker.conf.new
 ```
-Deux choix s'offrent à nous :
-- déplacer le contenu des dossiers existants vers le chemin de données ~/printer_data/{config|database|logs|gcodes}
-- ou créer des liens symboliques dans ~/printer_data après avoir supprimé les dossiers actuels {config|database|logs|gcodes}
 
-J'opte pour le second choix (création de liens symboliques) :
+Deux choix s'offrent à nous :
+1. déplacer le contenu des dossiers existants vers le chemin de données ~/printer_data/{config|database|logs|gcodes}
+2. ou créer des liens symboliques dans ~/printer_data après avoir supprimé les dossiers actuels {config|database|logs|gcodes}
+
+J'opte pour le choix 2 (***création de liens symboliques***) :
 
 ```
 sudo systemctl stop moonraker
@@ -91,9 +91,9 @@ ln -s ~/gcode_files ~/printer_data/gcodes
 sudo systemctl restart moonraker
 ```
 
-Au rechargement de Fluidd, il signale que le fichier moonraker.conf n'est pas correct mais donne les indications pour le corriger. Des directives sont dépréciées et ne doivent plus être utilisées.
+Au rechargement de Fluidd, un message signale que le fichier moonraker.conf n'est pas correct mais donne les indications pour le corriger. Des directives sont dépréciées et ne doivent plus être utilisées.
 
-Soit on procède manuellement en éditant le fichier **moonraker.conf** pour y supprimer les directives désuètes des sections [database] et [file_manager]
+- Soit on procède manuellement en éditant le fichier **moonraker.conf** pour y supprimer les directives désuètes des sections [database] et [file_manager]
 
 <details><summary>(clic)</summary><p>
 
@@ -117,7 +117,7 @@ enable_object_processing: True
   
 </details>
 
-Soit on arrête à nouveau le service moonraker pour remplacer l'ancien *moonraker.conf* par celui précédemment sauvegardé *moonraker.conf.new*
+- Soit on arrête à nouveau le service moonraker pour remplacer l'ancien *moonraker.conf* par celui précédemment sauvegardé *moonraker.conf.new*
 
 ```
 sudo systemctl stop moonraker
@@ -131,7 +131,7 @@ Arrivé à ce point, tout semble fonctionnel. Je tranche via Qidislicer une ou d
 
 J'éteins l'imprimante.
 
-Le lendemain, à l'allumage, une surprise m'attend. L'écran habituel m'affiche :
+Le lendemain, à l'allumage, une surprise m'attend. L'écran m'affiche :
 
 ![ALERTE](../Images/system-start-nok.jpg)
 
