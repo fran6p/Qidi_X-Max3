@@ -152,14 +152,18 @@ Je fais donc au plus simple. J'ajoute un délai de 30s puis après tests de 10s 
 Ma solution (provisoire): 
 
 Ajouter au fichier `/etc/rc.local` la ligne suivante avant le `exit 0`
+- éditer le fichier :
 ```
 sudo nano /etc/rc.local
+```
+- ajouter la ligne suivante avant **exit 0**, enregistrer la modification ( CTRL+X, Y, ENTRÉE)
 
-ajouter 
-
+```
 sleep 10 && systemctl restart moonraker.service
 
 ```
+
+Éteindre l'imprimante, attendre 30s avant de redémarrer (le temps que le SuperCondensateur se décharge) et profiter
 
 :smiley:
 
