@@ -34,7 +34,7 @@ Ayant l'habitude d'utiliser [KIAUH](https://github.com/dw-0/kiauh) pour procéde
 
 ## Que faire ?
 
-Étant déjà ancien, le principe «ceinture et bretelles» m'est coutumier. J'ai donc déjà procédé à une sauvegarde complète du dossier de l'utilisateur **mks**. Je peux donc, toujours via KIAUH, supprimer l'installation actuelle de Moonraker.
+N'étant plus tout jeune, le principe «***ceinture et bretelles***» m'est coutumier. J'avais déjà procédé à une sauvegarde complète du dossier de l'utilisateur **mks**. Je peux donc, toujours via KIAUH, supprimer l'installation actuelle de Moonraker.
 
 1. `./kiauh/kiauh.sh`
    
