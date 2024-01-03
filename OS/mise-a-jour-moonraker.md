@@ -1,10 +1,22 @@
 # Mise à jour de Moonraker
 
-La version originelle installée dans le système date un peu (v0.7.1-609).  
-Comme tout logiciel, Moonraker évolue. Les dernières versions apportent des nouveautés, par exemple [Spoolman](https://github.com/Donkie/Spoolman) (gestionnaire de bobines de filament). 
-En fin d'année dernière (2022), un profond changement a également eu lieu: l'ensemble des fichiers auparavant éparpillés dans des dossiers à la racine du répertoire de l'utilisateur (~/klipper_config, ~/gcodes, ~/klipper_logs, ~/.moonraker_database) sont désormais regroupés dans un seul dossier (~/printer_data).
+La version originelle installée dans le système date un peu (**v0.7.1-609**). 
 
-Ce dernier dossier contient d'autres dossiers :
+Comme tout logiciel, Moonraker évolue. Les dernières versions apportent des nouveautés, par exemple [Spoolman](https://github.com/Donkie/Spoolman) (gestionnaire de bobines de filament). 
+
+En fin d'année dernière (2022), un profond changement a également eu lieu.
+
+L'ensemble des fichiers auparavant éparpillés dans des dossiers à la racine du répertoire de l'utilisateur :
+```
+~/klipper_config
+~/gcode_files
+~/klipper_logs
+~/.moonraker_database
+```
+
+sont désormais regroupés dans un seul dossier (**~/printer_data**).
+
+Ce dernier contient d'autres dossiers :
 - certs
 - comms
 - config
@@ -13,9 +25,9 @@ Ce dernier dossier contient d'autres dossiers :
 - logs
 - systemd
 
-L'idéal serait que qu'une mise à jour la plus simple soit possible sans casser le système. C'est normalement prévu par Moonraker… A condition que le dossier Moonraker/moonraker n'ait pas été modifié (ce qui n'est pas le cas de la version MKS / QIDI Tech).
+L'idéal serait qu'une mise à jour la plus simple soit possible **sans casser le système**. C'est normalement prévu par Moonraker… A condition que le dossier Moonraker/moonraker n'ait pas été modifié (ce qui n'est pas le cas de la version MKS / QIDI Tech).
 
-Ayant l'habitude d'utiliser [KIAUH](https://github.com/dw-0/kiauh) pour procéder aux mises à jour des composants (Fluidd, Mainsail, KlipperScreen, OctoEverywhere), ma tentative de mise à jour de Moonraker se solde par un échec. Des fichiers ont été modifiés, la mise à jour ne peut se faire :
+Ayant l'habitude d'utiliser [KIAUH](https://github.com/dw-0/kiauh) pour procéder aux mises à jour des composants (Fluidd, Mainsail, KlipperScreen, OctoEverywhere), ma tentative de mise à jour de Moonraker se solde par un échec. Des fichiers ayant été modifiés, la mise à jour ne peut se faire :
 - moonraker/components/file_manager/metadata.py
 - moonraker/components/klippy_apis.py
 - moonraker/components/machine.py
