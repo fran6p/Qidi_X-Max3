@@ -25,6 +25,8 @@ Ce dernier contient d'autres dossiers :
 - logs
 - systemd
 
+Pour plus d'informations, voir la pull request d'Arksine à ce propos : [Moonraker pull request d'Octobre 2022 ](https://github.com/Arksine/moonraker/pull/491)
+
 L'idéal serait qu'une mise à jour la plus simple soit possible **sans casser le système**. C'est normalement prévu par Moonraker… A condition que le dossier Moonraker/moonraker n'ait pas été modifié (ce qui n'est pas le cas de la version MKS / QIDI Tech).
 
 Ayant l'habitude d'utiliser [KIAUH](https://github.com/dw-0/kiauh) pour procéder aux mises à jour des composants (Fluidd, Mainsail, KlipperScreen, OctoEverywhere), ma tentative de mise à jour de Moonraker se solde par un échec. Des fichiers ayant été modifiés, la mise à jour ne peut se faire :
@@ -64,8 +66,6 @@ Fluidd me signale des erreurs : Klipper ne peut démarrer.
 
 C'est parfaitement normal car le dossier **~/printer_data/config** ne contient pour le moment que le fichier **moonraker.conf** (*les fichiers de configuration se trouvent toujours dans l'ancien emplacememt* **~/klipper_config**).
 
-La pull request d'Arksine à ce propos : [Moonraker pull request d'Octobre 2022 ](https://github.com/Arksine/moonraker/pull/491)
-
 Avant de poursuivre, nous allons sauvegarder le fichier **moonraker.conf** du dossier **~/printer_data/config** dans
 le dossier **~/klipper_config** sous un autre nom :
 ```
@@ -92,10 +92,26 @@ sudo systemctl restart moonraker
 ```
 
 Au rechargement de Fluidd, il signale que le fichier moonraker.conf n'est pas correct mais donne les indications pour le corriger. Des directives sont dépréciées et ne doivent plus être utilisées.
-Soit on procède manuellement en éditant le fichier (1)
+Soit on procède manuellement en éditant le fichier **moonraker.conf** pour y supprimer les directives désuètes des sections [database] et [file_manager]
 
-<details><summary>(1)</summary><p>
+<details><summary>(clic)</summary><p>
+Passer de 
+```
+[database]
+database_path: /home/mks/.moonraker_database
 
+[file_manager]
+config_path: /home/mks/klipper_config
+log_path: /home/mks/klipper_logs
+enable_object_processing: True
+```
+à
+```
+[database]
+
+[file_manager]
+enable_object_processing: True
+```   
 </details>
 
 soit on arrête à nouveau le service moonraker pour remplacer l'ancien *moonraker.conf* par celui précédemment sauvegardé *moonraker.conf.new*
@@ -109,12 +125,14 @@ sudo systemctl start moonraker
 Fluidd ne signale plus d'erreur
 
 Arrivé à ce point, tout semble fonctionnel. Je tranche via Qidislicer une ou deux pièces puis les imprime: RAS
+
 J'éteins l'imprimante.
 
 Le lendemain, à l'allumage, une surprise m'attend. L'écran habituel m'affiche :
+
 ![ALERTE](../Images/system-start-nok.jpg)
 
-Instant de panique, sueurs froides. En désespoir, je tente une connexion ssh sur la X-Max 3 et j'ai la main.
+Instant de panique, sueurs froides. Je tente tout de même une connexion ssh sur la X-Max 3 et j'ai la main.
 ```
 sudo systemctl status moonraker
 ```
@@ -125,6 +143,7 @@ sudo systemctl restart moonraker
 et l'écran habituel s'affiche.
 
 Je cherche et tente diverses manipulations dans le fichier `/etc/systemd/system/moonraker.service` sans succès.
+
 Je fais donc au plus simple. J'ajoute un délai de 30s puis après tests de 10s pour qu'après allumage, le service «moonraker» redémarre et ça fonctionne à chaque allumage, plus d'écran «angoissant».
 
 Ma solution (provisoire): 
