@@ -22,9 +22,6 @@
 	- «none» pour .gitignore
 	- «none» pour la licence
 - Valider la création du dépôt en cliquant [Create repository]
-- Copier l'adresse du dépôt
-  
-![](../Images/gh-repo-url.jpg)
 
 ## Cloner [ce dépôt](https://github.com/Staubgeborener/klipper-backup)
 
@@ -38,7 +35,7 @@ git clone https://github.com/Staubgeborener/klipper-backup.git && chmod +x ./kli
 cd ~/klipper-backup
 nano .env
 ```
-- remplacer USERNAME par le nom de l'utilisateur du dépôt Github et REPOSITORY par l'adresse du nouveau précédemment copiée :
+- remplacer USERNAME par le nom de l'utilisateur et REPOSITORY par le nom du dépôt Github créé (pas l'adresse complète https://xxxx/USERNAME/REPOSITORY, uniquement REPOSITORY) :
 ```
  github_token=ghp_xxxxxxxxxxxxxxxxxxxx
  github_username=USERNAME
