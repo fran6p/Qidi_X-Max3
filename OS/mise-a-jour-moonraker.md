@@ -120,7 +120,8 @@ enable_object_processing: True
 
 - Soit on arrête à nouveau le service moonraker pour remplacer l'ancien *moonraker.conf* par celui précédemment sauvegardé *moonraker.conf.new*
 
-  Avant d'utiliser le nouveau fichiet *moonraker.conf*, il faut modifier l'emplacement du stockage du socket klipper du paramètre **klippy_uds_address:** de la section [server] de **/home/mks/printer_data/comms/klippy.sock** à **/tmp/klippy_uds:**:
+  Avant d'utiliser ce nouveau fichiet *moonraker.conf*, il faut modifier l'emplacement du stockage du socket klipper du paramètre **klippy_uds_address:** dans la section [server] de **/home/mks/printer_data/comms/klippy.sock** à **/tmp/klippy_uds:**
+  
   `nano ~/klipper_config/moonraker.conf.new`
 
   La section doit lors être :
@@ -131,7 +132,9 @@ host: 0.0.0.0
 port: 7125
 klippy_uds_address: /tmp/klippy_uds
 ```
+ 
   Enregistrer les modifications
+  
 ```
 sudo systemctl stop moonraker
 mv ~/klipper_config/moonraker.conf.new ~/klipper_config/moonraker.conf
