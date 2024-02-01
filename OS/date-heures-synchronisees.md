@@ -32,3 +32,20 @@ chronyc tracking
 ```
 
 La date et l'heure sont désormais correctes et mises à jour régulièrement.
+
+# ALTERNATIVE
+
+Retirer les droits d'exécution du binaire `chronyd`, recharger la configuration, redémarrer le daemon `systemd-timesyncd`
+
+```
+sudo chmod -x /usr/sbin/chronyd
+sudo systemctl daemon-reload
+sudo systemctl restart systemd-timesyncd
+systemctl status systemd-timesyncd
+systemctl status chronyd
+date
+```
+
+La date est désormais à jour, synchronisée sur les serveurs de temps.
+
+:smiley:
