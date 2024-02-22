@@ -52,7 +52,7 @@ La date est désormais à jour, synchronisée sur les serveurs de temps.
 
 ## PRÉALABLE
 
-Les paquets **ntp** et *chrony** si installés doivent être désinstallés car inutiles et empêchent la synchronisation horaire :
+Les paquets **ntp** et **chrony** si installés doivent être désinstallés, inutiles, ils empêchent la synchronisation horaire. Le système perd l'heure et l'utilisation de git, apt provoquent des erreurs à cause de l'heure système non à jour :
 
 ```
 sudo apt remove ntp chrony
@@ -76,7 +76,7 @@ timedatectl set-ntp 1
 timedatectl set-time '2024-02-20 18:15:22'
 ```
 
-Le démarrage amnuel de `systemd-timesyncd` n'est pas nécessaire, `timedatectl` s'en charge 
+Le démarrage manuel de `systemd-timesyncd` n'est pas nécessaire, `timedatectl` s'en charge 
 
 Pour vérifier que tout est correct, un simple `timedatectl` affichera les infos :
 ```bash
