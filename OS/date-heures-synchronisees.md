@@ -59,15 +59,15 @@ sudo apt remove ntp chrony
 ```
 
 Utiliser la commande `timedatectl` de **systemd**
-- paraméter la zone horaire :
+- paramétrer la zone horaire :
 ```
-timedatectl set-timezone Europe/Paris # ou Asia/Singapore ou America/New_YORK, …
+timedatectl set-timezone Europe/Paris
 ```
 - lister les zones horaires :
 ```
 timedatectl list-timezones
 ```
-- activer la synchronisation horaire :
+- activer la synchronisation horaire via serveurs de temps (ntp) :
 ```
 timedatectl set-ntp 1
 ```
