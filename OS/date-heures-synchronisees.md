@@ -48,4 +48,46 @@ date
 
 La date est désormais à jour, synchronisée sur les serveurs de temps.
 
+# ALTERNATIVE2
+
+## PRÉALABLE
+
+Les paquets **ntp** et *chrony** si installés doivent être désinstallés car inutiles et empêchent la synchronisation horaire :
+
+```
+sudo apt remove ntp chrony
+```
+
+Utiliser la commande `timedatectl` de **systemd**
+- paraméter la zone horaire :
+```
+timedatectl set-timezone Europe/Paris # ou Asia/Singapore ou America/New_YORK, …
+```
+- lister les zones horaires :
+```
+timedatectl list-timezones
+```
+- activer la synchronisation horaire :
+```
+timedatectl set-ntp 1
+```
+- régler la date  et l'heure (inutile si un accès réseau est disponible utilisant la synchro ntp) :
+```
+timedatectl set-time '2024-02-20 18:15:22'
+```
+
+Le démarrage amnuel de `systemd-timesyncd` n'est pas nécessaire, `timedatectl` s'en charge 
+
+Pour vérifier que tout est correct, un simple `timedatectl` affichera les infos :
+```bash
+mks@mkspi:~$ timedatectl
+               Local time: Thu 2024-02-22 18:09:36 CET
+           Universal time: Thu 2024-02-22 17:09:36 UTC
+                 RTC time: Thu 2024-02-22 17:09:14
+                Time zone: Europe/Paris (CET, +0100)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+```
+
 :smiley:
